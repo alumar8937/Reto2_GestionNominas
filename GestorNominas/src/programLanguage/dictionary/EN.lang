@@ -1,0 +1,31 @@
+#General Key-Value Pairings
+programName=
+ok=Ok
+edit=Edit
+cancel=
+yes=
+no=
+warning=
+operationCompleted=
+
+#Initial Configuration Key-Value Pairs
+initialConfig=Initial Configuration
+IP=IP
+port=Port
+user=User
+password=Password
+database=Database
+language=Language
+
+#Main Window Key-Value Pairings
+mainWindow=Main Window
+batchLabel=Batches
+newBatchButton=New Batch
+deleteBatchButton=Delete Batch
+saveBatchButton=Save Batch
+sendToHistoryButton=Send to History
+historyButton=History
+payrollLabel=Payrolls
+newPayrollButton=New Payroll
+editPayrollButton=Edit Payroll
+deletePayrollButton=Delete Payroll

@@ -1,0 +1,31 @@
+#General Key-Value Pairings
+programName=
+ok=Ok
+edit=Editar
+cancel=
+yes=
+no=
+warning=
+operationCompleted=
+
+#Initial Configuration Key-Value Pairings
+initialConfig=Configuración Inicial
+IP=IP
+port=Puerto
+user=Usuario
+password=Contraseña
+database=Base de Datos
+language=Idioma
+
+#Main Window Key-Value Pairings
+mainWindow=Ventana Principal
+batchLabel=Remesas
+newBatchButton=Nueva Remesa
+deleteBatchButton=Eliminar Remesa
+saveBatchButton=Guardar Remesa
+sendToHistoryButton=Enviar a Histórico
+historyBatchbutton=Histórico
+payrollLabel=Nóminas
+newPayrollButton=Nueva Nómina
+editPayrollButton=Editar Nómina
+deletePayrollButton=Eliminar Nómina

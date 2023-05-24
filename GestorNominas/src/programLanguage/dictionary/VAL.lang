@@ -1,0 +1,30 @@
+#General Key-Value Pairings
+programName=
+ok=
+cancel=
+yes=
+no=
+warning=
+operationCompleted=
+
+#Initial Configuration Key-Value Pairings
+initialConfig=Configuració Inicial
+IP=IP
+port=Port
+user=Usuari
+password=Contrasenya
+database=Base de Dades
+language=Idioma
+
+#Main Window Key-Value Pairings
+mainWindow=Finestra Principal
+batchLabel=Remeses
+newBatchButton=Nova Remesa
+deleteBatchButton=Eliminar Remesa
+saveBatchButton=Guaradr Remesa
+sendToHistoryButton=Enviar a l'Historic
+historyBatchButton=Históric
+payrollLabel=Nómines
+newPayrollButton=Nova Nómina
+editPayrollButton=Editar Nómina
+deletePayrollButton=Eliminar Nómina
