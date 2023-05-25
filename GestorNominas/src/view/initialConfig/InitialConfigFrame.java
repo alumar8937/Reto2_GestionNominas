@@ -108,6 +108,8 @@ public class InitialConfigFrame extends JFrame {
             constraints.gridy = 6;
             add(okButton, constraints);
 
+            fillLanguageComboBox();
+
             LanguageComboBox.addActionListener((e) -> updateLang());
             okButton.addActionListener((e) -> {okButtonAction(); PayrollDBController.establishConnection(); new MainWindowFrame(); SwingUtilities.getWindowAncestor(this).dispose();});
             editButton.addActionListener((e) -> toggleFieldEdit());
