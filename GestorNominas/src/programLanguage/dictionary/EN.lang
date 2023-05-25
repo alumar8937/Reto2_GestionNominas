@@ -29,3 +29,9 @@ payrollLabel=Payrolls
 newPayrollButton=New Payroll
 editPayrollButton=Edit Payroll
 deletePayrollButton=Delete Payroll
+
+#History of Batches Windows Key-Value Pairings
+historyBatchesWindow= History Batches Window
+batchLabel= Batch
+payrollLabel= Payroll
+recoveryBatchButton= Recover Batch

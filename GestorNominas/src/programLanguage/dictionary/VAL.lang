@@ -28,3 +28,9 @@ payrollLabel=Nómines
 newPayrollButton=Nova Nómina
 editPayrollButton=Editar Nómina
 deletePayrollButton=Eliminar Nómina
+
+#History of Batches Windows Key-Value Pairings
+historyBatchesWindow= Historic de Remeses
+batchLabel= Remesa
+payrollLabel= Nómina
+recoveryBatchButton= Recuperar Remesa
