@@ -19,13 +19,13 @@ language=Language
 
 #Main Window Key-Value Pairings
 mainWindow=Main Window
-batchLabel=Batches
+batchesLabel=Batches
 newBatchButton=New Batch
 deleteBatchButton=Delete Batch
 saveBatchButton=Save Batch
 sendToHistoryButton=Send to History
 historyButton=History
-payrollLabel=Payrolls
+payrollsLabel=Payrolls
 newPayrollButton=New Payroll
 editPayrollButton=Edit Payroll
 deletePayrollButton=Delete Payroll

@@ -1,10 +1,13 @@
 package controller.database;
 
+import model.PayrollBatch;
+import model.PayrollBatchArrayList;
 import org.postgresql.core.Query;
 import userconfig.UserconfigManager;
 
 import javax.swing.*;
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.Properties;
 
 /**
@@ -37,6 +40,15 @@ public class PayrollDBController {
         }
         return connection;
     }
+
+    /*public static PayrollBatchArrayList getBatch() {
+
+        try{
+
+        } catch (SQLException e) {
+
+        }
+    }*/
 
     public static Integer createBatch() { // Author: Pedro Marín Sanchis // Returns newly created batch ID.
         try {
