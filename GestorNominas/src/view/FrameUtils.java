@@ -29,3 +29,4 @@ public class FrameUtils {
         window.setIconImage(image);
     }
 }
+
