@@ -8,8 +8,7 @@ import view.FrameUtils;
 import view.mainWindow.MainWindowFrame;
 
 import javax.swing.*;
-import java.awt.GridBagLayout;
-import java.awt.GridBagConstraints;
+import java.awt.*;
 
 /**
  * @Author Raúl Simarro Navarro
@@ -33,6 +32,7 @@ public class InitialConfigFrame extends JFrame {
         pack();
         //FrameUtils.adjustWindowToFitScreen(this, 50);
         FrameUtils.centerWindowOnScreen(this);
+
         setVisible(true);
     }
 
@@ -153,7 +153,7 @@ public class InitialConfigFrame extends JFrame {
         }
 
         private void fillLanguageComboBox() {
-            if (LanguageComboBox == null) {return;};
+            if (LanguageComboBox == null) {return;}
             LanguageComboBox.removeAllItems();
             for (SupportedLanguage sl: SupportedLanguage.values()) {
                 LanguageComboBox.addItem(sl);

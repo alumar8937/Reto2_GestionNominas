@@ -19,13 +19,19 @@ language=
 
 #Main Window Key-Value Pairings
 mainWindow=
-batchLabel=
+batchesLabel=
 newBatchButton=
 deleteBatchButton=
 saveBatchButton=
 sendToHistoryButton=
 historyButton=
-payrollLabel=
+payrollsLabel=
 newPayrollButton=
 editPayrollButton=
 deletePayrollButton=
+
+#History of Batches Windows Key-Value Pairings
+historyBatchesWindow=
+batchLabel=
+payrollLabel=
+recoveryBatchButton=

@@ -1,8 +1,8 @@
 package view;
 
-import javax.swing.JFrame;
-import java.awt.Toolkit;
-import java.awt.Dimension;
+import javax.swing.*;
+import java.awt.*;
+import java.io.File;
 
 /**
  * @Author Pedro Marín Sanchis, David Serna Mateu
@@ -23,4 +23,9 @@ public class FrameUtils {
         window.setSize(new Dimension((int) (screenDimension.getWidth()*(reduceByPercent/100)), (int) (screenDimension.getHeight()*(reduceByPercent/100))));
     }
 
+    public static void setWindowIcon(JFrame window) { //@Author David Serna Mateu
+        ImageIcon icon = new ImageIcon("."+ File.separator+"GestorNominas"+File.separator+"src"+File.separator+"media"+File.separator+"GestorNominasIcon.png");
+        Image image = icon.getImage();
+        window.setIconImage(image);
+    }
 }

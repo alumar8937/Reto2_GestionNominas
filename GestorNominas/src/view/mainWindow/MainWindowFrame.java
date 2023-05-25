@@ -4,18 +4,27 @@ import model.PayrollBatch;
 import programLanguage.ProgramLanguageProperties;
 import view.FrameUtils;
 
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JList;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 
 /**
  * @Author David Serna Mateu
  * Displays the main panel with most of the info
  */
 
-public class mainWindowFrame extends JFrame {
+public class MainWindowFrame extends JFrame {
+
     private JPanel marginPanel = new JPanel(new GridBagLayout());
     private GridBagConstraints constraints = new GridBagConstraints();
-    public mainWindowFrame() {
+
+    public MainWindowFrame() {
         setTitle(ProgramLanguageProperties.getProperty("mainWindow"));
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setResizable(false);
@@ -39,8 +48,8 @@ public class mainWindowFrame extends JFrame {
 
         JScrollPane payrollListScroll = new JScrollPane(payrollList);
 
-        JLabel batchLabel = new JLabel(ProgramLanguageProperties.getProperty("batchLabel"));
-        JLabel payrollLabel = new JLabel(ProgramLanguageProperties.getProperty("payrollLabel"));
+        JLabel batchesLabel = new JLabel(ProgramLanguageProperties.getProperty("batchesLabel"));
+        JLabel payrollsLabel = new JLabel(ProgramLanguageProperties.getProperty("payrollsLabel"));
 
         JComboBox<PayrollBatch> payrollBatchesComboBox = new JComboBox<PayrollBatch>();
 
@@ -77,7 +86,7 @@ public class mainWindowFrame extends JFrame {
             gcbLabelsButtons.fill = GridBagConstraints.BOTH; // Rellena el espacio horizontal y verticalmente
             gcbLabelsButtons.insets.set(5, 5, 5, 5);
 
-            add(batchLabel, gcbLabelsButtons);
+            add(batchesLabel, gcbLabelsButtons);
 
             gcbLabelsButtons.gridy = 1;
             add(payrollBatchesComboBox, gcbLabelsButtons);
@@ -98,7 +107,7 @@ public class mainWindowFrame extends JFrame {
             add(historyButton, gcbLabelsButtons);
 
             gcbLabelsButtons.gridy = 7;
-            add(payrollLabel, gcbLabelsButtons);
+            add(payrollsLabel, gcbLabelsButtons);
 
             gcbLabelsButtons.gridy = 8;
             add(newPayrollButton, gcbLabelsButtons);
@@ -116,5 +125,3 @@ public class mainWindowFrame extends JFrame {
         }
     }
 }
-
-

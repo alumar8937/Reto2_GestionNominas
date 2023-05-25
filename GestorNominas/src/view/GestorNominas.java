@@ -3,8 +3,10 @@ package view;
 import controller.database.PayrollDBController;
 import programLanguage.ProgramLanguageProperties;
 import programLanguage.SupportedLanguage;
+import view.historyWindow.HistoryWindowFrame;
 import view.initialConfig.InitialConfigFrame;
-import view.mainWindow.mainWindowFrame;
+import view.mainWindow.MainWindowFrame;
+import view.payroll.EditPayrollWindow;
 
 /**
  * @Author Pedro Marín Sanchis
@@ -14,7 +16,8 @@ public class GestorNominas {
     public static void main(String[] args) {
         ProgramLanguageProperties.setLanguage(SupportedLanguage.EN);
         new InitialConfigFrame();
-        new mainWindowFrame();
+        //new HistoryWindowFrame();
+        //new EditPayrollWindow();
     }
 }
 
