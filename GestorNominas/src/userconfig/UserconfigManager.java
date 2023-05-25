@@ -38,25 +38,53 @@ public class UserconfigManager {
         userconfigProperties.setProperty("ip",ip);
     }
 
+    public String getIP() {
+        return userconfigProperties.getProperty("ip");
+    }
+
     public void setPort(String port) {
         userconfigProperties.setProperty("port",port);
+    }
+
+    public String getPort() {
+        return userconfigProperties.getProperty("port");
     }
 
     public void setUser(String user) {
         userconfigProperties.setProperty("user",user);
     }
 
+    public String getUser() {
+        return userconfigProperties.getProperty("user");
+    }
+
     public void setPassword(String password) {
         userconfigProperties.setProperty("password",password);
+    }
+
+    public String getPassword() {
+        return userconfigProperties.getProperty("password");
     }
 
     public void setDatabase(String database) {
         userconfigProperties.setProperty("database",database);
     }
 
+    public String getDatabase() {
+        return userconfigProperties.getProperty("database");
+    }
+
     public void setLanguage(SupportedLanguage language) {
         if (language == null) {return;}
         userconfigProperties.setProperty("selectedLanguage", language.name());
+    }
+
+    public SupportedLanguage getLanguage() {
+        String languageShortName = userconfigProperties.getProperty("selectedLanguage");
+        for (SupportedLanguage sl: SupportedLanguage.values()) {
+            if (sl.name() == languageShortName) {return sl;}
+        }
+        return null;
     }
 
     public void store() {

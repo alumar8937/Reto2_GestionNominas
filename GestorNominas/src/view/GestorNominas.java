@@ -1,5 +1,6 @@
 package view;
 
+import controller.database.PayrollDBController;
 import programLanguage.ProgramLanguageProperties;
 import programLanguage.SupportedLanguage;
 import view.initialConfig.InitialConfigFrame;

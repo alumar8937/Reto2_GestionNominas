@@ -1,9 +1,11 @@
 package view.initialConfig;
 
+import controller.database.PayrollDBController;
 import programLanguage.ProgramLanguageProperties;
 import programLanguage.SupportedLanguage;
 import userconfig.UserconfigManager;
 import view.FrameUtils;
+import view.mainWindow.MainWindowFrame;
 
 import javax.swing.*;
 import java.awt.GridBagLayout;
@@ -44,7 +46,7 @@ public class InitialConfigFrame extends JFrame {
         JTextField IPTextField = new JTextField(10);
         JTextField PortTextField = new JTextField(10);
         JTextField UserTextField = new JTextField(10);
-        JPasswordField PasswordTextField = new JPasswordField(10);
+        JTextField PasswordTextField = new JTextField(10);
         JTextField DatabaseTextField = new JTextField(10);
         JComboBox<SupportedLanguage> LanguageComboBox = new JComboBox<SupportedLanguage>();
 
@@ -107,11 +109,12 @@ public class InitialConfigFrame extends JFrame {
             add(okButton, constraints);
 
             LanguageComboBox.addActionListener((e) -> updateLang());
-            okButton.addActionListener((e) -> okButtonAction());
-            editButton.addActionListener((e) -> editButtonAction());
+            okButton.addActionListener((e) -> {okButtonAction(); PayrollDBController.establishConnection(); PayrollDBController.setBatchAccepted(7, true); new MainWindowFrame(); SwingUtilities.getWindowAncestor(this).dispose();});
+            editButton.addActionListener((e) -> toggleFieldEdit());
 
             fillLanguageComboBox();
             fillFields();
+            toggleFieldEdit();
 
             setVisible(true);
         }
@@ -120,19 +123,19 @@ public class InitialConfigFrame extends JFrame {
             UserconfigManager.getINSTANCE().setIP(IPTextField.getText());
             UserconfigManager.getINSTANCE().setPort(PortTextField.getText());
             UserconfigManager.getINSTANCE().setUser(UserTextField.getText());
-            UserconfigManager.getINSTANCE().setPassword(PasswordTextField.getPassword().toString());
+            UserconfigManager.getINSTANCE().setPassword(PasswordTextField.getText());
             UserconfigManager.getINSTANCE().setDatabase(DatabaseTextField.getText());
             UserconfigManager.getINSTANCE().setLanguage((SupportedLanguage) LanguageComboBox.getSelectedItem());
             UserconfigManager.getINSTANCE().store();
         }
 
-        private void editButtonAction() {
+        private void toggleFieldEdit() {
             IPTextField.setEnabled(!IPTextField.isEnabled());
             PortTextField.setEnabled(!PortTextField.isEnabled());
             UserTextField.setEnabled(!UserTextField.isEnabled());
             PasswordTextField.setEnabled(!PasswordTextField.isEnabled());
             DatabaseTextField.setEnabled(!DatabaseTextField.isEnabled());
-            LanguageComboBox.setEnabled(!LanguageComboBox.isEnabled());
+            //LanguageComboBox.setEnabled(!LanguageComboBox.isEnabled());
         }
 
         private void updateLang() {
@@ -146,6 +149,7 @@ public class InitialConfigFrame extends JFrame {
             LanguageLabel.setText(ProgramLanguageProperties.getProperty("language"));
             okButton.setText(ProgramLanguageProperties.getProperty("ok"));
             editButton.setText(ProgramLanguageProperties.getProperty("edit"));
+            setTitle(ProgramLanguageProperties.getProperty("initialConfig"));
         }
 
         private void fillLanguageComboBox() {
@@ -157,7 +161,12 @@ public class InitialConfigFrame extends JFrame {
         }
 
         private void fillFields() {
-
+            IPTextField.setText(UserconfigManager.getINSTANCE().getIP());
+            PortTextField.setText(UserconfigManager.getINSTANCE().getPort());
+            UserTextField.setText(UserconfigManager.getINSTANCE().getUser());
+            PasswordTextField.setText(UserconfigManager.getINSTANCE().getPassword());
+            DatabaseTextField.setText(UserconfigManager.getINSTANCE().getDatabase());
+            LanguageComboBox.setSelectedItem(UserconfigManager.getINSTANCE().getLanguage());
         }
 
     }
