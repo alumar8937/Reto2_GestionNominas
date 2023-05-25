@@ -118,9 +118,7 @@ public class MainWindowFrame extends JFrame {
             gcbLabelsButtons.gridy = 10;
             add(deletePayrollButton, gcbLabelsButtons);
 
-            previewPayroll.add(new JButton("AAAAAA"));
-            previewPayroll.add(new JButton("AAAAAA"));
-            previewPayroll.add(new JButton("AAAAAA"));
+            previewPayroll.add(new JButton("Payroll Preview Goes Here"));
 
         }
     }

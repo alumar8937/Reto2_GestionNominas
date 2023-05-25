@@ -82,7 +82,7 @@ public class UserconfigManager {
     public SupportedLanguage getLanguage() {
         String languageShortName = userconfigProperties.getProperty("selectedLanguage");
         for (SupportedLanguage sl: SupportedLanguage.values()) {
-            if (sl.name() == languageShortName) {return sl;}
+            if (sl.name().equalsIgnoreCase(languageShortName)) {return sl;}
         }
         return null;
     }

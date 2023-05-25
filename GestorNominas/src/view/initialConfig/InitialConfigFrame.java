@@ -109,10 +109,13 @@ public class InitialConfigFrame extends JFrame {
             add(okButton, constraints);
 
             LanguageComboBox.addActionListener((e) -> updateLang());
-            okButton.addActionListener((e) -> {okButtonAction(); PayrollDBController.establishConnection(); PayrollDBController.setBatchAccepted(7, true); new MainWindowFrame(); SwingUtilities.getWindowAncestor(this).dispose();});
+            okButton.addActionListener((e) -> {okButtonAction(); PayrollDBController.establishConnection(); new MainWindowFrame(); SwingUtilities.getWindowAncestor(this).dispose();});
             editButton.addActionListener((e) -> toggleFieldEdit());
+            PasswordTextField.setDisabledTextColor(Color.WHITE);
 
-            fillLanguageComboBox();
+            LanguageComboBox.setSelectedItem(UserconfigManager.getINSTANCE().getLanguage());
+            ProgramLanguageProperties.setLanguage(UserconfigManager.getINSTANCE().getLanguage());
+
             fillFields();
             toggleFieldEdit();
 
@@ -135,7 +138,6 @@ public class InitialConfigFrame extends JFrame {
             UserTextField.setEnabled(!UserTextField.isEnabled());
             PasswordTextField.setEnabled(!PasswordTextField.isEnabled());
             DatabaseTextField.setEnabled(!DatabaseTextField.isEnabled());
-            //LanguageComboBox.setEnabled(!LanguageComboBox.isEnabled());
         }
 
         private void updateLang() {

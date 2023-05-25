@@ -3,6 +3,7 @@ package view;
 import controller.database.PayrollDBController;
 import programLanguage.ProgramLanguageProperties;
 import programLanguage.SupportedLanguage;
+import userconfig.UserconfigManager;
 import view.historyWindow.HistoryWindowFrame;
 import view.initialConfig.InitialConfigFrame;
 import view.mainWindow.MainWindowFrame;
@@ -14,10 +15,8 @@ import view.payroll.EditPayrollWindow;
  */
 public class GestorNominas {
     public static void main(String[] args) {
-        ProgramLanguageProperties.setLanguage(SupportedLanguage.EN);
+        ProgramLanguageProperties.setLanguage(UserconfigManager.getINSTANCE().getLanguage());
         new InitialConfigFrame();
-        //new HistoryWindowFrame();
-        //new EditPayrollWindow();
     }
 }
 

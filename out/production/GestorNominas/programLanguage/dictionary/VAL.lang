@@ -18,13 +18,13 @@ language=Idioma
 
 #Main Window Key-Value Pairings
 mainWindow=Finestra Principal
-batchLabel=Remeses
+batchesLabel=Remeses
 newBatchButton=Nova Remesa
 deleteBatchButton=Eliminar Remesa
 saveBatchButton=Guaradr Remesa
 sendToHistoryButton=Enviar a l'Historic
 historyBatchButton=Históric
-payrollLabel=Nómines
+payrollsLabel=Nómines
 newPayrollButton=Nova Nómina
 editPayrollButton=Editar Nómina
 deletePayrollButton=Eliminar Nómina

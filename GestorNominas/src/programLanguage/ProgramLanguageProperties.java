@@ -16,7 +16,7 @@ public class ProgramLanguageProperties {
     private static final Properties programLanguageProperties = new Properties();
 
     public static String getProperty(String key) {
-        return programLanguageProperties.getProperty(key);
+        return programLanguageProperties.getProperty(key, "missing_value");
     }
 
     public static boolean setLanguage(SupportedLanguage language) {
