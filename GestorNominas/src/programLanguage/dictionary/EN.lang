@@ -7,6 +7,7 @@ yes=
 no=
 warning=
 operationCompleted=
+notice=Notice
 
 #Initial Configuration Key-Value Pairs
 initialConfig=Initial Configuration
@@ -22,13 +23,14 @@ mainWindow=Main Window
 batchesLabel=Batches
 newBatchButton=New Batch
 deleteBatchButton=Delete Batch
-saveBatchButton=Save Batch
 sendToHistoryButton=Send to History
 historyButton=History
 payrollsLabel=Payrolls
 newPayrollButton=New Payroll
 editPayrollButton=Edit Payroll
 deletePayrollButton=Delete Payroll
+deleteBatchDialog=Are you sure you want to delete this batch?
+deletePayrollDialog=Are you sure you want to delete this payroll?
 
 
 #Loading Window Key-Value Pairings

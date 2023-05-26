@@ -13,6 +13,10 @@ import javax.swing.JPanel;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 
+/**
+ * @Author David Serna Mateu
+ * Displays the history panel with the info of the history
+ */
 public class HistoryWindowFrame extends JFrame{
     private JPanel marginPanel = new JPanel(new GridBagLayout());
     private GridBagConstraints constraints = new GridBagConstraints();

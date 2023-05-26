@@ -6,15 +6,8 @@ import view.FrameUtils;
 import view.historyWindow.HistoryWindowFrame;
 import view.payrollPreview.PayrollPreviewPanel;
 
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JList;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
+import javax.swing.*;
+import java.awt.*;
 
 /**
  * @Author David Serna Mateu
@@ -56,7 +49,6 @@ public class MainWindowFrame extends JFrame {
 
         JButton newBatchButton = new JButton(ProgramLanguageProperties.getProperty("newBatchButton"));
         JButton deleteBatchButton = new JButton(ProgramLanguageProperties.getProperty("deleteBatchButton"));
-        JButton saveBatchButton = new JButton(ProgramLanguageProperties.getProperty("saveBatchButton"));
         JButton sendToHistoryButton = new JButton(ProgramLanguageProperties.getProperty("sendToHistoryButton"));
         JButton historyButton = new JButton(ProgramLanguageProperties.getProperty("historyButton"));
         JButton newPayrollButton = new JButton(ProgramLanguageProperties.getProperty("newPayrollButton"));
@@ -65,13 +57,15 @@ public class MainWindowFrame extends JFrame {
 
         private mainWindowJPanel() {
 
+            payrollList.setMinimumSize(new Dimension(300,500));
+
             setLayout(new GridBagLayout());
 
             GridBagConstraints gcbPreview = new GridBagConstraints();
             gcbPreview.gridx = 0; // Columna 0
             gcbPreview.gridy = 0; // Fila 0
             gcbPreview.gridwidth = 1; // Ocupa 1 columna
-            gcbPreview.gridheight = 11; // Ocupa 11 filas
+            gcbPreview.gridheight = 9; // Ocupa 9 filas
             gcbPreview.fill = GridBagConstraints.BOTH; // Rellena el espacio horizontal y verticalmente
 
             add(previewPayroll, gcbPreview);
@@ -84,43 +78,61 @@ public class MainWindowFrame extends JFrame {
             gcbLabelsButtons.gridy = 0;
             gcbLabelsButtons.gridwidth = 1; // Ocupa 1 columna
             gcbLabelsButtons.gridheight = 1; // Ocupa 1 filas
-            gcbLabelsButtons.fill = GridBagConstraints.BOTH; // Rellena el espacio horizontal y verticalmente
+            gcbLabelsButtons.fill = GridBagConstraints.HORIZONTAL; // Rellena el espacio horizontal
             gcbLabelsButtons.insets.set(5, 5, 5, 5);
 
             add(batchesLabel, gcbLabelsButtons);
 
             gcbLabelsButtons.gridy = 1;
             add(payrollBatchesComboBox, gcbLabelsButtons);
+            payrollBatchesComboBox.addActionListener((e) -> updatePayrollList());
 
             gcbLabelsButtons.gridy = 2;
             add(newBatchButton, gcbLabelsButtons);
 
             gcbLabelsButtons.gridy = 3;
             add(deleteBatchButton, gcbLabelsButtons);
+            deleteBatchButton.addActionListener((e) -> deleteBatchButtonAction());
 
             gcbLabelsButtons.gridy = 4;
-            add(saveBatchButton, gcbLabelsButtons);
-
-            gcbLabelsButtons.gridy = 5;
             add(sendToHistoryButton, gcbLabelsButtons);
 
-            gcbLabelsButtons.gridy = 6;
+            gcbLabelsButtons.gridy = 5;
             add(historyButton, gcbLabelsButtons);
             historyButton.addActionListener((e) -> new HistoryWindowFrame());
 
-            gcbLabelsButtons.gridy = 7;
+            gcbLabelsButtons.gridy = 6;
             add(payrollsLabel, gcbLabelsButtons);
 
-            gcbLabelsButtons.gridy = 8;
+            gcbLabelsButtons.gridy = 7;
             add(newPayrollButton, gcbLabelsButtons);
 
-            gcbLabelsButtons.gridy = 9;
+            gcbLabelsButtons.gridy = 8;
             add(editPayrollButton, gcbLabelsButtons);
 
-            gcbLabelsButtons.gridy = 10;
+            gcbLabelsButtons.gridy = 9;
             add(deletePayrollButton, gcbLabelsButtons);
             deletePayrollButton.addActionListener((e) -> deletePayrollButtonAction());
 
+        }
+
+        private void updatePayrollList(){
+            PayrollBatch batch = (PayrollBatch) payrollBatchesComboBox.getSelectedItem();
+            PayrollDBController.getPayrollsByBatchId(batch);
+            payrollList.setModel(PayrollDBController.getListOfPayrolls(batch));
+
+        }
+
+        private void deleteBatchButtonAction(){
+            if(JOptionPane.showConfirmDialog(this, ProgramLanguageProperties.getProperty("deleteBatchDialog"),ProgramLanguageProperties.getProperty("notice"),JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION){
+                System.out.println("I'm a batch");
+            }
+        }
+
+        private void deletePayrollButtonAction(){
+            if(JOptionPane.showConfirmDialog(this, ProgramLanguageProperties.getProperty("deletePayrollDialog"),ProgramLanguageProperties.getProperty("notice"),JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION){
+                System.out.println("I'm a payroll");
+            }
         }
     }
 }

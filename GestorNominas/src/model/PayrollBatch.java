@@ -11,7 +11,7 @@ public class PayrollBatch {
     private int ID = 0;
     private boolean wasAccepted = false;
 
-    public static ArrayList<Payroll> getPayrolls() {
+    public ArrayList<Payroll> getPayrolls() {
         return payrolls;
     }
 
@@ -25,5 +25,18 @@ public class PayrollBatch {
 
     public boolean wasAccepted() {
         return wasAccepted;
+    }
+
+    public void setPayrolls(ArrayList<Payroll> payrolls) {
+        this.payrolls = payrolls;
+    }
+
+    public PayrollBatch(int ID, boolean wasAccepted) {
+        this.ID = ID;
+        this.wasAccepted = wasAccepted;
+    }
+    @Override
+    public String toString() { //Author: David Serna Mateu
+        return "ID: " + ID;
     }
 }

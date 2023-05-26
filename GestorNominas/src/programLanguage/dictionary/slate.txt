@@ -7,6 +7,7 @@ yes=
 no=
 warning=
 operationCompleted=
+notice=
 
 #Initial Configuration Key-Value Pairings
 initialConfig=
@@ -32,6 +33,8 @@ payrollsLabel=
 newPayrollButton=
 editPayrollButton=
 deletePayrollButton=
+deleteBatchDialog=
+deletePayrollDialog=
 
 #History of Batches Windows Key-Value Pairings
 historyBatchesWindow=
