@@ -3,6 +3,8 @@ package view.mainWindow;
 import model.PayrollBatch;
 import programLanguage.ProgramLanguageProperties;
 import view.FrameUtils;
+import view.historyWindow.HistoryWindowFrame;
+import view.payrollPreview.PayrollPreviewPanel;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -27,7 +29,6 @@ public class MainWindowFrame extends JFrame {
     public MainWindowFrame() {
         setTitle(ProgramLanguageProperties.getProperty("mainWindow"));
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setResizable(false);
 
         mainWindowJPanel panel = new mainWindowJPanel();
 
@@ -42,7 +43,7 @@ public class MainWindowFrame extends JFrame {
     }
 
     class mainWindowJPanel extends JPanel {
-        JPanel previewPayroll = new JPanel();
+        PayrollPreviewPanel previewPayroll = new PayrollPreviewPanel();
 
         JList payrollList = new JList();
 
@@ -105,6 +106,7 @@ public class MainWindowFrame extends JFrame {
 
             gcbLabelsButtons.gridy = 6;
             add(historyButton, gcbLabelsButtons);
+            historyButton.addActionListener((e) -> new HistoryWindowFrame());
 
             gcbLabelsButtons.gridy = 7;
             add(payrollsLabel, gcbLabelsButtons);
@@ -117,8 +119,7 @@ public class MainWindowFrame extends JFrame {
 
             gcbLabelsButtons.gridy = 10;
             add(deletePayrollButton, gcbLabelsButtons);
-
-            previewPayroll.add(new JButton("Payroll Preview Goes Here"));
+            deletePayrollButton.addActionListener((e) -> deletePayrollButtonAction());
 
         }
     }

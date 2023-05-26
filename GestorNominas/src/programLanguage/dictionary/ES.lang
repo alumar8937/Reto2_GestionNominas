@@ -17,6 +17,8 @@ password=Contraseña
 database=Base de Datos
 language=Idioma
 
+connecting=Conectandose
+
 #Main Window Key-Value Pairings
 mainWindow=Ventana Principal
 batchesLabel=Remesas

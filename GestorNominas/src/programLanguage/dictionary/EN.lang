@@ -30,8 +30,70 @@ newPayrollButton=New Payroll
 editPayrollButton=Edit Payroll
 deletePayrollButton=Delete Payroll
 
+
+#Loading Window Key-Value Pairings
+connecting=Connecting...
+
 #History of Batches Windows Key-Value Pairings
 historyBatchesWindow= History Batches Window
 batchLabel= Batch
 payrollLabel= Payroll
 recoveryBatchButton= Recover Batch
+
+#Payroll Preview Key-Value Pairings
+pp_title=Payroll Preview
+pp_company=Company
+pp_domicile=Domicile
+pp_cif=CIF
+pp_ccc=CCC
+pp_worker=Worker
+pp_nif=NIF
+pp_ssnumber=SS Number
+pp_professionalgroup= Professional Group
+pp_taxgroup=Tax Group
+pp_liquidationperiod=Liquidation Period
+pp_numberofdays=Number of days
+pp_earnings=Earnings
+pp_salaryperception=Salary Perceptions
+pp_basesalary=Base Salary
+pp_salarycomplements=Salary Complements
+pp_overtime=Overtime
+pp_extrapay=Extra Pay
+pp_nosalaryperception=Non Salary Perceptions
+pp_indemnities=Indemnities
+pp_socialsecurityindemnities=Social Security Indemnities
+pp_indemnitiesformovingorfirings=
+pp_othernonsalarialperceptions=
+pp_totalearned=
+pp_deductions=
+pp_ssprovisions=
+pp_commoncontingencies=
+pp_unemployment=
+pp_fp=
+pp_standardextrahours=
+pp_greaterforceextrahours=
+pp_totalprovisions=
+pp_irpf=
+pp_payadvances=
+pp_spicevalue=
+pp_otherdeductions=
+pp_totaldeductions=
+pp_totalperceptions=
+pp_companysignature=
+pp_time=
+pp_irecieved=
+pp_companyheader=
+pp_companycommoncontingencies=
+pp_companymonthlyremuneration=
+pp_companyspreadextrasalary=
+pp_companytotal=
+pp_companyprofessionalcontingencybase=
+pp_companyatandep=
+pp_companyunemployment=
+pp_compamnyfp=
+pp_companystandardextrahours=
+pp_companygreaterforceextrahours=
+pp_companyirpfbase=
+pp_companybase=
+pp_companytype=
+pp_companygrant=

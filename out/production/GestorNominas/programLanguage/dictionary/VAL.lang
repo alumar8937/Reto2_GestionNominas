@@ -6,6 +6,7 @@ yes=
 no=
 warning=
 operationCompleted=
+notice=
 
 #Initial Configuration Key-Value Pairings
 initialConfig=Configuració Inicial
@@ -21,7 +22,6 @@ mainWindow=Finestra Principal
 batchesLabel=Remeses
 newBatchButton=Nova Remesa
 deleteBatchButton=Eliminar Remesa
-saveBatchButton=Guaradr Remesa
 sendToHistoryButton=Enviar a l'Historic
 historyBatchButton=Históric
 payrollsLabel=Nómines

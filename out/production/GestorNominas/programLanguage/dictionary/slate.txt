@@ -7,6 +7,7 @@ yes=
 no=
 warning=
 operationCompleted=
+notice=
 
 #Initial Configuration Key-Value Pairings
 initialConfig=
@@ -16,6 +17,9 @@ user=
 password=
 database=
 language=
+
+#Loading Window Key-Value Pairings
+connecting=
 
 #Main Window Key-Value Pairings
 mainWindow=
@@ -29,9 +33,69 @@ payrollsLabel=
 newPayrollButton=
 editPayrollButton=
 deletePayrollButton=
+deleteBatchDialog=
+deletePayrollDialog=
 
 #History of Batches Windows Key-Value Pairings
 historyBatchesWindow=
 batchLabel=
 payrollLabel=
 recoveryBatchButton=
+
+#Payroll Preview Key-Value Pairings
+pp_title=
+pp_company=
+pp_domicile=
+pp_cif=
+pp_ccc=
+pp_worker=
+pp_nif=
+pp_ssnumber=
+pp_professionalgroup=
+pp_taxgroup=
+pp_liquidationperiod=
+pp_numberofdays=
+pp_earnings=
+pp_salaryperception=
+pp_basesalary=
+pp_salarycomplements=
+pp_overtime=
+pp_extrapay=
+pp_nosalaryperception=
+pp_indemnities=
+pp_socialsecurityindemnities=
+pp_indemnitiesformovingorfirings=
+pp_othernonsalarialperceptions=
+pp_totalearned=
+pp_deductions=
+pp_ssprovisions=
+pp_commoncontingencies=
+pp_unemployment=
+pp_fp=
+pp_standardextrahours=
+pp_greaterforceextrahours=
+pp_totalprovisions=
+pp_irpf=
+pp_payadvances=
+pp_spicevalue=
+pp_otherdeductions=
+pp_totaldeductions=
+pp_totalperceptions=
+pp_companysignature=
+pp_time=
+pp_irecieved=
+pp_companyheader=
+pp_companycommoncontingencies=
+pp_companymonthlyremuneration=
+pp_companyspreadextrasalary=
+pp_companytotal=
+pp_companyprofessionalcontingencybase=
+pp_companyatandep=
+pp_companyunemployment=
+pp_compamnyfp=
+pp_companystandardextrahours=
+pp_companygreaterforceextrahours=
+pp_companyirpfbase=
+pp_companybase=
+pp_companytype=
+pp_companygrant=

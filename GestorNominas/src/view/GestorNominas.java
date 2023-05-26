@@ -1,13 +1,13 @@
 package view;
 
-import controller.database.PayrollDBController;
 import programLanguage.ProgramLanguageProperties;
-import programLanguage.SupportedLanguage;
 import userconfig.UserconfigManager;
 import view.historyWindow.HistoryWindowFrame;
 import view.initialConfig.InitialConfigFrame;
-import view.mainWindow.MainWindowFrame;
 import view.payroll.EditPayrollWindow;
+import view.payrollPreview.PayrollPreviewPanel;
+
+import javax.swing.*;
 
 /**
  * @Author Pedro Marín Sanchis
@@ -17,6 +17,8 @@ public class GestorNominas {
     public static void main(String[] args) {
         ProgramLanguageProperties.setLanguage(UserconfigManager.getINSTANCE().getLanguage());
         new InitialConfigFrame();
+        //new HistoryWindowFrame();
+        //new EditPayrollWindow();
     }
 }
 

@@ -76,7 +76,7 @@ public class HistoryWindowFrame extends JFrame{
             constraints.gridheight = 7; // Ocupa 7 filas
             add(previewPayroll, constraints);
 
-            previewPayroll.add(new JButton("AAAA"));
+            previewPayroll.add(new JButton("Payroll Preview Goes Here"));
 
         }
     }

@@ -7,23 +7,23 @@ import java.util.ArrayList;
  * Batch of Payrolls.
  */
 public class PayrollBatch {
-    private static ArrayList<Payroll> payrolls = new ArrayList<Payroll>();
-    private static int ID = 0;
-    private static boolean wasAccepted = false;
+    private ArrayList<Payroll> payrolls = new ArrayList<Payroll>();
+    private int ID = 0;
+    private boolean wasAccepted = false;
 
     public static ArrayList<Payroll> getPayrolls() {
         return payrolls;
     }
 
-    public static int getID() {
+    public int getID() {
         return ID;
     }
 
-    public static void setID(int ID) {
-        PayrollBatch.ID = ID;
+    public void setID(int ID) {
+        this.ID = ID;
     }
 
-    public static boolean wasAccepted() {
+    public boolean wasAccepted() {
         return wasAccepted;
     }
 }
