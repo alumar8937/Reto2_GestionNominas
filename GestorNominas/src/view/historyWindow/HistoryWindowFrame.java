@@ -1,5 +1,6 @@
 package view.historyWindow;
 
+import controller.database.PayrollDBController;
 import model.Payroll;
 import model.PayrollBatch;
 import programLanguage.ProgramLanguageProperties;
@@ -65,6 +66,8 @@ public class HistoryWindowFrame extends JFrame{
             add(batchLabel, constraints);
 
             constraints.gridy = 1; // Fila 1
+            PayrollDBController.setComboBatchItems(payrollBatchesComboBox);
+            payrollBatchesComboBox.addActionListener((e)-> updatePayrollCombo());
             add(payrollBatchesComboBox, constraints);
 
             constraints.gridy = 2; // Fila 2
@@ -82,6 +85,11 @@ public class HistoryWindowFrame extends JFrame{
 
             previewPayroll.add(new JButton("Payroll Preview Goes Here"));
 
+        }
+        private void updatePayrollCombo(){ // Javier Blasco Gómez
+            PayrollBatch batch = (PayrollBatch) payrollBatchesComboBox.getSelectedItem();
+            PayrollDBController.getPayrollsByBatchId(batch);
+            PayrollDBController.setComboPayrollItem(payrollComboBox,batch);
         }
     }
 }

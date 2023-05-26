@@ -40,14 +40,29 @@ public class PayrollDBController {
         return connection;
     }
 
-    /*public static PayrollBatchArrayList getBatch() {
-
+    public static ArrayList<PayrollBatch> getBatch() { // Author: Javier Blasco Gómez // Return a list of batch
+        ArrayList<PayrollBatch> batches = new ArrayList<>();
         try{
-
+            Statement statement = getConnection().createStatement();
+            ResultSet resultSet = statement.executeQuery(
+                    "SELECT * FROM remesa"
+            );
+            while (resultSet.next()) {
+                batches.add(new PayrollBatch(resultSet.getInt(1),resultSet.getBoolean(2)));
+            }
         } catch (SQLException e) {
-
+            e.printStackTrace();
         }
-    }*/
+        return batches;
+    }
+
+    public static void setComboBatchItems(JComboBox<PayrollBatch> comboBox){
+        ArrayList<PayrollBatch> batchArray = getBatch();
+        comboBox.removeAllItems();
+        for (PayrollBatch batch: batchArray) {
+            comboBox.addItem(batch);
+        }
+    }
 
     public static Integer createBatch() { // Author: Pedro Marín Sanchis // Returns newly created batch ID.
         try {

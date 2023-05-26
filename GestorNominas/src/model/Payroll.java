@@ -10,6 +10,7 @@ public class Payroll {
     String nif;
     int year;
     int month;
+    int day;
     double total_dev;
     double total_net;
     double ap_company;

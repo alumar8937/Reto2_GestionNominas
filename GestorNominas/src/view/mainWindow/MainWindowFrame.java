@@ -1,5 +1,6 @@
 package view.mainWindow;
 
+import controller.database.PayrollDBController;
 import model.PayrollBatch;
 import programLanguage.ProgramLanguageProperties;
 import view.FrameUtils;
@@ -84,6 +85,7 @@ public class MainWindowFrame extends JFrame {
             add(batchesLabel, gcbLabelsButtons);
 
             gcbLabelsButtons.gridy = 1;
+            PayrollDBController.setComboBatchItems(payrollBatchesComboBox);
             add(payrollBatchesComboBox, gcbLabelsButtons);
             payrollBatchesComboBox.addActionListener((e) -> updatePayrollList());
 
