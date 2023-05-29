@@ -23,7 +23,7 @@ public class FrameUtils {
         window.setSize(new Dimension((int) (screenDimension.getWidth()*(reduceByPercent/100)), (int) (screenDimension.getHeight()*(reduceByPercent/100))));
     }
 
-    public static void setWindowIcon(JFrame window) { //@Author David Serna Mateu
+    public static void setWindowIcon(JFrame window) { // @Author David Serna Mateu
         ImageIcon icon = new ImageIcon("."+ File.separator+"GestorNominas"+File.separator+"src"+File.separator+"media"+File.separator+"GestorNominasIcon.png");
         Image image = icon.getImage();
         window.setIconImage(image);

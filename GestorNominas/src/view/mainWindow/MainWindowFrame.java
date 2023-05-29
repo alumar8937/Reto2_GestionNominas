@@ -29,8 +29,6 @@ public class MainWindowFrame extends JFrame {
         setTitle(ProgramLanguageProperties.getProperty("mainWindow"));
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        mainWindowJPanel panel = new mainWindowJPanel();
-
         constraints.insets.set(20, 20, 20, 20); // Space between components.
         marginPanel.add(panel, constraints);
         add(marginPanel);
@@ -57,8 +55,11 @@ public class MainWindowFrame extends JFrame {
     public class mainWindowJPanel extends JPanel {
         PayrollPreviewPanel previewPayroll = new PayrollPreviewPanel();
 
+        JPanel panelButtonsLabels = new JPanel();
+
         JList payrollList = new JList();
 
+        JScrollPane previewPayrollScrollPane = new JScrollPane(previewPayroll);
         JScrollPane payrollListScroll = new JScrollPane(payrollList);
 
         JLabel batchesLabel = new JLabel(ProgramLanguageProperties.getProperty("batchesLabel"));
@@ -77,12 +78,15 @@ public class MainWindowFrame extends JFrame {
         private mainWindowJPanel() {
 
             setLayout(new GridBagLayout());
+            payrollListScroll.setMinimumSize(new Dimension(280,100));
+            previewPayrollScrollPane.setMinimumSize(new Dimension(500,800));
+            previewPayrollScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 
             GridBagConstraints gcbPreview = new GridBagConstraints();
             gcbPreview.gridx = 0; // Columna 0
             gcbPreview.gridy = 0; // Fila 0
-            gcbPreview.gridwidth = 1; // Ocupa 1 columna
             gcbPreview.gridheight = 9; // Ocupa 9 filas
+            gcbPreview.anchor = GridBagConstraints.NORTH;
             gcbPreview.fill = GridBagConstraints.BOTH; // Rellena el espacio horizontal y verticalmente
 
             add(previewPayrollScrollPane, gcbPreview);
@@ -90,13 +94,16 @@ public class MainWindowFrame extends JFrame {
             gcbPreview.gridx = 1;
             add(payrollListScroll, gcbPreview);
 
-            GridBagConstraints gcbLabelsButtons = new GridBagConstraints();
-            gcbLabelsButtons.gridx = 2;
-            gcbLabelsButtons.gridy = 0;
-            gcbLabelsButtons.gridwidth = 1; // Ocupa 1 columna
-            gcbLabelsButtons.gridheight = 1; // Ocupa 1 filas
-            gcbLabelsButtons.fill = GridBagConstraints.HORIZONTAL; // Rellena el espacio horizontal
-            gcbLabelsButtons.insets.set(5, 5, 5, 5);
+            gcbPreview.gridx = 2;
+            gcbPreview.anchor = GridBagConstraints.NORTH;
+            add(panelButtonsLabels, gcbPreview);
+            panelButtonsLabels.setLayout(new GridBagLayout());
+            GridBagConstraints gcbPanelButtonsLabels = new GridBagConstraints();
+            gcbPanelButtonsLabels.gridx = 0; // Columna 0
+            gcbPanelButtonsLabels.gridy = 0; // Fila 0
+            gcbPanelButtonsLabels.fill = GridBagConstraints.HORIZONTAL;
+            gcbPanelButtonsLabels.anchor = GridBagConstraints.NORTH;
+            gcbPanelButtonsLabels.insets.set(5, 5, 5, 5);
 
             panelButtonsLabels.add(batchesLabel, gcbPanelButtonsLabels);
 
@@ -112,24 +119,26 @@ public class MainWindowFrame extends JFrame {
             panelButtonsLabels.add(deleteBatchButton, gcbPanelButtonsLabels);
             deleteBatchButton.addActionListener((e) -> deleteBatchButtonAction());
 
-            gcbLabelsButtons.gridy = 4;
-            add(sendToHistoryButton, gcbLabelsButtons);
+            gcbPanelButtonsLabels.gridy = 4;
+            panelButtonsLabels.add(sendToHistoryButton, gcbPanelButtonsLabels);
+            sendToHistoryButton.addActionListener((e) ->  setBatchAcceptedButtonAction());
 
-            gcbLabelsButtons.gridy = 5;
-            add(historyButton, gcbLabelsButtons);
-            historyButton.addActionListener((e) -> new HistoryWindowFrame());
+            gcbPanelButtonsLabels.gridy = 5;
+            panelButtonsLabels.add(historyButton, gcbPanelButtonsLabels);
+            historyButton.addActionListener((e) -> {HistoryWindowFrame.getINSTANCE().setVisible(true);});
 
-            gcbLabelsButtons.gridy = 6;
-            add(payrollsLabel, gcbLabelsButtons);
+            gcbPanelButtonsLabels.gridy = 6;
+            panelButtonsLabels.add(payrollsLabel, gcbPanelButtonsLabels);
 
-            gcbLabelsButtons.gridy = 7;
-            add(newPayrollButton, gcbLabelsButtons);
+            gcbPanelButtonsLabels.gridy = 7;
+            panelButtonsLabels.add(newPayrollButton, gcbPanelButtonsLabels);
 
-            gcbLabelsButtons.gridy = 8;
-            add(editPayrollButton, gcbLabelsButtons);
+            gcbPanelButtonsLabels.gridy = 8;
+            panelButtonsLabels.add(editPayrollButton, gcbPanelButtonsLabels);
+            editPayrollButton.addActionListener((e) -> {EditPayrollWindow.getINSTANCE().setVisible(true);});
 
-            gcbLabelsButtons.gridy = 9;
-            add(deletePayrollButton, gcbLabelsButtons);
+            gcbPanelButtonsLabels.gridy = 9;
+            panelButtonsLabels.add(deletePayrollButton, gcbPanelButtonsLabels);
             deletePayrollButton.addActionListener((e) -> deletePayrollButtonAction());
 
         }
@@ -140,6 +149,7 @@ public class MainWindowFrame extends JFrame {
 
         private void updatePayrollListAction(){
             PayrollBatch batch = (PayrollBatch) payrollBatchesComboBox.getSelectedItem();
+            if (batch == null) {return;}
             PayrollDBController.getPayrollsByBatchId(batch);
             payrollList.setModel(PayrollDBController.getListOfPayrolls(batch));
         }

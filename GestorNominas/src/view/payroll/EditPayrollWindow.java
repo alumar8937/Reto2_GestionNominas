@@ -3,7 +3,9 @@ package view.payroll;
 import view.FrameUtils;
 
 import javax.swing.*;
-import java.awt.*;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+
 /**
  * @Author Raúl Simarro Navarro
  *

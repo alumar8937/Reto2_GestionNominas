@@ -22,10 +22,12 @@ import java.awt.GridBagLayout;
 public class HistoryWindowFrame extends JFrame{
     private JPanel marginPanel = new JPanel(new GridBagLayout());
     private GridBagConstraints constraints = new GridBagConstraints();
+    private static HistoryWindowFrame INSTANCE = null;
+    private historyWindowJPanel panel = new historyWindowJPanel();
 
     public HistoryWindowFrame() {
         setTitle(ProgramLanguageProperties.getProperty("historyBatchesWindow"));
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
         setResizable(false);
 
         constraints.insets.set(20, 20, 20, 20); // Space between components.
@@ -90,6 +92,7 @@ public class HistoryWindowFrame extends JFrame{
 
             constraints.gridy = 4; //Fila 4
             add(recoveryBatchButton, constraints);
+            recoveryBatchButton.addActionListener((e) -> setRecoveryBatchButton());
 
             constraints.gridy = 5; //Fila 5
             constraints.gridheight = 7; // Ocupa 7 filas

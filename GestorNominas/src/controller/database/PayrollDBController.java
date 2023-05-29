@@ -140,7 +140,7 @@ public class PayrollDBController {
         return payrolls;
     }
 
-    public static void setComboPayrollItem(JComboBox combo, PayrollBatch batch) {
+    public static void setComboPayrollItem(JComboBox combo, PayrollBatch batch) { // Author: Javier Blasco Gómez
         for (Payroll payroll : batch.getPayrolls()) {
             combo.addItem(payroll);
         }
