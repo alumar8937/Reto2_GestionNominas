@@ -1,5 +1,7 @@
 package model;
 
+import java.util.ArrayList;
+
 /**
  * @Author Javier Blasco Gómez
  */
@@ -14,6 +16,8 @@ public class Payroll {
     double total_dev;
     double total_net;
     double ap_company;
+    ArrayList<Perception> perceptions;
+    ArrayList<Retention> retentions;
 
     /**
      * @param id_name

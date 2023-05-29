@@ -80,8 +80,8 @@ public class HistoryWindowFrame extends JFrame{
             add(batchLabel, constraints);
 
             constraints.gridy = 1; // Fila 1
-            PayrollDBController.setComboBatchItems(payrollBatchesComboBox);
-            payrollBatchesComboBox.addActionListener((e)-> updatePayrollCombo());
+            PayrollDBController.setComboBatchItems(payrollBatchesComboBox, true);
+            payrollBatchesComboBox.addActionListener((e) -> updatePayrollCombo());
             add(payrollBatchesComboBox, constraints);
 
             constraints.gridy = 2; // Fila 2

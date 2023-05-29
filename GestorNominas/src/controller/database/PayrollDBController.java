@@ -40,12 +40,12 @@ public class PayrollDBController {
         return connection;
     }
 
-    public static ArrayList<PayrollBatch> getBatch() { // Author: Javier Blasco Gómez // Return a list of batch
+    public static ArrayList<PayrollBatch> getBatchAceptOrNot(boolean acept) { // Author: Javier Blasco Gómez // Return a list of batch
         ArrayList<PayrollBatch> batches = new ArrayList<>();
         try{
             Statement statement = getConnection().createStatement();
             ResultSet resultSet = statement.executeQuery(
-                    "SELECT * FROM remesa"
+                    "SELECT * FROM remesa where aceptado=" + acept
             );
             while (resultSet.next()) {
                 batches.add(new PayrollBatch(resultSet.getInt(1),resultSet.getBoolean(2)));
@@ -56,14 +56,23 @@ public class PayrollDBController {
         return batches;
     }
 
-    public static void setComboBatchItems(JComboBox<PayrollBatch> comboBox){
-        ArrayList<PayrollBatch> batchArray = getBatch();
+    public static void setComboBatchItems(JComboBox<PayrollBatch> comboBox, boolean acept){ // Author: Javier Blasco Gómez
+        ArrayList<PayrollBatch> batchArray = getBatchAceptOrNot(acept);
         comboBox.removeAllItems();
         for (PayrollBatch batch: batchArray) {
             comboBox.addItem(batch);
         }
     }
 
+    public static Integer createPayroll() { // Author: Javier Blasco Gómez
+        try {
+            Statement statement = getConnection().createStatement();
+            statement.executeUpdate("INSERT INTO nomina ()");
+        }catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
     public static Integer createBatch() { // Author: Pedro Marín Sanchis // Returns newly created batch ID.
         try {
             Statement statement = getConnection().createStatement();

@@ -7,6 +7,7 @@ import model.PayrollBatch;
 import programLanguage.ProgramLanguageProperties;
 import view.FrameUtils;
 import view.historyWindow.HistoryWindowFrame;
+import view.payroll.EditPayrollWindow;
 import view.payrollPreview.PayrollPreviewPanel;
 
 import javax.swing.*;
@@ -23,6 +24,7 @@ public class MainWindowFrame extends JFrame {
 
     private JPanel marginPanel = new JPanel(new GridBagLayout());
     private GridBagConstraints constraints = new GridBagConstraints();
+    private mainWindowJPanel panel = new mainWindowJPanel();
 
     private MainWindowFrame() {
         setResizable(false);
