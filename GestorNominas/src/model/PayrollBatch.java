@@ -1,5 +1,7 @@
 package model;
 
+import controller.database.PayrollDBController;
+
 import java.util.ArrayList;
 
 /**
@@ -40,3 +42,4 @@ public class PayrollBatch {
         return "ID: " + ID;
     }
 }
+

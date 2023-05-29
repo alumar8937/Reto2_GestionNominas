@@ -14,12 +14,14 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 /**
  * @Author David Serna Mateu
  * Displays the history panel with the info of the history
  */
-public class HistoryWindowFrame extends JFrame{
+public class HistoryWindowFrame extends JFrame {
     private JPanel marginPanel = new JPanel(new GridBagLayout());
     private GridBagConstraints constraints = new GridBagConstraints();
     private static HistoryWindowFrame INSTANCE = null;
@@ -31,8 +33,6 @@ public class HistoryWindowFrame extends JFrame{
         setResizable(false);
 
         constraints.insets.set(20, 20, 20, 20); // Space between components.
-        
-        historyWindowJPanel panel = new historyWindowJPanel();
 
         marginPanel.add(panel, constraints);
         add(marginPanel);
@@ -100,12 +100,34 @@ public class HistoryWindowFrame extends JFrame{
 
             previewPayroll.add(new JButton("Payroll Preview Goes Here"));
 
+            JButton recoveryBatchButton = new JButton("Recovery Batch");
+            recoveryBatchButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    setRecoveryBatchButton();
+                }
+            });
         }
-        private void updatePayrollCombo(){ // Javier Blasco Gómez
+
+        public JComboBox<PayrollBatch> getPayrollBatchesComboBox() {
+            return payrollBatchesComboBox;
+        }
+
+        private void updatePayrollCombo() { // Javier Blasco Gómez
             PayrollBatch batch = (PayrollBatch) payrollBatchesComboBox.getSelectedItem();
             if (batch == null) {return;}
             PayrollDBController.getPayrollsByBatchId(batch);
-            PayrollDBController.setComboPayrollItem(payrollComboBox,batch);
+            PayrollDBController.setComboPayrollItem(payrollComboBox, batch);
         }
+
+        private void setRecoveryBatchButton() { //Raul Simarro Navarro
+            if (payrollBatchesComboBox.getSelectedItem() == null) {return;}
+            int batchID = ((PayrollBatch) payrollBatchesComboBox.getSelectedItem()).getID();
+            PayrollDBController.setBatchAccepted(batchID, false);
+            PayrollDBController.setComboBatchItems(payrollBatchesComboBox, true);
+            PayrollDBController.setComboBatchItems(MainWindowFrame.getINSTANCE().getPanel().getPayrollBatchesComboBox(), false);
+        }
+
+
     }
 }

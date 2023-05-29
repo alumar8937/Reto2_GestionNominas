@@ -165,5 +165,14 @@ public class MainWindowFrame extends JFrame {
             if(JOptionPane.showConfirmDialog(this, ProgramLanguageProperties.getProperty("deletePayrollDialog"),ProgramLanguageProperties.getProperty("notice"),JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION){
             }
         }
+
+        private void  setBatchAcceptedButtonAction(){ //Raul Simarro Navarro
+            if (payrollBatchesComboBox.getSelectedItem() == null) {return;}
+            int batchID = ((PayrollBatch) payrollBatchesComboBox.getSelectedItem()).getID();
+            PayrollDBController.setBatchAccepted(batchID, true);
+            PayrollDBController.setComboBatchItems(payrollBatchesComboBox, false);
+            PayrollDBController.setComboBatchItems(HistoryWindowFrame.getINSTANCE().getPanel().getPayrollBatchesComboBox(), true);
+        }
+
     }
 }
