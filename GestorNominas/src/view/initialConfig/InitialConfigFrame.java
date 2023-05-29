@@ -111,7 +111,7 @@ public class InitialConfigFrame extends JFrame {
             fillLanguageComboBox();
 
             LanguageComboBox.addActionListener((e) -> updateLang());
-            okButton.addActionListener((e) -> {okButtonAction(); SwingUtilities.getWindowAncestor(this).dispose(); LoadingWindow.getINSTANCE(); PayrollDBController.establishConnection(); LoadingWindow.getINSTANCE().dispose(); new MainWindowFrame();});
+            okButton.addActionListener((e) -> {okButtonAction(); SwingUtilities.getWindowAncestor(this).dispose(); LoadingWindow.getINSTANCE(); PayrollDBController.establishConnection(); LoadingWindow.getINSTANCE().dispose(); MainWindowFrame.getINSTANCE();});
             editButton.addActionListener((e) -> toggleFieldEdit());
             PasswordTextField.setDisabledTextColor(Color.WHITE);
 

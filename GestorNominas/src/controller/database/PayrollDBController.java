@@ -130,8 +130,9 @@ public class PayrollDBController {
                 rs = st.executeQuery(
                         "SELECT nombre,apellido1,apellido2 FROM trabajador where nif='" + payroll.getNif() + "';"
                 );
-                rs.next();
-                payroll.setEmp_name(rs.getString(1) + " " + rs.getString(2) + " " + rs.getString(3));
+                if (rs.next()) {
+                    payroll.setEmp_name(rs.getString(1) + " " + rs.getString(2) + " " + rs.getString(3));
+                }
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);

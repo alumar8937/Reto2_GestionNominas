@@ -5,9 +5,7 @@ import programLanguage.ProgramLanguageProperties;
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import java.awt.Color;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
+import java.awt.*;
 
 /**
  * @Author Pedro Marín Sanchis
@@ -29,11 +27,11 @@ public class PayrollPreviewPanel extends JPanel {
         add(headerPanel, constraints);
 
         constraints.insets.set(5, 0, 0, 0);
-        constraints.weighty = 5;
+        constraints.weighty = 4;
         constraints.gridy = 1;
         add(centerPanel, constraints);
 
-        constraints.weighty = 2;
+        constraints.weighty = 6;
         constraints.gridy = 2;
         add(companyPanel, constraints);
     }
@@ -54,8 +52,6 @@ public class PayrollPreviewPanel extends JPanel {
             setLayout(new GridBagLayout());
             constraints.insets.set(5, 5, 5, 5);
             constraints.anchor = GridBagConstraints.WEST; // Alignment within the cell
-            constraints.weightx = 1;
-            constraints.weighty = 1;
             constraints.fill = GridBagConstraints.BOTH;
             constraints.gridy = 0;
             constraints.gridx = 0;
@@ -125,13 +121,13 @@ public class PayrollPreviewPanel extends JPanel {
         private CenterPanel() {
             setBorder(BorderFactory.createLineBorder(Color.BLACK));
             setLayout(new GridBagLayout());
-            constraints.insets.set(5, 5, 5, 5);
 
             GridBagConstraints constraints = new GridBagConstraints();
-            constraints.gridx = 0;
+            constraints.insets.set(5, 5, 5, 5);
             constraints.anchor = GridBagConstraints.WEST; // Alignment within the cell
-
+            constraints.fill = GridBagConstraints.BOTH;
             constraints.gridy = 0;
+            constraints.gridx = 0;
             add(liquidationperiodLabel, constraints);
 
             constraints.gridx += 1;
@@ -229,10 +225,76 @@ public class PayrollPreviewPanel extends JPanel {
 
     class CompanyPanel extends JPanel {
         private GridBagConstraints constraints = new GridBagConstraints();
+        JLabel pp_companyheader = new JLabel(ProgramLanguageProperties.getProperty("pp_companyheader"));
+        JLabel pp_companycommoncontingencies = new JLabel(ProgramLanguageProperties.getProperty("pp_companycommoncontingencies"));
+        JLabel pp_companymonthlyremuneration = new JLabel(ProgramLanguageProperties.getProperty("pp_companymonthlyremuneration"));
+        JLabel pp_companyspreadextrasalary = new JLabel(ProgramLanguageProperties.getProperty("pp_companyspreadextrasalary"));
+        JLabel pp_companytotal = new JLabel(ProgramLanguageProperties.getProperty("pp_companytotal"));
+        JLabel pp_companyprofessionalcontingencybase = new JLabel(ProgramLanguageProperties.getProperty("pp_companyprofessionalcontingencybase"));
+        JLabel pp_companyatandep = new JLabel(ProgramLanguageProperties.getProperty("pp_companyatandep"));
+        JLabel pp_companyunemployment = new JLabel(ProgramLanguageProperties.getProperty("pp_companyunemployment"));
+        JLabel pp_compamnyfp = new JLabel(ProgramLanguageProperties.getProperty("pp_compamnyfp"));
+        JLabel pp_companystandardextrahours = new JLabel(ProgramLanguageProperties.getProperty("pp_companystandardextrahours"));
+        JLabel pp_companygreaterforceextrahours = new JLabel(ProgramLanguageProperties.getProperty("pp_companygreaterforceextrahours"));
+        JLabel pp_companyirpfbase = new JLabel(ProgramLanguageProperties.getProperty("pp_companyirpfbase"));
+        JLabel pp_companybase = new JLabel(ProgramLanguageProperties.getProperty("pp_companybase"));
+        JLabel pp_companytype = new JLabel(ProgramLanguageProperties.getProperty("pp_companytype"));
+        JLabel pp_companygrant = new JLabel(ProgramLanguageProperties.getProperty("pp_companygrant"));
         private CompanyPanel() {
             setBorder(BorderFactory.createLineBorder(Color.BLACK));
             setLayout(new GridBagLayout());
             constraints.insets.set(5, 5, 5, 5);
+            constraints.anchor = GridBagConstraints.WEST; // Alignment within the cell
+            constraints.fill = GridBagConstraints.BOTH;
+            constraints.gridy = 0;
+            constraints.gridx = 0;
+
+            constraints.gridy += 1;
+            add(pp_companyheader, constraints);
+
+            constraints.gridy += 1;
+            add(pp_companycommoncontingencies, constraints);
+
+            constraints.gridy += 1;
+            add(pp_companymonthlyremuneration, constraints);
+
+            constraints.gridy += 1;
+            add(pp_companyspreadextrasalary, constraints);
+
+            constraints.gridx += 1;
+            add(pp_companygrant, constraints);
+            constraints.gridx -= 1;
+
+            constraints.gridy += 1;
+            add(pp_companytotal, constraints);
+
+            constraints.gridy += 1;
+            add(pp_companyprofessionalcontingencybase, constraints);
+
+            constraints.gridy += 1;
+            add(pp_companyatandep, constraints);
+
+            constraints.gridy += 1;
+            add(pp_companyunemployment, constraints);
+
+            constraints.gridy += 1;
+            add(pp_compamnyfp, constraints);
+
+            constraints.gridy += 1;
+            add(pp_companystandardextrahours, constraints);
+
+            constraints.gridy += 1;
+            add(pp_companygreaterforceextrahours, constraints);
+
+            constraints.gridy += 1;
+            add(pp_companyirpfbase, constraints);
+
+            constraints.gridy += 1;
+            add(pp_companybase, constraints);
+
+            constraints.gridy += 1;
+            add(pp_companytype, constraints);
+
         }
     }
 

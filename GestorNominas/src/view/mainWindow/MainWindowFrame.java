@@ -1,6 +1,8 @@
 package view.mainWindow;
 
+import com.sun.tools.javac.Main;
 import controller.database.PayrollDBController;
+import model.Payroll;
 import model.PayrollBatch;
 import programLanguage.ProgramLanguageProperties;
 import view.FrameUtils;
@@ -17,10 +19,13 @@ import java.awt.*;
 
 public class MainWindowFrame extends JFrame {
 
+    private static MainWindowFrame INSTANCE = null;
+
     private JPanel marginPanel = new JPanel(new GridBagLayout());
     private GridBagConstraints constraints = new GridBagConstraints();
 
-    public MainWindowFrame() {
+    private MainWindowFrame() {
+        setResizable(false);
         setTitle(ProgramLanguageProperties.getProperty("mainWindow"));
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -31,12 +36,25 @@ public class MainWindowFrame extends JFrame {
         add(marginPanel);
 
         pack();
+        setPreferredSize(new Dimension(1000, 800));
+        setSize(1000,800);
         FrameUtils.centerWindowOnScreen(this);
 
         setVisible(true);
     }
 
-    class mainWindowJPanel extends JPanel {
+    public static MainWindowFrame getINSTANCE() {
+        if (INSTANCE == null) {
+            INSTANCE = new MainWindowFrame();
+        }
+        return INSTANCE;
+    }
+
+    public mainWindowJPanel getPanel() {
+        return panel;
+    }
+
+    public class mainWindowJPanel extends JPanel {
         PayrollPreviewPanel previewPayroll = new PayrollPreviewPanel();
 
         JList payrollList = new JList();
@@ -58,8 +76,6 @@ public class MainWindowFrame extends JFrame {
 
         private mainWindowJPanel() {
 
-            payrollList.setMinimumSize(new Dimension(300,500));
-
             setLayout(new GridBagLayout());
 
             GridBagConstraints gcbPreview = new GridBagConstraints();
@@ -69,7 +85,7 @@ public class MainWindowFrame extends JFrame {
             gcbPreview.gridheight = 9; // Ocupa 9 filas
             gcbPreview.fill = GridBagConstraints.BOTH; // Rellena el espacio horizontal y verticalmente
 
-            add(previewPayroll, gcbPreview);
+            add(previewPayrollScrollPane, gcbPreview);
 
             gcbPreview.gridx = 1;
             add(payrollListScroll, gcbPreview);
@@ -82,18 +98,18 @@ public class MainWindowFrame extends JFrame {
             gcbLabelsButtons.fill = GridBagConstraints.HORIZONTAL; // Rellena el espacio horizontal
             gcbLabelsButtons.insets.set(5, 5, 5, 5);
 
-            add(batchesLabel, gcbLabelsButtons);
+            panelButtonsLabels.add(batchesLabel, gcbPanelButtonsLabels);
 
-            gcbLabelsButtons.gridy = 1;
-            PayrollDBController.setComboBatchItems(payrollBatchesComboBox);
-            add(payrollBatchesComboBox, gcbLabelsButtons);
-            payrollBatchesComboBox.addActionListener((e) -> updatePayrollList());
+            gcbPanelButtonsLabels.gridy = 1;
+            PayrollDBController.setComboBatchItems(payrollBatchesComboBox, false);
+            panelButtonsLabels.add(payrollBatchesComboBox, gcbPanelButtonsLabels);
+            payrollBatchesComboBox.addActionListener((e) -> updatePayrollListAction());
 
-            gcbLabelsButtons.gridy = 2;
-            add(newBatchButton, gcbLabelsButtons);
+            gcbPanelButtonsLabels.gridy = 2;
+            panelButtonsLabels.add(newBatchButton, gcbPanelButtonsLabels);
 
-            gcbLabelsButtons.gridy = 3;
-            add(deleteBatchButton, gcbLabelsButtons);
+            gcbPanelButtonsLabels.gridy = 3;
+            panelButtonsLabels.add(deleteBatchButton, gcbPanelButtonsLabels);
             deleteBatchButton.addActionListener((e) -> deleteBatchButtonAction());
 
             gcbLabelsButtons.gridy = 4;
@@ -118,22 +134,23 @@ public class MainWindowFrame extends JFrame {
 
         }
 
-        private void updatePayrollList(){
+        public JComboBox<PayrollBatch> getPayrollBatchesComboBox() {
+            return payrollBatchesComboBox;
+        }
+
+        private void updatePayrollListAction(){
             PayrollBatch batch = (PayrollBatch) payrollBatchesComboBox.getSelectedItem();
             PayrollDBController.getPayrollsByBatchId(batch);
             payrollList.setModel(PayrollDBController.getListOfPayrolls(batch));
-
         }
 
         private void deleteBatchButtonAction(){
             if(JOptionPane.showConfirmDialog(this, ProgramLanguageProperties.getProperty("deleteBatchDialog"),ProgramLanguageProperties.getProperty("notice"),JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION){
-                System.out.println("I'm a batch");
             }
         }
 
         private void deletePayrollButtonAction(){
             if(JOptionPane.showConfirmDialog(this, ProgramLanguageProperties.getProperty("deletePayrollDialog"),ProgramLanguageProperties.getProperty("notice"),JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION){
-                System.out.println("I'm a payroll");
             }
         }
     }

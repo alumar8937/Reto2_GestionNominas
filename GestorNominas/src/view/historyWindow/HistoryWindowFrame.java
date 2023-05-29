@@ -5,6 +5,7 @@ import model.Payroll;
 import model.PayrollBatch;
 import programLanguage.ProgramLanguageProperties;
 import view.FrameUtils;
+import view.mainWindow.MainWindowFrame;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -40,7 +41,18 @@ public class HistoryWindowFrame extends JFrame{
         setVisible(true);
     }
 
-    class historyWindowJPanel extends JPanel{
+    public static HistoryWindowFrame getINSTANCE() {
+        if (INSTANCE == null) {
+            INSTANCE = new HistoryWindowFrame();
+        }
+        return INSTANCE;
+    }
+
+    public historyWindowJPanel getPanel() {
+        return panel;
+    }
+
+    public class historyWindowJPanel extends JPanel {
 
         JPanel previewPayroll = new JPanel();
 
@@ -88,6 +100,7 @@ public class HistoryWindowFrame extends JFrame{
         }
         private void updatePayrollCombo(){ // Javier Blasco Gómez
             PayrollBatch batch = (PayrollBatch) payrollBatchesComboBox.getSelectedItem();
+            if (batch == null) {return;}
             PayrollDBController.getPayrollsByBatchId(batch);
             PayrollDBController.setComboPayrollItem(payrollComboBox,batch);
         }

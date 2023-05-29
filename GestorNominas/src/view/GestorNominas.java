@@ -8,6 +8,7 @@ import view.payroll.EditPayrollWindow;
 import view.payrollPreview.PayrollPreviewPanel;
 
 import javax.swing.*;
+import java.awt.*;
 
 /**
  * @Author Pedro Marín Sanchis
@@ -17,8 +18,6 @@ public class GestorNominas {
     public static void main(String[] args) {
         ProgramLanguageProperties.setLanguage(UserconfigManager.getINSTANCE().getLanguage());
         new InitialConfigFrame();
-        //new HistoryWindowFrame();
-        //new EditPayrollWindow();
     }
 }
 
