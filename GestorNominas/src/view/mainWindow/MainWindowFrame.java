@@ -27,17 +27,21 @@ public class MainWindowFrame extends JFrame {
     private mainWindowJPanel panel = new mainWindowJPanel();
 
     private MainWindowFrame() {
-        setResizable(false);
+        //setResizable(false);
+
         setTitle(ProgramLanguageProperties.getProperty("mainWindow"));
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         constraints.insets.set(20, 20, 20, 20); // Space between components.
+        constraints.fill = GridBagConstraints.BOTH;
+        constraints.weightx = 1;
+        constraints.weighty = 1;
         marginPanel.add(panel, constraints);
         add(marginPanel);
 
         pack();
-        setPreferredSize(new Dimension(1000, 800));
-        setSize(1000,800);
+        setMinimumSize(new Dimension(1000, 600));
+        setSize(1000,600);
         FrameUtils.centerWindowOnScreen(this);
 
         setVisible(true);
@@ -87,24 +91,31 @@ public class MainWindowFrame extends JFrame {
             GridBagConstraints gcbPreview = new GridBagConstraints();
             gcbPreview.gridx = 0; // Columna 0
             gcbPreview.gridy = 0; // Fila 0
+            gcbPreview.weightx = 1;
+            gcbPreview.weighty = 1;
             gcbPreview.gridheight = 9; // Ocupa 9 filas
             gcbPreview.anchor = GridBagConstraints.NORTH;
             gcbPreview.fill = GridBagConstraints.BOTH; // Rellena el espacio horizontal y verticalmente
 
             add(previewPayrollScrollPane, gcbPreview);
+            previewPayrollScrollPane.revalidate();
+            payrollListScroll.revalidate();
 
             gcbPreview.gridx = 1;
             add(payrollListScroll, gcbPreview);
 
             gcbPreview.gridx = 2;
-            gcbPreview.anchor = GridBagConstraints.NORTH;
+            gcbPreview.anchor = GridBagConstraints.FIRST_LINE_START;
+            gcbPreview.weighty = 0;
             add(panelButtonsLabels, gcbPreview);
             panelButtonsLabels.setLayout(new GridBagLayout());
             GridBagConstraints gcbPanelButtonsLabels = new GridBagConstraints();
             gcbPanelButtonsLabels.gridx = 0; // Columna 0
             gcbPanelButtonsLabels.gridy = 0; // Fila 0
+            gcbPanelButtonsLabels.weightx = 1;
+            gcbPanelButtonsLabels.weighty = 0;
             gcbPanelButtonsLabels.fill = GridBagConstraints.HORIZONTAL;
-            gcbPanelButtonsLabels.anchor = GridBagConstraints.NORTH;
+            gcbPanelButtonsLabels.anchor = GridBagConstraints.FIRST_LINE_START;
             gcbPanelButtonsLabels.insets.set(5, 5, 5, 5);
 
             panelButtonsLabels.add(batchesLabel, gcbPanelButtonsLabels);

@@ -1,5 +1,6 @@
 package view.payrollPreview;
 
+import model.Payroll;
 import programLanguage.ProgramLanguageProperties;
 
 import javax.swing.BorderFactory;
@@ -23,6 +24,7 @@ public class PayrollPreviewPanel extends JPanel {
         constraints.weightx = 1;
         constraints.weighty = 1;
         constraints.fill = GridBagConstraints.BOTH;
+        constraints.anchor = GridBagConstraints.NORTH;
         constraints.gridy = 0;
         add(headerPanel, constraints);
 
@@ -35,26 +37,70 @@ public class PayrollPreviewPanel extends JPanel {
         constraints.gridy = 2;
         add(companyPanel, constraints);
     }
+
+    public void setData(Payroll payroll) {
+        setHeaderPanelLabels(": "+payroll.getCompany(), ": "+payroll.getAddress(), ": "+payroll.getCif(), ": "+payroll.getCcc(), ": "+payroll.getEmp_name(), ": "+payroll.getNif(), ": "+payroll.getNum_ss(), ": "+payroll.getProf_group());
+        setCenterPanelLabels(": "+payroll.getTotal_dev(),": "+payroll.getTotal_deduc(),": "+payroll.getCompany(),": "+payroll.getDay()+"/"+payroll.getMonth()+"/"+payroll.getYear(), ": "+payroll.getTotal_net());
+        //setCompanyPanelLabels();
+    };
+
+    public void setHeaderPanelLabels(String pp_company, String pp_domicile, String pp_cif, String pp_ccc, String pp_worker, String pp_nif, String pp_ssnumber, String pp_professionalgroup) {
+        headerPanel.companyLabel.setText(ProgramLanguageProperties.getProperty("pp_company") + pp_company);
+        headerPanel.domicileLabel.setText(ProgramLanguageProperties.getProperty("pp_domicile") + pp_domicile);
+        headerPanel.cifLabel.setText(ProgramLanguageProperties.getProperty("pp_cif") + pp_cif);
+        headerPanel.cccLabel.setText(ProgramLanguageProperties.getProperty("pp_ccc") + pp_ccc);
+        headerPanel.workerLabel.setText(ProgramLanguageProperties.getProperty("pp_worker") + pp_worker);
+        headerPanel.nifLabel.setText(ProgramLanguageProperties.getProperty("pp_nif") + pp_nif);
+        headerPanel.ssNumberLabel.setText(ProgramLanguageProperties.getProperty("pp_ssnumber") + pp_ssnumber);
+        headerPanel.professionalGroupLabel.setText(ProgramLanguageProperties.getProperty("pp_professionalgroup") + pp_professionalgroup);
+    }
+
+    public void setCenterPanelLabels(String pp_totalearned, String pp_totaldeductions, String pp_companysignature, String pp_time, String pp_irecieved) {
+        centerPanel.totalearnedLabel.setText(ProgramLanguageProperties.getProperty("pp_totalearned") + pp_totalearned);
+        centerPanel.totaldeductionsLabel.setText(ProgramLanguageProperties.getProperty("pp_totaldeductions") + pp_totaldeductions);
+        centerPanel.companysignatureLabel.setText(ProgramLanguageProperties.getProperty("pp_companysignature") + pp_companysignature);
+        centerPanel.timeLabel.setText(ProgramLanguageProperties.getProperty("pp_time") + pp_time);
+        centerPanel.irecievedLabel.setText(ProgramLanguageProperties.getProperty("pp_irecieved") + pp_irecieved);
+    }
+
+    public void setCompanyPanelLabels(String pp_companycommoncontingencies, String pp_companymonthlyremuneration, String pp_companyspreadextrasalary, String pp_companytotal, String pp_companyprofessionalcontingencybase, String pp_companyatandep, String pp_companyunemployment, String pp_compamnyfp, String pp_companystandardextrahours, String pp_companygreaterforceextrahours, String pp_companyirpfbase, String pp_companybase, String pp_companytype, String pp_companygrant) {
+        companyPanel.pp_companycommoncontingencies.setText(ProgramLanguageProperties.getProperty("pp_companycommoncontingencies") + pp_companycommoncontingencies);
+        companyPanel.pp_companymonthlyremuneration.setText(ProgramLanguageProperties.getProperty("pp_companymonthlyremuneration") + pp_companymonthlyremuneration);
+        companyPanel.pp_companyspreadextrasalary.setText(ProgramLanguageProperties.getProperty("pp_companyspreadextrasalary") + pp_companyspreadextrasalary);
+        companyPanel.pp_companytotal.setText(ProgramLanguageProperties.getProperty("pp_companytotal") + pp_companytotal);
+        companyPanel.pp_companyprofessionalcontingencybase.setText(ProgramLanguageProperties.getProperty("pp_companyprofessionalcontingencybase") + pp_companyprofessionalcontingencybase);
+        companyPanel.pp_companyatandep.setText(ProgramLanguageProperties.getProperty("pp_companyatandep") + pp_companyatandep);
+        companyPanel.pp_companyunemployment.setText(ProgramLanguageProperties.getProperty("pp_companyunemployment") + pp_companyunemployment);
+        companyPanel.pp_compamnyfp.setText(ProgramLanguageProperties.getProperty("pp_compamnyfp") + pp_compamnyfp);
+        companyPanel.pp_companystandardextrahours.setText(ProgramLanguageProperties.getProperty("pp_companystandardextrahours") + pp_companystandardextrahours);
+        companyPanel.pp_companygreaterforceextrahours.setText(ProgramLanguageProperties.getProperty("pp_companygreaterforceextrahours") + pp_companygreaterforceextrahours);
+        companyPanel.pp_companyirpfbase.setText(ProgramLanguageProperties.getProperty("pp_companyirpfbase") + pp_companyirpfbase);
+        companyPanel.pp_companybase.setText(ProgramLanguageProperties.getProperty("pp_companybase") + pp_companybase);
+        companyPanel.pp_companytype.setText(ProgramLanguageProperties.getProperty("pp_companytype") + pp_companytype);
+        companyPanel.pp_companygrant.setText(ProgramLanguageProperties.getProperty("pp_companygrant") + pp_companygrant);
+    }
+
     class HeaderPanel extends JPanel {
         private GridBagConstraints constraints = new GridBagConstraints();
-        private JLabel companyLabel = new JLabel(ProgramLanguageProperties.getProperty("pp_company"));
-        private JLabel domicileLabel = new JLabel(ProgramLanguageProperties.getProperty("pp_domicile"));
-        private JLabel cifLabel = new JLabel(ProgramLanguageProperties.getProperty("pp_cif"));
-        private JLabel cccLabel = new JLabel(ProgramLanguageProperties.getProperty("pp_ccc"));
-        private JLabel workerLabel = new JLabel(ProgramLanguageProperties.getProperty("pp_worker"));
-        private JLabel nifLabel = new JLabel(ProgramLanguageProperties.getProperty("pp_nif"));
-        private JLabel ssNumberLabel = new JLabel(ProgramLanguageProperties.getProperty("pp_ssnumber"));
-        private JLabel professionalGroupLabel = new JLabel(ProgramLanguageProperties.getProperty("pp_professionalgroup"));
-        private JLabel taxGroupLabel = new JLabel(ProgramLanguageProperties.getProperty("pp_taxgroup"));
+        public JLabel companyLabel = new JLabel(ProgramLanguageProperties.getProperty("pp_company"));
+        public JLabel domicileLabel = new JLabel(ProgramLanguageProperties.getProperty("pp_domicile"));
+        public JLabel cifLabel = new JLabel(ProgramLanguageProperties.getProperty("pp_cif"));
+        public JLabel cccLabel = new JLabel(ProgramLanguageProperties.getProperty("pp_ccc"));
+        public JLabel workerLabel = new JLabel(ProgramLanguageProperties.getProperty("pp_worker"));
+        public JLabel nifLabel = new JLabel(ProgramLanguageProperties.getProperty("pp_nif"));
+        public JLabel ssNumberLabel = new JLabel(ProgramLanguageProperties.getProperty("pp_ssnumber"));
+        public JLabel professionalGroupLabel = new JLabel(ProgramLanguageProperties.getProperty("pp_professionalgroup"));
 
         private HeaderPanel() {
             setBorder(BorderFactory.createLineBorder(Color.BLACK));
             setLayout(new GridBagLayout());
             constraints.insets.set(5, 5, 5, 5);
-            constraints.anchor = GridBagConstraints.WEST; // Alignment within the cell
             constraints.fill = GridBagConstraints.BOTH;
+            constraints.weighty = 1;
+            constraints.weightx = 1;
             constraints.gridy = 0;
             constraints.gridx = 0;
+            constraints.anchor = GridBagConstraints.FIRST_LINE_START;
             add(companyLabel, constraints);
 
             constraints.gridy = 1;
@@ -80,43 +126,20 @@ public class PayrollPreviewPanel extends JPanel {
             add(professionalGroupLabel, constraints);
 
             constraints.gridy = 4;
-            add(taxGroupLabel, constraints);
+            //add(taxGroupLabel, constraints);
         }
     }
 
     class CenterPanel extends JPanel {
         private GridBagConstraints constraints = new GridBagConstraints();
-        private JLabel liquidationperiodLabel = new JLabel(ProgramLanguageProperties.getProperty("pp_liquidationperiod"));
-        private JLabel numberofdaysLabel = new JLabel(ProgramLanguageProperties.getProperty("pp_numberofdays"));
-        private JLabel earningsLabel = new JLabel(ProgramLanguageProperties.getProperty("pp_earnings"));
-        private JLabel salaryperceptionLabel = new JLabel(ProgramLanguageProperties.getProperty("pp_salaryperception"));
-        private JLabel basesalaryLabel = new JLabel(ProgramLanguageProperties.getProperty("pp_basesalary"));
-        private JLabel salarycomplementsLabel = new JLabel(ProgramLanguageProperties.getProperty("pp_salarycomplements"));
-        private JLabel overtimeLabel = new JLabel(ProgramLanguageProperties.getProperty("pp_overtime"));
-        private JLabel extrapayLabel = new JLabel(ProgramLanguageProperties.getProperty("pp_extrapay"));
-        private JLabel nosalaryperceptionLabel = new JLabel(ProgramLanguageProperties.getProperty("pp_nosalaryperception"));
-        private JLabel indemnitiesLabel = new JLabel(ProgramLanguageProperties.getProperty("pp_indemnities"));
-        private JLabel socialsecurityindemnitiesLabel = new JLabel(ProgramLanguageProperties.getProperty("pp_socialsecurityindemnities"));
-        private JLabel indemnitiesformovingorfiringsLabel = new JLabel(ProgramLanguageProperties.getProperty("pp_indemnitiesformovingorfirings"));
-        private JLabel othernonsalarialperceptionsLabel = new JLabel(ProgramLanguageProperties.getProperty("pp_othernonsalarialperceptions"));
-        private JLabel totalearnedLabel = new JLabel(ProgramLanguageProperties.getProperty("pp_totalearned"));
-        private JLabel deductionsLabel = new JLabel(ProgramLanguageProperties.getProperty("pp_deductions"));
-        private JLabel ssprovisionsLabel = new JLabel(ProgramLanguageProperties.getProperty("pp_ssprovisions"));
-        private JLabel commoncontingenciesLabel = new JLabel(ProgramLanguageProperties.getProperty("pp_commoncontingencies"));
-        private JLabel unemploymentLabel = new JLabel(ProgramLanguageProperties.getProperty("pp_unemployment"));
-        private JLabel fpLabel = new JLabel(ProgramLanguageProperties.getProperty("pp_fp"));
-        private JLabel standardextrahoursLabel = new JLabel(ProgramLanguageProperties.getProperty("pp_standardextrahours"));
-        private JLabel greaterforceextrahoursLabel = new JLabel(ProgramLanguageProperties.getProperty("pp_greaterforceextrahours"));
-        private JLabel totalprovisionsLabel = new JLabel(ProgramLanguageProperties.getProperty("pp_totalprovisions"));
-        private JLabel irpfLabel = new JLabel(ProgramLanguageProperties.getProperty("pp_irpf"));
-        private JLabel payadvancesLabel = new JLabel(ProgramLanguageProperties.getProperty("pp_payadvances"));
-        private JLabel spicevalueLabel = new JLabel(ProgramLanguageProperties.getProperty("pp_spicevalue"));
-        private JLabel otherdeductionsLabel = new JLabel(ProgramLanguageProperties.getProperty("pp_otherdeductions"));
-        private JLabel totaldeductionsLabel = new JLabel(ProgramLanguageProperties.getProperty("pp_totaldeductions"));
-        private JLabel totalperceptionsLabel = new JLabel(ProgramLanguageProperties.getProperty("pp_totalperceptions"));
-        private JLabel companysignatureLabel = new JLabel(ProgramLanguageProperties.getProperty("pp_companysignature"));
-        private JLabel timeLabel = new JLabel(ProgramLanguageProperties.getProperty("pp_time"));
-        private JLabel irecievedLabel = new JLabel(ProgramLanguageProperties.getProperty("pp_irecieved"));
+        public JLabel earningsLabel = new JLabel(ProgramLanguageProperties.getProperty("pp_earnings"));
+        public JLabel salaryperceptionLabel = new JLabel(ProgramLanguageProperties.getProperty("pp_salaryperception"));
+        public JLabel totalearnedLabel = new JLabel(ProgramLanguageProperties.getProperty("pp_totalearned"));
+        public JLabel deductionsLabel = new JLabel(ProgramLanguageProperties.getProperty("pp_deductions"));
+        public JLabel totaldeductionsLabel = new JLabel(ProgramLanguageProperties.getProperty("pp_totaldeductions"));
+        public JLabel companysignatureLabel = new JLabel(ProgramLanguageProperties.getProperty("pp_companysignature"));
+        public JLabel timeLabel = new JLabel(ProgramLanguageProperties.getProperty("pp_time"));
+        public JLabel irecievedLabel = new JLabel(ProgramLanguageProperties.getProperty("pp_irecieved"));
 
         private CenterPanel() {
             setBorder(BorderFactory.createLineBorder(Color.BLACK));
@@ -124,93 +147,29 @@ public class PayrollPreviewPanel extends JPanel {
 
             GridBagConstraints constraints = new GridBagConstraints();
             constraints.insets.set(5, 5, 5, 5);
-            constraints.anchor = GridBagConstraints.WEST; // Alignment within the cell
             constraints.fill = GridBagConstraints.BOTH;
+            constraints.weighty = 1;
+            constraints.weightx = 1;
             constraints.gridy = 0;
             constraints.gridx = 0;
-            add(liquidationperiodLabel, constraints);
-
-            constraints.gridx += 1;
-            add(numberofdaysLabel, constraints);
-
-            constraints.gridx -= 1;
-            constraints.gridy += 1;
+            constraints.anchor = GridBagConstraints.FIRST_LINE_START;
             add(earningsLabel, constraints);
 
             constraints.gridy += 1;
             add(salaryperceptionLabel, constraints);
 
             constraints.gridy += 1;
-            add(basesalaryLabel, constraints);
-
-            constraints.gridy += 1;
-            add(salarycomplementsLabel, constraints);
-
-            constraints.gridy += 1;
-            add(overtimeLabel, constraints);
-
-            constraints.gridy += 1;
-            add(extrapayLabel, constraints);
-
-            constraints.gridy += 1;
-            add(nosalaryperceptionLabel, constraints);
-
-            constraints.gridy += 1;
-            add(indemnitiesLabel, constraints);
-
-            constraints.gridy += 1;
-            add(socialsecurityindemnitiesLabel, constraints);
-
-            constraints.gridy += 1;
-            add(indemnitiesformovingorfiringsLabel, constraints);
-
-            constraints.gridy += 1;
-            add(othernonsalarialperceptionsLabel, constraints);
-
-            constraints.gridy += 1;
+            constraints.gridx += 1;
             add(totalearnedLabel, constraints);
+            constraints.gridx -= 1;
 
             constraints.gridy += 1;
             add(deductionsLabel, constraints);
 
             constraints.gridy += 1;
-            add(ssprovisionsLabel, constraints);
-
-            constraints.gridy += 1;
-            add(commoncontingenciesLabel, constraints);
-
-            constraints.gridy += 1;
-            add(unemploymentLabel, constraints);
-
-            constraints.gridy += 1;
-            add(fpLabel, constraints);
-
-            constraints.gridy += 1;
-            add(standardextrahoursLabel, constraints);
-
-            constraints.gridy += 1;
-            add(greaterforceextrahoursLabel, constraints);
-
-            constraints.gridy += 1;
-            add(totalprovisionsLabel, constraints);
-
-            constraints.gridy += 1;
-            add(irpfLabel, constraints);
-
-            constraints.gridy += 1;
-            add(payadvancesLabel, constraints);
-
-            constraints.gridy += 1;
-            add(spicevalueLabel, constraints);
-
-            constraints.gridy += 1;
-            add(otherdeductionsLabel, constraints);
 
             constraints.gridy += 1;
             add(totaldeductionsLabel, constraints);
-
-            constraints.gridy += 1;
-            add(totalperceptionsLabel, constraints);
 
             constraints.gridy += 1;
             add(companysignatureLabel, constraints);
@@ -218,36 +177,39 @@ public class PayrollPreviewPanel extends JPanel {
             constraints.gridy += 1;
             add(timeLabel, constraints);
 
-            constraints.gridy += 1;
+            constraints.gridx += 1;
             add(irecievedLabel, constraints);
         }
     }
 
     class CompanyPanel extends JPanel {
         private GridBagConstraints constraints = new GridBagConstraints();
-        JLabel pp_companyheader = new JLabel(ProgramLanguageProperties.getProperty("pp_companyheader"));
-        JLabel pp_companycommoncontingencies = new JLabel(ProgramLanguageProperties.getProperty("pp_companycommoncontingencies"));
-        JLabel pp_companymonthlyremuneration = new JLabel(ProgramLanguageProperties.getProperty("pp_companymonthlyremuneration"));
-        JLabel pp_companyspreadextrasalary = new JLabel(ProgramLanguageProperties.getProperty("pp_companyspreadextrasalary"));
-        JLabel pp_companytotal = new JLabel(ProgramLanguageProperties.getProperty("pp_companytotal"));
-        JLabel pp_companyprofessionalcontingencybase = new JLabel(ProgramLanguageProperties.getProperty("pp_companyprofessionalcontingencybase"));
-        JLabel pp_companyatandep = new JLabel(ProgramLanguageProperties.getProperty("pp_companyatandep"));
-        JLabel pp_companyunemployment = new JLabel(ProgramLanguageProperties.getProperty("pp_companyunemployment"));
-        JLabel pp_compamnyfp = new JLabel(ProgramLanguageProperties.getProperty("pp_compamnyfp"));
-        JLabel pp_companystandardextrahours = new JLabel(ProgramLanguageProperties.getProperty("pp_companystandardextrahours"));
-        JLabel pp_companygreaterforceextrahours = new JLabel(ProgramLanguageProperties.getProperty("pp_companygreaterforceextrahours"));
-        JLabel pp_companyirpfbase = new JLabel(ProgramLanguageProperties.getProperty("pp_companyirpfbase"));
-        JLabel pp_companybase = new JLabel(ProgramLanguageProperties.getProperty("pp_companybase"));
-        JLabel pp_companytype = new JLabel(ProgramLanguageProperties.getProperty("pp_companytype"));
-        JLabel pp_companygrant = new JLabel(ProgramLanguageProperties.getProperty("pp_companygrant"));
+        public JLabel pp_companyheader = new JLabel(ProgramLanguageProperties.getProperty("pp_companyheader"));
+        public JLabel pp_companycommoncontingencies = new JLabel(ProgramLanguageProperties.getProperty("pp_companycommoncontingencies"));
+        public JLabel pp_companymonthlyremuneration = new JLabel(ProgramLanguageProperties.getProperty("pp_companymonthlyremuneration"));
+        public JLabel pp_companyspreadextrasalary = new JLabel(ProgramLanguageProperties.getProperty("pp_companyspreadextrasalary"));
+        public JLabel pp_companytotal = new JLabel(ProgramLanguageProperties.getProperty("pp_companytotal"));
+        public JLabel pp_companyprofessionalcontingencybase = new JLabel(ProgramLanguageProperties.getProperty("pp_companyprofessionalcontingencybase"));
+        public JLabel pp_companyatandep = new JLabel(ProgramLanguageProperties.getProperty("pp_companyatandep"));
+        public JLabel pp_companyunemployment = new JLabel(ProgramLanguageProperties.getProperty("pp_companyunemployment"));
+        public JLabel pp_compamnyfp = new JLabel(ProgramLanguageProperties.getProperty("pp_compamnyfp"));
+        public JLabel pp_companystandardextrahours = new JLabel(ProgramLanguageProperties.getProperty("pp_companystandardextrahours"));
+        public JLabel pp_companygreaterforceextrahours = new JLabel(ProgramLanguageProperties.getProperty("pp_companygreaterforceextrahours"));
+        public JLabel pp_companyirpfbase = new JLabel(ProgramLanguageProperties.getProperty("pp_companyirpfbase"));
+        public JLabel pp_companybase = new JLabel(ProgramLanguageProperties.getProperty("pp_companybase"));
+        public JLabel pp_companytype = new JLabel(ProgramLanguageProperties.getProperty("pp_companytype"));
+        public JLabel pp_companygrant = new JLabel(ProgramLanguageProperties.getProperty("pp_companygrant"));
+
         private CompanyPanel() {
             setBorder(BorderFactory.createLineBorder(Color.BLACK));
             setLayout(new GridBagLayout());
             constraints.insets.set(5, 5, 5, 5);
-            constraints.anchor = GridBagConstraints.WEST; // Alignment within the cell
             constraints.fill = GridBagConstraints.BOTH;
+            constraints.weighty = 1;
+            constraints.weightx = 1;
             constraints.gridy = 0;
             constraints.gridx = 0;
+            constraints.anchor = GridBagConstraints.FIRST_LINE_START;
 
             constraints.gridy += 1;
             add(pp_companyheader, constraints);

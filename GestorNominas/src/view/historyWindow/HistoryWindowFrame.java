@@ -39,7 +39,8 @@ public class HistoryWindowFrame extends JFrame {
 
         pack();
         FrameUtils.centerWindowOnScreen(this);
-
+        revalidate();
+        repaint();
         setVisible(true);
     }
 
