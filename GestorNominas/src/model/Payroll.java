@@ -18,6 +18,8 @@ public class Payroll {
     double ap_company;
     ArrayList<Perception> perceptions;
     ArrayList<Retention> retentions;
+    ArrayList<Contingencies> contingencies_Emp;
+    ArrayList<Contingencies> contingencies_Com;
 
     /**
      * @param id_name
@@ -78,6 +80,22 @@ public class Payroll {
 
     public double getTotal_net() {
         return total_net;
+    }
+
+    public ArrayList<Perception> getPerceptions() {
+        return perceptions;
+    }
+
+    public ArrayList<Retention> getRetentions() {
+        return retentions;
+    }
+
+    public ArrayList<Contingencies> getContingencies_Com() {
+        return contingencies_Com;
+    }
+
+    public ArrayList<Contingencies> getContingencies_Emp() {
+        return contingencies_Emp;
     }
 
     public void setEmp_name(String emp_name){ this.emp_name = emp_name; }

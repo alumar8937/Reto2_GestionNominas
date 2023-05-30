@@ -1,6 +1,5 @@
 package view.mainWindow;
 
-import com.sun.tools.javac.Main;
 import controller.database.PayrollDBController;
 import model.Payroll;
 import model.PayrollBatch;
@@ -10,8 +9,17 @@ import view.historyWindow.HistoryWindowFrame;
 import view.payroll.EditPayrollWindow;
 import view.payrollPreview.PayrollPreviewPanel;
 
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JList;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import java.awt.Dimension;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 
 /**
  * @Author David Serna Mateu
@@ -103,6 +111,7 @@ public class MainWindowFrame extends JFrame {
 
             gcbPreview.gridx = 1;
             add(payrollListScroll, gcbPreview);
+            payrollList.addListSelectionListener((e) -> setDataPayrollPreview());
 
             gcbPreview.gridx = 2;
             gcbPreview.anchor = GridBagConstraints.FIRST_LINE_START;
@@ -127,6 +136,7 @@ public class MainWindowFrame extends JFrame {
 
             gcbPanelButtonsLabels.gridy = 2;
             panelButtonsLabels.add(newBatchButton, gcbPanelButtonsLabels);
+            newBatchButton.addActionListener((e) -> {PayrollDBController.createBatch(); PayrollDBController.setComboBatchItems(payrollBatchesComboBox, false);});
 
             gcbPanelButtonsLabels.gridy = 3;
             panelButtonsLabels.add(deleteBatchButton, gcbPanelButtonsLabels);
@@ -138,7 +148,7 @@ public class MainWindowFrame extends JFrame {
 
             gcbPanelButtonsLabels.gridy = 5;
             panelButtonsLabels.add(historyButton, gcbPanelButtonsLabels);
-            historyButton.addActionListener((e) -> {HistoryWindowFrame.getINSTANCE().setVisible(true);});
+            historyButton.addActionListener((e) -> HistoryWindowFrame.getINSTANCE().setVisible(true));
 
             gcbPanelButtonsLabels.gridy = 6;
             panelButtonsLabels.add(payrollsLabel, gcbPanelButtonsLabels);
@@ -156,6 +166,18 @@ public class MainWindowFrame extends JFrame {
 
         }
 
+        private void setDataPayrollPreview() {
+            if(payrollList.getSelectedIndex() == -1){
+                return;
+            }
+            previewPayroll.setData((Payroll) payrollList.getModel().getElementAt(payrollList.getSelectedIndex()));
+        }
+        
+        private void setDataEditPayroll() {
+            //EditPayrollWindow.editData((Payroll) payrollList.getModel().getElementAt(payrollList.getSelectedIndex());
+            EditPayrollWindow.getINSTANCE().setVisible(true);
+        }
+
         public JComboBox<PayrollBatch> getPayrollBatchesComboBox() {
             return payrollBatchesComboBox;
         }
@@ -169,15 +191,27 @@ public class MainWindowFrame extends JFrame {
 
         private void deleteBatchButtonAction(){
             if(JOptionPane.showConfirmDialog(this, ProgramLanguageProperties.getProperty("deleteBatchDialog"),ProgramLanguageProperties.getProperty("notice"),JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION){
+                if(payrollBatchesComboBox.getSelectedItem() == null){
+                    return;
+                }
+                PayrollDBController.deletePayrollsOfBatch(((PayrollBatch) payrollBatchesComboBox.getSelectedItem()).getID());
+                PayrollDBController.deleteBatch(((PayrollBatch) payrollBatchesComboBox.getSelectedItem()).getID());
+                updatePayrollListAction();
+                PayrollDBController.setComboBatchItems(payrollBatchesComboBox, false);
             }
         }
 
         private void deletePayrollButtonAction(){
             if(JOptionPane.showConfirmDialog(this, ProgramLanguageProperties.getProperty("deletePayrollDialog"),ProgramLanguageProperties.getProperty("notice"),JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION){
+                if(payrollList.getSelectedIndex() == -1){return;}
+                if(payrollList.getModel().getElementAt(payrollList.getSelectedIndex()) == null){return;}
+                PayrollDBController.deletePayroll(((Payroll) payrollList.getModel().getElementAt(payrollList.getSelectedIndex())).getId_name());
+                updatePayrollListAction();
+                PayrollDBController.setComboBatchItems(payrollBatchesComboBox, false);
             }
         }
 
-        private void  setBatchAcceptedButtonAction(){ //Raul Simarro Navarro
+        private void  setBatchAcceptedButtonAction(){ // Raul Simarro Navarro
             if (payrollBatchesComboBox.getSelectedItem() == null) {return;}
             int batchID = ((PayrollBatch) payrollBatchesComboBox.getSelectedItem()).getID();
             PayrollDBController.setBatchAccepted(batchID, true);
