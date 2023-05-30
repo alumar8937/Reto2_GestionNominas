@@ -73,6 +73,11 @@ public class PayrollDBController {
         }
         return null;
     }
+
+    public static void modifyPayroll(EditPayrollWindow editPayrollWindow) {
+
+    }
+
     public static Integer createBatch() { // Author: Pedro Marín Sanchis // Returns newly created batch ID.
         try {
             Statement statement = getConnection().createStatement();

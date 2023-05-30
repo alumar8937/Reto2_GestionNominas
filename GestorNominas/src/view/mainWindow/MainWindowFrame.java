@@ -155,10 +155,11 @@ public class MainWindowFrame extends JFrame {
 
             gcbPanelButtonsLabels.gridy = 7;
             panelButtonsLabels.add(newPayrollButton, gcbPanelButtonsLabels);
+            newPayrollButton.addActionListener((e) -> EditPayrollWindow.getINSTANCE().setVisible(true));
 
             gcbPanelButtonsLabels.gridy = 8;
             panelButtonsLabels.add(editPayrollButton, gcbPanelButtonsLabels);
-            editPayrollButton.addActionListener((e) -> {EditPayrollWindow.getINSTANCE().setVisible(true);});
+            editPayrollButton.addActionListener((e) -> setDataEditPayroll());
 
             gcbPanelButtonsLabels.gridy = 9;
             panelButtonsLabels.add(deletePayrollButton, gcbPanelButtonsLabels);
