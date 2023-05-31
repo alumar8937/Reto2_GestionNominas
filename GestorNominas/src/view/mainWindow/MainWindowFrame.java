@@ -106,6 +106,8 @@ public class MainWindowFrame extends JFrame {
             gcbPreview.fill = GridBagConstraints.BOTH; // Rellena el espacio horizontal y verticalmente
 
             add(previewPayrollScrollPane, gcbPreview);
+            previewPayrollScrollPane.getVerticalScrollBar().setUnitIncrement(5);
+            previewPayrollScrollPane.getHorizontalScrollBar().setUnitIncrement(5);
             previewPayrollScrollPane.revalidate();
             payrollListScroll.revalidate();
 
