@@ -2,7 +2,6 @@ package controller.database;
 
 import model.*;
 import userconfig.UserconfigManager;
-import view.payroll.EditPayrollWindow;
 
 import javax.swing.*;
 import java.sql.*;
@@ -270,14 +269,14 @@ public class PayrollDBController {
                             "SELECT * FROM contingencia_t ct where not cod_c='Desempleo2'"
                     );
                     while(rs2.next()) {
-                        contingencies_Emp.add(new Contingencies(rs2.getString(1), rs2.getFloat(2)));
+                        contingencies_Emp.add(new Contingency(rs2.getString(1), rs2.getFloat(2)));
                     }
                 }else{
                     rs2 = st2.executeQuery(
                             "SELECT * FROM contingencia_t ct where not cod_c='Desempleo'"
                     );
                     while(rs2.next()) {
-                        contingencies_Emp.add(new Contingencies(rs2.getString(1), rs2.getFloat(2)));
+                        contingencies_Emp.add(new Contingency(rs2.getString(1), rs2.getFloat(2)));
                     }
                 }
                 payroll.setContingencies_Emp(contingencies_Emp);
@@ -291,14 +290,14 @@ public class PayrollDBController {
                             "SELECT * FROM contingencia_e ce where not cod_c='Desempleo2'"
                     );
                     while(rs.next()) {
-                        contingencies_Com.add(new Contingencies(rs.getString(1), rs.getFloat(2)));
+                        contingencies_Com.add(new Contingency(rs.getString(1), rs.getFloat(2)));
                     }
                 }else{
                     rs = st.executeQuery(
                             "SELECT * FROM contingencia_e ce where not cod_c='Desempleo'"
                     );
                     while(rs.next()) {
-                        contingencies_Com.add(new Contingencies(rs.getString(1), rs.getFloat(2)));
+                        contingencies_Com.add(new Contingency(rs.getString(1), rs.getFloat(2)));
                     }
                 }
                 payroll.setContingencies_Com(contingencies_Com);

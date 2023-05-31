@@ -1,5 +1,7 @@
 package model;
 
+import java.text.DecimalFormat;
+
 /**
  * @Author Pedro Marín Sanchis
  *
@@ -11,6 +13,12 @@ public class Perception {
     public Perception(String cod_p, double quant) {
         this.cod_p = cod_p;
         this.quant = quant;
+    }
+
+    @Override
+    public String toString() {
+        DecimalFormat decimalFormat = new DecimalFormat("#0.00");
+        return cod_p+": "+decimalFormat.format(quant)+"€";
     }
 
     public String getCod_p() {

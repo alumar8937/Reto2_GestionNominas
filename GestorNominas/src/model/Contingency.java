@@ -1,16 +1,24 @@
 package model;
 
+import java.text.DecimalFormat;
+
 /**
  * @Author Pedro Marín Sanchis
  *
  */
-public class Contingencies {
+public class Contingency {
     private String cod_c = "";
     private double quant = 0;
 
-    public Contingencies(String cod_c, double quant) {
+    public Contingency(String cod_c, double quant) {
         this.cod_c = cod_c;
         this.quant = quant;
+    }
+
+    @Override
+    public String toString() {
+        DecimalFormat decimalFormat = new DecimalFormat("#0.00");
+        return cod_c+": "+decimalFormat.format(quant)+"%";
     }
 
     public String getCod_c() {

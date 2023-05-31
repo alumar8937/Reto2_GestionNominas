@@ -1,5 +1,7 @@
 package model;
 
+import java.text.DecimalFormat;
+
 /**
  * @Author Pedro Marín Sanchis
  *
@@ -10,6 +12,12 @@ public class Retention {
     public Retention(String cod_r, double quant) {
         this.cod_r = cod_r;
         this.quant = quant;
+    }
+
+    @Override
+    public String toString() {
+        DecimalFormat decimalFormat = new DecimalFormat("#0.00");
+        return cod_r+": "+decimalFormat.format(quant);
     }
 
     public String getCod_r() {

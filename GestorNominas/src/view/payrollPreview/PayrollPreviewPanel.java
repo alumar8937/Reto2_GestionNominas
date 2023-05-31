@@ -1,12 +1,11 @@
 package view.payrollPreview;
 
-import model.Payroll;
+import model.*;
 import programLanguage.ProgramLanguageProperties;
 
-import javax.swing.BorderFactory;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
+import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
 
 /**
  * @Author Pedro Marín Sanchis
@@ -40,9 +39,44 @@ public class PayrollPreviewPanel extends JPanel {
 
     public void setData(Payroll payroll) {
         setHeaderPanelLabels(": "+payroll.getCompany(), ": "+payroll.getAddress(), ": "+payroll.getCif(), ": "+payroll.getCcc(), ": "+payroll.getEmp_name(), ": "+payroll.getNif(), ": "+payroll.getNum_ss(), ": "+payroll.getProf_group());
-        setCenterPanelLabels(": "+payroll.getTotal_dev(),": "+payroll.getTotal_deduc(),": "+payroll.getCompany(),": "+payroll.getDay()+"/"+payroll.getMonth()+"/"+payroll.getYear(), ": "+payroll.getTotal_net());
-        //setCompanyPanelLabels();
+        setCenterPanelLabels(": "+payroll.getIRPF(),": "+payroll.getTotal_dev(),": "+payroll.getTotal_deduc(),": "+payroll.getCompany(),": "+payroll.getDay()+"/"+payroll.getMonth()+"/"+payroll.getYear(), ": "+payroll.getTotal_net());
+        setCompanyPanelLabels(": "+payroll.getATEP(),": "+payroll.getAp_company());
+        fillPerceptionList(payroll.getPerceptions());
+        fillCompanyContingenciesList(payroll.getContingencies_Com());
+        fillEmployeeContingenciesList(payroll.getContingencies_Emp());
     };
+
+    private void fillPerceptionList(ArrayList<Perception> perceptions) {
+        DefaultListModel<Perception> model = new DefaultListModel<Perception>();
+        for (Perception p: perceptions) {
+            model.addElement(p);
+        }
+        centerPanel.perceptions.setModel(model);
+    }
+
+    private void fillEmployeeContingenciesList(ArrayList<Contingency> contingencies) {
+        DefaultListModel<Contingency> model = new DefaultListModel<Contingency>();
+        for (Contingency c: contingencies) {
+            model.addElement(c);
+        }
+        centerPanel.contingencies.setModel(model);
+    }
+
+    private void fillCompanyContingenciesList(ArrayList<Contingency> contingencies) {
+        DefaultListModel<Contingency> model = new DefaultListModel<Contingency>();
+        for (Contingency c: contingencies) {
+            model.addElement(c);
+        }
+        companyPanel.contingencies.setModel(model);
+    }
+
+    private void fillRetentionList(ArrayList<Retention> retentions) {
+        DefaultListModel<Retention> model = new DefaultListModel<Retention>();
+        for (Retention r: retentions) {
+            model.addElement(r);
+        }
+        companyPanel.retentions.setModel(model);
+    }
 
     public void setHeaderPanelLabels(String pp_company, String pp_domicile, String pp_cif, String pp_ccc, String pp_worker, String pp_nif, String pp_ssnumber, String pp_professionalgroup) {
         headerPanel.companyLabel.setText(ProgramLanguageProperties.getProperty("pp_company") + pp_company);
@@ -55,7 +89,8 @@ public class PayrollPreviewPanel extends JPanel {
         headerPanel.professionalGroupLabel.setText(ProgramLanguageProperties.getProperty("pp_professionalgroup") + pp_professionalgroup);
     }
 
-    public void setCenterPanelLabels(String pp_totalearned, String pp_totaldeductions, String pp_companysignature, String pp_time, String pp_irecieved) {
+    public void setCenterPanelLabels(String IRPF, String pp_totalearned, String pp_totaldeductions, String pp_companysignature, String pp_time, String pp_irecieved) {
+        centerPanel.pp_IRPF.setText(ProgramLanguageProperties.getProperty("pp_IRPF") + IRPF + "%");
         centerPanel.totalearnedLabel.setText(ProgramLanguageProperties.getProperty("pp_totalearned") + pp_totalearned);
         centerPanel.totaldeductionsLabel.setText(ProgramLanguageProperties.getProperty("pp_totaldeductions") + pp_totaldeductions);
         centerPanel.companysignatureLabel.setText(ProgramLanguageProperties.getProperty("pp_companysignature") + pp_companysignature);
@@ -63,21 +98,9 @@ public class PayrollPreviewPanel extends JPanel {
         centerPanel.irecievedLabel.setText(ProgramLanguageProperties.getProperty("pp_irecieved") + pp_irecieved);
     }
 
-    public void setCompanyPanelLabels(String pp_companycommoncontingencies, String pp_companymonthlyremuneration, String pp_companyspreadextrasalary, String pp_companytotal, String pp_companyprofessionalcontingencybase, String pp_companyatandep, String pp_companyunemployment, String pp_compamnyfp, String pp_companystandardextrahours, String pp_companygreaterforceextrahours, String pp_companyirpfbase, String pp_companybase, String pp_companytype, String pp_companygrant) {
-        companyPanel.pp_companycommoncontingencies.setText(ProgramLanguageProperties.getProperty("pp_companycommoncontingencies") + pp_companycommoncontingencies);
-        companyPanel.pp_companymonthlyremuneration.setText(ProgramLanguageProperties.getProperty("pp_companymonthlyremuneration") + pp_companymonthlyremuneration);
-        companyPanel.pp_companyspreadextrasalary.setText(ProgramLanguageProperties.getProperty("pp_companyspreadextrasalary") + pp_companyspreadextrasalary);
+    public void setCompanyPanelLabels(String ATEP, String pp_companytotal) {
         companyPanel.pp_companytotal.setText(ProgramLanguageProperties.getProperty("pp_companytotal") + pp_companytotal);
-        companyPanel.pp_companyprofessionalcontingencybase.setText(ProgramLanguageProperties.getProperty("pp_companyprofessionalcontingencybase") + pp_companyprofessionalcontingencybase);
-        companyPanel.pp_companyatandep.setText(ProgramLanguageProperties.getProperty("pp_companyatandep") + pp_companyatandep);
-        companyPanel.pp_companyunemployment.setText(ProgramLanguageProperties.getProperty("pp_companyunemployment") + pp_companyunemployment);
-        companyPanel.pp_compamnyfp.setText(ProgramLanguageProperties.getProperty("pp_compamnyfp") + pp_compamnyfp);
-        companyPanel.pp_companystandardextrahours.setText(ProgramLanguageProperties.getProperty("pp_companystandardextrahours") + pp_companystandardextrahours);
-        companyPanel.pp_companygreaterforceextrahours.setText(ProgramLanguageProperties.getProperty("pp_companygreaterforceextrahours") + pp_companygreaterforceextrahours);
-        companyPanel.pp_companyirpfbase.setText(ProgramLanguageProperties.getProperty("pp_companyirpfbase") + pp_companyirpfbase);
-        companyPanel.pp_companybase.setText(ProgramLanguageProperties.getProperty("pp_companybase") + pp_companybase);
-        companyPanel.pp_companytype.setText(ProgramLanguageProperties.getProperty("pp_companytype") + pp_companytype);
-        companyPanel.pp_companygrant.setText(ProgramLanguageProperties.getProperty("pp_companygrant") + pp_companygrant);
+        companyPanel.pp_ATEP.setText(ProgramLanguageProperties.getProperty("pp_ATEP") + ATEP + "%");
     }
 
     class HeaderPanel extends JPanel {
@@ -126,7 +149,6 @@ public class PayrollPreviewPanel extends JPanel {
             add(professionalGroupLabel, constraints);
 
             constraints.gridy = 4;
-            //add(taxGroupLabel, constraints);
         }
     }
 
@@ -134,12 +156,15 @@ public class PayrollPreviewPanel extends JPanel {
         private GridBagConstraints constraints = new GridBagConstraints();
         public JLabel earningsLabel = new JLabel(ProgramLanguageProperties.getProperty("pp_earnings"));
         public JLabel salaryperceptionLabel = new JLabel(ProgramLanguageProperties.getProperty("pp_salaryperception"));
+        public JList<Perception> perceptions = new JList<Perception>();
         public JLabel totalearnedLabel = new JLabel(ProgramLanguageProperties.getProperty("pp_totalearned"));
         public JLabel deductionsLabel = new JLabel(ProgramLanguageProperties.getProperty("pp_deductions"));
+        public JList<Contingency> contingencies = new JList<Contingency>();
         public JLabel totaldeductionsLabel = new JLabel(ProgramLanguageProperties.getProperty("pp_totaldeductions"));
         public JLabel companysignatureLabel = new JLabel(ProgramLanguageProperties.getProperty("pp_companysignature"));
         public JLabel timeLabel = new JLabel(ProgramLanguageProperties.getProperty("pp_time"));
         public JLabel irecievedLabel = new JLabel(ProgramLanguageProperties.getProperty("pp_irecieved"));
+        public JLabel pp_IRPF = new JLabel(ProgramLanguageProperties.getProperty("pp_IRPF"));
 
         private CenterPanel() {
             setBorder(BorderFactory.createLineBorder(Color.BLACK));
@@ -159,6 +184,12 @@ public class PayrollPreviewPanel extends JPanel {
             add(salaryperceptionLabel, constraints);
 
             constraints.gridy += 1;
+            constraints.gridwidth = 2;
+            add(perceptions, constraints);
+            perceptions.setEnabled(false);
+
+            constraints.gridwidth = 1;
+            constraints.gridy += 1;
             constraints.gridx += 1;
             add(totalearnedLabel, constraints);
             constraints.gridx -= 1;
@@ -167,9 +198,19 @@ public class PayrollPreviewPanel extends JPanel {
             add(deductionsLabel, constraints);
 
             constraints.gridy += 1;
+            constraints.gridwidth = 2;
+            add(contingencies, constraints);
+            contingencies.setEnabled(false);
+
+            constraints.gridwidth = 1;
 
             constraints.gridy += 1;
+            add(pp_IRPF, constraints);
+
+            constraints.gridy += 1;
+            constraints.gridx += 1;
             add(totaldeductionsLabel, constraints);
+            constraints.gridx -= 1;
 
             constraints.gridy += 1;
             add(companysignatureLabel, constraints);
@@ -185,20 +226,10 @@ public class PayrollPreviewPanel extends JPanel {
     class CompanyPanel extends JPanel {
         private GridBagConstraints constraints = new GridBagConstraints();
         public JLabel pp_companyheader = new JLabel(ProgramLanguageProperties.getProperty("pp_companyheader"));
-        public JLabel pp_companycommoncontingencies = new JLabel(ProgramLanguageProperties.getProperty("pp_companycommoncontingencies"));
-        public JLabel pp_companymonthlyremuneration = new JLabel(ProgramLanguageProperties.getProperty("pp_companymonthlyremuneration"));
-        public JLabel pp_companyspreadextrasalary = new JLabel(ProgramLanguageProperties.getProperty("pp_companyspreadextrasalary"));
+        public JList<Contingency> contingencies = new JList<Contingency>();
+        public JList<Retention> retentions = new JList<Retention>();
         public JLabel pp_companytotal = new JLabel(ProgramLanguageProperties.getProperty("pp_companytotal"));
-        public JLabel pp_companyprofessionalcontingencybase = new JLabel(ProgramLanguageProperties.getProperty("pp_companyprofessionalcontingencybase"));
-        public JLabel pp_companyatandep = new JLabel(ProgramLanguageProperties.getProperty("pp_companyatandep"));
-        public JLabel pp_companyunemployment = new JLabel(ProgramLanguageProperties.getProperty("pp_companyunemployment"));
-        public JLabel pp_compamnyfp = new JLabel(ProgramLanguageProperties.getProperty("pp_compamnyfp"));
-        public JLabel pp_companystandardextrahours = new JLabel(ProgramLanguageProperties.getProperty("pp_companystandardextrahours"));
-        public JLabel pp_companygreaterforceextrahours = new JLabel(ProgramLanguageProperties.getProperty("pp_companygreaterforceextrahours"));
-        public JLabel pp_companyirpfbase = new JLabel(ProgramLanguageProperties.getProperty("pp_companyirpfbase"));
-        public JLabel pp_companybase = new JLabel(ProgramLanguageProperties.getProperty("pp_companybase"));
-        public JLabel pp_companytype = new JLabel(ProgramLanguageProperties.getProperty("pp_companytype"));
-        public JLabel pp_companygrant = new JLabel(ProgramLanguageProperties.getProperty("pp_companygrant"));
+        public JLabel pp_ATEP = new JLabel(ProgramLanguageProperties.getProperty("pp_ATEP"));
 
         private CompanyPanel() {
             setBorder(BorderFactory.createLineBorder(Color.BLACK));
@@ -215,48 +246,22 @@ public class PayrollPreviewPanel extends JPanel {
             add(pp_companyheader, constraints);
 
             constraints.gridy += 1;
-            add(pp_companycommoncontingencies, constraints);
+            constraints.gridwidth = 2;
+            add(contingencies, constraints);
+            contingencies.setEnabled(false);
 
             constraints.gridy += 1;
-            add(pp_companymonthlyremuneration, constraints);
+            add(pp_ATEP, constraints);
 
             constraints.gridy += 1;
-            add(pp_companyspreadextrasalary, constraints);
+            constraints.gridwidth = 2;
+            add(retentions, constraints);
+            retentions.setEnabled(false);
 
+            constraints.gridwidth = 1;
+            constraints.gridy += 1;
             constraints.gridx += 1;
-            add(pp_companygrant, constraints);
-            constraints.gridx -= 1;
-
-            constraints.gridy += 1;
             add(pp_companytotal, constraints);
-
-            constraints.gridy += 1;
-            add(pp_companyprofessionalcontingencybase, constraints);
-
-            constraints.gridy += 1;
-            add(pp_companyatandep, constraints);
-
-            constraints.gridy += 1;
-            add(pp_companyunemployment, constraints);
-
-            constraints.gridy += 1;
-            add(pp_compamnyfp, constraints);
-
-            constraints.gridy += 1;
-            add(pp_companystandardextrahours, constraints);
-
-            constraints.gridy += 1;
-            add(pp_companygreaterforceextrahours, constraints);
-
-            constraints.gridy += 1;
-            add(pp_companyirpfbase, constraints);
-
-            constraints.gridy += 1;
-            add(pp_companybase, constraints);
-
-            constraints.gridy += 1;
-            add(pp_companytype, constraints);
-
         }
     }
 

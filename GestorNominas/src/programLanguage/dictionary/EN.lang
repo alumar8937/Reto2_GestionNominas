@@ -99,3 +99,5 @@ pp_companyirpfbase=IRPF Base
 pp_companybase=Base
 pp_companytype=Type
 pp_companygrant=Grant
+pp_ATEP=ATEP
+pp_IRPF=IRPF

@@ -24,9 +24,10 @@ public class Payroll {
     double total_net;
     double ap_company;
     ArrayList<Perception> perceptions;
-    ArrayList<Retention> retentions;
-    ArrayList<Contingencies> contingencies_Emp;
-    ArrayList<Contingencies> contingencies_Com;
+    double IRPF;
+    double ATEP;
+    ArrayList<Contingency> contingencies_Emp;
+    ArrayList<Contingency> contingencies_Com;
 
     /**
      * @param id_name
@@ -130,11 +131,19 @@ public class Payroll {
         return retentions;
     }
 
-    public ArrayList<Contingencies> getContingencies_Com() {
+    public double getIRPF() {
+        return IRPF;
+    }
+
+    public double getATEP() {
+        return ATEP;
+    }
+
+    public ArrayList<Contingency> getContingencies_Com() {
         return contingencies_Com;
     }
 
-    public ArrayList<Contingencies> getContingencies_Emp() {
+    public ArrayList<Contingency> getContingencies_Emp() {
         return contingencies_Emp;
     }
 
@@ -214,11 +223,19 @@ public class Payroll {
         this.total_deduc = total_deduc;
     }
 
-    public void setContingencies_Emp(ArrayList<Contingencies> contingencies_Emp) {
+    public void setIRPF(double IRPF) {
+        this.IRPF = IRPF;
+    }
+
+    public void setATEP(double ATEP) {
+        this.ATEP = ATEP;
+    }
+
+    public void setContingencies_Emp(ArrayList<Contingency> contingencies_Emp) {
         this.contingencies_Emp = contingencies_Emp;
     }
 
-    public void setContingencies_Com(ArrayList<Contingencies> contingencies_Com) {
+    public void setContingencies_Com(ArrayList<Contingency> contingencies_Com) {
         this.contingencies_Com = contingencies_Com;
     }
 

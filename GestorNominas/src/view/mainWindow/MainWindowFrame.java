@@ -49,7 +49,7 @@ public class MainWindowFrame extends JFrame {
 
         pack();
         setMinimumSize(new Dimension(1000, 600));
-        setSize(1000,600);
+        setSize(1200,600);
         FrameUtils.centerWindowOnScreen(this);
 
         setVisible(true);
