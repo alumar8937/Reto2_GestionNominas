@@ -251,6 +251,7 @@ public class EditPayrollWindow extends JFrame{
             add(id_batchtext, constraints);
 
             constraints.gridy = 9;
+            niftext.setEnabled(false);
             add(niftext, constraints);
 
             constraints.gridy = 10;
