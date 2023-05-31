@@ -137,6 +137,7 @@ public class MainWindowFrame extends JFrame {
             gcbPanelButtonsLabels.gridy = 2;
             panelButtonsLabels.add(newBatchButton, gcbPanelButtonsLabels);
             newBatchButton.addActionListener((e) -> {PayrollDBController.createBatch(); PayrollDBController.setComboBatchItems(payrollBatchesComboBox, false);});
+            updatePayrollListAction();
 
             gcbPanelButtonsLabels.gridy = 3;
             panelButtonsLabels.add(deleteBatchButton, gcbPanelButtonsLabels);
@@ -183,7 +184,7 @@ public class MainWindowFrame extends JFrame {
             return payrollBatchesComboBox;
         }
 
-        private void updatePayrollListAction(){
+        public void updatePayrollListAction(){
             PayrollBatch batch = (PayrollBatch) payrollBatchesComboBox.getSelectedItem();
             if (batch == null) {return;}
             PayrollDBController.getPayrollsByBatchId(batch);
@@ -219,6 +220,5 @@ public class MainWindowFrame extends JFrame {
             PayrollDBController.setComboBatchItems(payrollBatchesComboBox, false);
             PayrollDBController.setComboBatchItems(HistoryWindowFrame.getINSTANCE().getPanel().getPayrollBatchesComboBox(), true);
         }
-
     }
 }

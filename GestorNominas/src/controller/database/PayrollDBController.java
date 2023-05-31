@@ -63,36 +63,59 @@ public class PayrollDBController {
         }
     }
 
-    public static Integer createPayroll() { // Author: Javier Blasco Gómez
+    public static void createPayroll() { // Author: Javier Blasco Gómez
         try {
             Statement statement = getConnection().createStatement();
             statement.executeUpdate("INSERT INTO nomina ()");
         }catch (SQLException e) {
             e.printStackTrace();
         }
-        return null;
     }
 
-    public static void modifyPayroll(EditPayrollWindow editPayrollWindow) {
+    public static void modifyPayroll(Payroll payroll) { // Author: David Serna Mateu
+        try {
+            Statement statementUpdatePayrollData = getConnection().createStatement();
+            statementUpdatePayrollData.executeUpdate(
+                    "UPDATE nomina set anyo=" + payroll.getYear() + ", mes=" + payroll.getMonth() + ", total_dev="
+                            + payroll.getTotal_dev() + ", total_neto=" + payroll.getTotal_net() + ", ap_empresa="
+                            + payroll.getAp_company() + ", dia=" + payroll.getDay() + ", total_deduc=" + payroll.getTotal_deduc()
+                            + " where id_nom=" + payroll.getId_name() + ";"
+            );
 
+            Statement statementUpdateWorkerData = getConnection().createStatement();
+            String[] nombres = payroll.getEmp_name().split(" ");
+            if(nombres.length == 3){
+                statementUpdateWorkerData.executeUpdate(
+                        "UPDATE trabajador set cod_gr='" + payroll.getProf_group() + "', nombre='" + nombres[0] +
+                                "', apellido1='" + nombres[1] + "', apellido2='" + nombres[2] + "' where nif='" + payroll.getNif() + "';"
+                );
+            }else if(nombres.length == 4 ){
+                statementUpdateWorkerData.executeUpdate(
+                        "UPDATE trabajador set cod_gr='" + payroll.getProf_group() + "', nombre='" + nombres[0] + " " + nombres[1] +
+                                "', apellido1='" + nombres[2] + "', apellido2='" + nombres[3] + "' where nif='" + payroll.getNif() + "';"
+                );
+            }else if(nombres.length == 2){
+                statementUpdateWorkerData.executeUpdate(
+                        "UPDATE trabajador set cod_gr='" + payroll.getProf_group() + "', nombre='" + nombres[0] +
+                                "', apellido1='" + nombres[1] + "', apellido2='' where nif='" + payroll.getNif() + "';"
+                );
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
-    public static Integer createBatch() { // Author: Pedro Marín Sanchis // Returns newly created batch ID.
+    public static void createBatch() { // Author: Pedro Marín Sanchis // Returns newly created batch ID.
         try {
             Statement statement = getConnection().createStatement();
             statement.executeUpdate(
                     "INSERT INTO remesa (aceptado) " +
                             "VALUES (FALSE);"
             );
-            ResultSet resultSet = statement.executeQuery(
-                    "SELECT MAX(id_remesa) FROM remesa"
-            );
-            resultSet.next();
-            return resultSet.getInt(1);
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return null;
     }
 
     public static void deleteBatch(int batchID) { // Author: Pedro Marín Sanchis / David Serna Mateu
@@ -200,13 +223,13 @@ public class PayrollDBController {
     }
 
     private static ArrayList<Payroll> getPerceptionsByNIF(ArrayList<Payroll> payrolls) { // Author: David Serna Mateu
-        ArrayList<Perception> perceptions = new ArrayList<>();
         try{
             Statement st = getConnection().createStatement();
             Statement st2 = getConnection().createStatement();
             ResultSet rs;
             ResultSet rs2;
             for(Payroll payroll : payrolls) {
+                ArrayList<Perception> perceptions = new ArrayList<>();
                 rs = st.executeQuery(
                         "SELECT cod_p, quant FROM percepcion_ind where nif='" + payroll.getNif() + "';"
                 );
@@ -221,7 +244,6 @@ public class PayrollDBController {
                     perceptions.add(new Perception(rs2.getString(1), rs2.getFloat(2)));
                 }
                 payroll.setPerceptions(perceptions);
-                perceptions.clear();
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -230,7 +252,6 @@ public class PayrollDBController {
     }
 
     private static ArrayList<Payroll> getRetentionsByNIF(ArrayList<Payroll> payrolls) { // Author: David Serna Mateu
-        ArrayList<Retention> retentions = new ArrayList<>();
         try{
             Statement st = getConnection().createStatement();
             ResultSet rs;
@@ -239,10 +260,9 @@ public class PayrollDBController {
                         "SELECT cod_r, quant FROM retencion_ind where nif='" + payroll.getNif() + "';"
                 );
                 while(rs.next()) {
-                    retentions.add(new Retention(rs.getString(1), rs.getFloat(2)));
+                    if(rs.getString("cod_r").equalsIgnoreCase("IRPF")){payroll.setIRPF(rs.getDouble("quant"));}
+                    else if(rs.getString("cod_r").equalsIgnoreCase("ATEP")){payroll.setATEP(rs.getDouble("quant"));}
                 }
-                payroll.setRetentions(retentions);
-                retentions.clear();
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -251,8 +271,6 @@ public class PayrollDBController {
     }
 
     private static ArrayList<Payroll> getContingenciesByNif(ArrayList<Payroll> payrolls) { // Author: David Serna Mateu / Javier Blasco Gómez
-        ArrayList<Contingencies> contingencies_Emp = new ArrayList<>();
-        ArrayList<Contingencies> contingencies_Com = new ArrayList<>();
         try{
             Statement st = getConnection().createStatement();
             Statement st2 = getConnection().createStatement();
@@ -262,6 +280,7 @@ public class PayrollDBController {
             ResultSet rs2;
             ResultSet rs_aux2;
             for(Payroll payroll : payrolls) {
+                ArrayList<Contingency> contingencies_Emp = new ArrayList<>();
                 rs_aux2 = st3.executeQuery("SELECT indefinido from trabajador where nif='" + payroll.getNif() + "';");
                 rs_aux2.next();
                 if(rs_aux2.getBoolean(1)) {
@@ -280,9 +299,9 @@ public class PayrollDBController {
                     }
                 }
                 payroll.setContingencies_Emp(contingencies_Emp);
-                contingencies_Emp.clear();
             }
             for(Payroll payroll : payrolls) {
+                ArrayList<Contingency> contingencies_Com = new ArrayList<>();
                 rs_aux = st3.executeQuery("SELECT indefinido from trabajador where nif='" + payroll.getNif() + "';");
                 rs_aux.next();
                 if(rs_aux.getBoolean(1)) {
@@ -301,11 +320,34 @@ public class PayrollDBController {
                     }
                 }
                 payroll.setContingencies_Com(contingencies_Com);
-                contingencies_Com.clear();
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
         return payrolls;
+    }
+
+    public static ArrayList<String> getProfesionalGroup() {
+        ArrayList<String> profesionalGroups = new ArrayList<>();
+        try{
+            Statement statement = getConnection().createStatement();
+            ResultSet resultSet = statement.executeQuery(
+                    "SELECT cod_gr FROM grupo_profesional"
+            );
+            while (resultSet.next()) {
+                profesionalGroups.add(resultSet.getString(1));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return profesionalGroups;
+    }
+
+    public static void setComboProfesionalGroup(JComboBox comboBox) {
+        ArrayList<String> profesionalGroups = getProfesionalGroup();
+        comboBox.removeAllItems();
+        for (String profesionalGroup: profesionalGroups) {
+            comboBox.addItem(profesionalGroup);
+        }
     }
 }
