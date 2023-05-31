@@ -177,9 +177,14 @@ public class PayrollDBController {
             String cif_company = rs_company.getString(1);
             String address_company = rs_company.getString(3);
             long ccc_company = rs_company.getLong(4);
+            Statement st3 = getConnection().createStatement();
             rs_company.close();
             while(rs.next()) {
-                payrolls.add(new Payroll(name_company, cif_company, address_company, ccc_company, rs.getInt(1), rs.getInt(2), rs.getString(3), rs.getInt(4), rs.getInt(5),rs.getInt(9), rs.getDouble(6), rs.getDouble(10), rs.getDouble(7), rs.getDouble(8)));
+                Payroll payroll = new Payroll(name_company, cif_company, address_company, ccc_company, rs.getInt(1), rs.getInt(2), rs.getString(3), rs.getInt(4), rs.getInt(5),rs.getInt(9), rs.getDouble(6), rs.getDouble(10), rs.getDouble(8));
+                payroll.setTotal_net(payroll.getTotal_dev() - payroll.getTotal_deduc());
+                payrolls.add(payroll);
+                st3.executeUpdate("UPDATE nomina set total_neto=" + payroll.getTotal_net() + " where id_nom=" + payroll.getId_name() + ";");
+
             }
             batch.setPayrolls(getContingenciesByNif(getRetentionsByNIF(getPerceptionsByNIF(getNameEmployeeByNif(payrolls)))));
 

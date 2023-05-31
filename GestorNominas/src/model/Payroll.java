@@ -39,7 +39,7 @@ public class Payroll {
      * @param total_net
      * @param ap_company
      */
-    public Payroll(String company, String cif, String address, long ccc, int id_name, int id_batch, String nif, int year, int month, int day, double total_dev, double total_deduc, double total_net, double ap_company) {
+    public Payroll(String company, String cif, String address, long ccc, int id_name, int id_batch, String nif, int year, int month, int day, double total_dev, double total_deduc, double ap_company) {
         this.company = company;
         this.cif = cif;
         this.address = address;
@@ -53,7 +53,6 @@ public class Payroll {
         this.day = day;
         this.total_dev = total_dev;
         this.total_deduc = total_deduc;
-        this.total_net = total_net;
         this.ap_company = ap_company;
     }
 
