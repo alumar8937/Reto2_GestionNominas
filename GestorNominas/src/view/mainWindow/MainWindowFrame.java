@@ -175,9 +175,12 @@ public class MainWindowFrame extends JFrame {
             previewPayroll.setData((Payroll) payrollList.getModel().getElementAt(payrollList.getSelectedIndex()));
         }
         
-        private void setDataEditPayroll() {
-            //EditPayrollWindow.editData((Payroll) payrollList.getModel().getElementAt(payrollList.getSelectedIndex());
-            EditPayrollWindow.getINSTANCE().setVisible(true);
+        private void setDataEditPayroll() { // Author: Javier Blasco Gómez
+            EditPayrollWindow editPayrollWindow = new EditPayrollWindow();
+            if(payrollList.getSelectedIndex() == -1){
+                return;
+            }
+            editPayrollWindow.editData((Payroll) payrollList.getModel().getElementAt(payrollList.getSelectedIndex()));
         }
 
         public JComboBox<PayrollBatch> getPayrollBatchesComboBox() {

@@ -127,10 +127,6 @@ public class Payroll {
         return perceptions;
     }
 
-    public ArrayList<Retention> getRetentions() {
-        return retentions;
-    }
-
     public double getIRPF() {
         return IRPF;
     }
@@ -185,10 +181,6 @@ public class Payroll {
 
     public void setPerceptions(ArrayList<Perception> perceptions) {
       this.perceptions = perceptions;
-    }
-
-    public void setRetentions(ArrayList<Retention> retentions) {
-        this.retentions = retentions;
     }
 
     public void setAddress(String address) {

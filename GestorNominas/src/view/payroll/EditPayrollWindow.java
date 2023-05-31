@@ -1,13 +1,12 @@
 package view.payroll;
 
+import controller.database.PayrollDBController;
 import model.Payroll;
+import model.PayrollBatch;
 import view.FrameUtils;
+import view.mainWindow.MainWindowFrame;
 
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
+import javax.swing.*;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 
@@ -19,6 +18,7 @@ public class EditPayrollWindow extends JFrame{
     private JPanel marginPanel = new JPanel(new GridBagLayout());
     private WindowPayroll windowPayroll = new WindowPayroll();
     private GridBagConstraints constraints = new GridBagConstraints();
+    private Payroll payroll;
     private static EditPayrollWindow INSTANCE = null;
 
     public EditPayrollWindow(){
@@ -38,7 +38,7 @@ public class EditPayrollWindow extends JFrame{
         setVisible(true);
     }
 
-    public static EditPayrollWindow getINSTANCE() {
+    public static EditPayrollWindow getINSTANCE() { // Author: Javier Blasco Gómez
         if (INSTANCE == null) {
             INSTANCE = new EditPayrollWindow();
         }
@@ -46,24 +46,71 @@ public class EditPayrollWindow extends JFrame{
         return INSTANCE;
     }
 
-    public void editData(Payroll payroll) {
-        windowPayroll.companyText.setText(payroll.getCompany());
-        windowPayroll.cifText.setText(payroll.getCif());
-        windowPayroll.adressText.setText(payroll.getAddress());
-        windowPayroll.cccText.setText(String.valueOf(payroll.getCcc()));
-        windowPayroll.emp_nameText.setText(payroll.getEmp_name());
-        windowPayroll.num_ssText.setText(String.valueOf(payroll.getNum_ss()));
-        windowPayroll.prof_GroupText.setText(payroll.getProf_group());
-        windowPayroll.id_nametext.setText(String.valueOf(payroll.getId_name()));
-        windowPayroll.id_batchtext.setText(String.valueOf(payroll.getId_batch()));
-        windowPayroll.niftext.setText(payroll.getNif());
-        windowPayroll.yeartext.setText(String.valueOf(payroll.getYear()));
-        windowPayroll.monthtext.setText(String.valueOf(payroll.getMonth()));
-        windowPayroll.dayText.setText(String.valueOf(payroll.getDay()));
-        windowPayroll.total_devtext.setText(String.valueOf(payroll.getTotal_dev()));
-        windowPayroll.total_deducLabel.setText(String.valueOf(payroll.getTotal_deduc()));
-        windowPayroll.total_nettext.setText(String.valueOf(payroll.getTotal_net()));
-        windowPayroll.ap_companytext.setText(String.valueOf(payroll.getAp_company()));
+    public void editData(Payroll payroll1) { // Author: Javier Blasco Gómez
+        payroll = payroll1;
+        windowPayroll.companyText.setText(payroll1.getCompany());
+        windowPayroll.cifText.setText(payroll1.getCif());
+        windowPayroll.adressText.setText(payroll1.getAddress());
+        windowPayroll.cccText.setText(String.valueOf(payroll1.getCcc()));
+        windowPayroll.emp_nameText.setText(payroll1.getEmp_name());
+        windowPayroll.num_ssText.setText(String.valueOf(payroll1.getNum_ss()));
+        windowPayroll.id_nametext.setText(String.valueOf(payroll1.getId_name()));
+        windowPayroll.id_batchtext.setText(String.valueOf(payroll1.getId_batch()));
+        windowPayroll.niftext.setText(payroll1.getNif());
+        windowPayroll.yeartext.setText(String.valueOf(payroll1.getYear()));
+        windowPayroll.monthtext.setText(String.valueOf(payroll1.getMonth()));
+        windowPayroll.dayText.setText(String.valueOf(payroll1.getDay()));
+        windowPayroll.total_devtext.setText(String.valueOf(payroll1.getTotal_dev()));
+        windowPayroll.total_deducText.setText(String.valueOf(payroll1.getTotal_deduc()));
+        windowPayroll.total_nettext.setText(String.valueOf(payroll1.getTotal_net()));
+        windowPayroll.ap_companytext.setText(String.valueOf(payroll1.getAp_company()));
+    }
+
+    private void editPayroll(Payroll payroll) { // Author: Javier Blasco Gómez
+        payroll.setCompany(windowPayroll.companyText.getText());
+        payroll.setCif(windowPayroll.cifText.getText());
+        payroll.setAddress(windowPayroll.adressText.getText());
+        payroll.setCcc(Long.parseLong(windowPayroll.cccText.getText()));
+        payroll.setEmp_name(windowPayroll.emp_nameText.getText());
+        String[] nombre = windowPayroll.emp_nameText.getText().split(" ");
+        if(nombre.length < 2 || nombre.length > 4){
+            JOptionPane.showMessageDialog(null,"The name is invalid.");
+            return;
+        }
+        payroll.setNum_ss(Long.parseLong(windowPayroll.num_ssText.getText()));
+        payroll.setProf_group((String) windowPayroll.prof_GroupBox.getSelectedItem());
+        payroll.setId_name(Integer.parseInt(windowPayroll.id_nametext.getText()));
+        payroll.setId_batch(Integer.parseInt(windowPayroll.id_batchtext.getText()));
+        payroll.setNif(windowPayroll.niftext.getText());
+        payroll.setYear(Integer.parseInt(windowPayroll.yeartext.getText()));
+        String year = windowPayroll.yeartext.getText();
+        if (year.length() != 4) {
+            return;
+        }
+        payroll.setMonth(Integer.parseInt(windowPayroll.monthtext.getText()));
+        String month = windowPayroll.monthtext.getText();
+        if (month.length() > 2 || month.length() < 1) {
+            if (Integer.parseInt(month) > 12 || Integer.parseInt(month) < 1) {
+                return;
+            }
+        }
+        payroll.setDay(Integer.parseInt(windowPayroll.dayText.getText()));
+        String day = windowPayroll.monthtext.getText();
+        if (day.length() > 2 || day.length() < 1) {
+            if (Integer.parseInt(day) > 31 || Integer.parseInt(day) < 1) {
+                return;
+            }
+        }
+        payroll.setTotal_dev(Double.parseDouble(windowPayroll.total_devtext.getText()));
+        payroll.setTotal_deduc(Double.parseDouble(windowPayroll.total_deducText.getText()));
+        payroll.setTotal_net(Double.parseDouble(windowPayroll.total_nettext.getText()));
+        payroll.setAp_company(Double.parseDouble(windowPayroll.ap_companytext.getText()));
+        PayrollDBController.modifyPayroll(payroll);
+        this.setVisible(false);
+    }
+
+    private void addPayroll() {
+        //Payroll payroll1 = new Payroll();
     }
 
     class WindowPayroll extends JPanel {
@@ -76,8 +123,8 @@ public class EditPayrollWindow extends JFrame{
         JLabel emp_nameLabel = new JLabel("Employ Name");
         JLabel num_ssLabel = new JLabel("SS Number");
         JLabel prof_GroupLabel = new JLabel("Professional Group");
-        JLabel id_namelabel = new JLabel("Name");
-        JLabel id_batchlabel = new JLabel("Batch");
+        JLabel id_namelabel = new JLabel("ID Payroll");
+        JLabel id_batchlabel = new JLabel("ID Batch");
         JLabel niflabel = new JLabel("NIF");
         JLabel yearlabel = new JLabel("Year");
         JLabel monthlabel = new JLabel("Month");
@@ -93,7 +140,7 @@ public class EditPayrollWindow extends JFrame{
         public JTextField cccText = new JTextField(10);
         public JTextField emp_nameText = new JTextField(10);
         public JTextField num_ssText = new JTextField(10);
-        public JTextField prof_GroupText = new JTextField(10);
+        public JComboBox prof_GroupBox = new JComboBox<>();
         public JTextField id_nametext = new JTextField(10);
         public JTextField id_batchtext = new JTextField(10);
         public JTextField niftext = new JTextField(10);
@@ -169,30 +216,38 @@ public class EditPayrollWindow extends JFrame{
 
             constraints.gridx = 1;
             constraints.gridy = 0;
+            companyText.setEnabled(false);
             add(companyText, constraints);
 
             constraints.gridy = 1;
+            cifText.setEnabled(false);
             add(cifText, constraints);
 
             constraints.gridy = 2;
+            adressText.setEnabled(false);
             add(adressText, constraints);
 
             constraints.gridy = 3;
+            cccText.setEnabled(false);
             add(cccText, constraints);
 
             constraints.gridy = 4;
             add(emp_nameText, constraints);
 
             constraints.gridy = 5;
+            num_ssText.setEnabled(false);
             add(num_ssText, constraints);
 
             constraints.gridy = 6;
-            add(prof_GroupText, constraints);
+            PayrollDBController.setComboProfesionalGroup(prof_GroupBox);
+            add(prof_GroupBox, constraints);
 
             constraints.gridy = 7;
+            id_nametext.setEnabled(false);
             add(id_nametext, constraints);
 
             constraints.gridy = 8;
+            id_batchtext.setEnabled(false);
             add(id_batchtext, constraints);
 
             constraints.gridy = 9;
@@ -221,6 +276,7 @@ public class EditPayrollWindow extends JFrame{
 
             constraints.gridx = 1;
             constraints.gridy = 17;
+            saveButton.addActionListener((e) -> {editPayroll(payroll); MainWindowFrame.getINSTANCE().getPanel().updatePayrollListAction();});
             add(saveButton, constraints);
 
             setVisible(true);
