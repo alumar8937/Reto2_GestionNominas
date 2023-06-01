@@ -45,6 +45,7 @@ public class EditPayrollWindow extends JFrame{
         windowPayroll.adressText.setText(payroll1.getAddress());
         windowPayroll.cccText.setText(String.valueOf(payroll1.getCcc()));
         windowPayroll.emp_nameText.setText(payroll1.getEmp_name());
+        windowPayroll.prof_GroupBox.setSelectedItem(payroll1.getProf_group());
         windowPayroll.num_ssText.setText(String.valueOf(payroll1.getNum_ss()));
         windowPayroll.id_nametext.setText(String.valueOf(payroll1.getId_name()));
         windowPayroll.id_batchtext.setText(String.valueOf(payroll1.getId_batch()));

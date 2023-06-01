@@ -385,4 +385,22 @@ public class PayrollDBController {
             comboBox.addItem(profesionalGroup);
         }
     }
+
+    public static ArrayList<Department> getDepartments() {
+        ArrayList<Department> departments = new ArrayList<>();
+        try{
+            Statement statement = getConnection().createStatement();
+            ResultSet resultSet = statement.executeQuery("SELECT * from departamento");
+            while (resultSet.next()) {
+                departments.add(new Department(resultSet.getString(2),resultSet.getString(1)));
+            }
+        }catch(SQLException e) {
+            e.printStackTrace();
+        }
+        return departments;
+    }
+
+    public static ArrayList<Payroll> getPayrollsByDepartmentID(String ID, boolean wasAcepted) {
+
+    }
 }
