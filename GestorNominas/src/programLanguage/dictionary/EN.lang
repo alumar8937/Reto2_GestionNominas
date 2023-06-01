@@ -25,7 +25,12 @@ employeeTab=EMPLOYEE
 documentationTab=DOCUMENTATION
 displayHistoryOnly=Display History Only
 
-mainWindow=Main Window
+#Payroll Button Panel Key-Value Pairings
+recalculatePayrolls=Recalculate Payrolls
+recalculatedCorrecly=All payrolls recalculated correcly.
+errorrecalculating=There was an errer recalculating the payrolls.
+
+mainWindow=Payroll Manager
 batchesLabel=Batches
 newBatchButton=New Batch
 deleteBatchButton=Delete Batch

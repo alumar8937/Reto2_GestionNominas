@@ -11,9 +11,9 @@ import java.awt.*;
 import java.util.ArrayList;
 
 public class DepartmentSelectionPanel extends SelectionPanel {
-    private JLabel departmentLabel = new JLabel(ProgramLanguageProperties.getProperty("batchesLabel"));
-    private JComboBox<Department> payrollDepartmentComboBox = new JComboBox<Department>();
-    private JCheckBox displayHistoryOnlyCheckBox = new JCheckBox("Display History only //REPLACE");
+    private final JLabel departmentLabel = new JLabel(ProgramLanguageProperties.getProperty("departmentLabel"));
+    private final JComboBox<Department> payrollDepartmentComboBox = new JComboBox<Department>();
+    private final JCheckBox displayHistoryOnlyCheckBox = new JCheckBox(ProgramLanguageProperties.getProperty("displayHistoryOnly"));
 
     public DepartmentSelectionPanel() {
         super();

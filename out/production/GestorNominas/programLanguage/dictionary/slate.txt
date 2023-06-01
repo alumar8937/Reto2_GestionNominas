@@ -22,31 +22,58 @@ language=
 connecting=
 
 #Main Window Key-Value Pairings
+mainWindowTitle=
 batchTab=
 departmentTab=
 employeeTab=
-displayHistoryOnly=
 
-mainWindow=
-batchesLabel=
-employeesLabel=
-newBatchButton=
-deleteBatchButton=
-saveBatchButton=
-sendToHistoryButton=
-historyButton=
+#Payroll Button Panel Key-Value Pairings
 payrollsLabel=
 newPayrollButton=
 editPayrollButton=
 deletePayrollButton=
-deleteBatchDialog=
-deletePayrollDialog=
+deleteAllPayrollButton=
+deletePayrollWarning=
+recalculatePayrolls=
+recalculatedCorrecly=
+errorrecalculating=
 
-#History of Batches Windows Key-Value Pairings
-historyBatchesWindow=
-batchLabel=
-payrollLabel=
-recoveryBatchButton=
+#Batch Selection Panel Key-Value Pairings
+batchesLabel=
+newBatchButton=
+deleteBatchButton=
+toggleAcceptedButton=
+deleteBatchWarning=
+
+#Department Selection Panel Key-Value Pairings
+departmentLabel=
+
+#Employee Selection Panel Key-Value Pairings
+employeesLabel=
+
+#Query Panels Key-Value Pairings
+displayHistoryOnly=
+
+#Edit Payroll Key-Value Pairings
+editPayrollTitle=
+epw_save=
+epw_company=
+epw_cif=
+epw_address=
+epw_ccc=
+epw_empName=
+epw_ss=
+epw_group=
+epw_payrollID=
+epw_payrollBatch=
+epw_nif=
+epw_year=
+epw_month=
+epw_day=
+epw_totalDev=
+epw_totalDeduc=
+epw_totalNet=
+epw_ap=
 
 #Payroll Preview Key-Value Pairings
 pp_title=

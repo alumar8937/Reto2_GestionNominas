@@ -15,10 +15,10 @@ import java.awt.event.ActionListener;
  */
 public class ControlPanel extends JPanel {
     private SelectionPanel selectionPanel = null;
-    private JList<Payroll> payrollJList = new JList<Payroll>();
-    private JScrollPane payrollJListScrollPane = new JScrollPane(payrollJList);
-    private PayrollButtonPanel payrollButtonPanel = new PayrollButtonPanel(payrollJList);
-    private JPanel buttonContainerPanel = new JPanel();
+    private final JList<Payroll> payrollJList = new JList<Payroll>();
+    private final JScrollPane payrollJListScrollPane = new JScrollPane(payrollJList);
+    private final PayrollButtonPanel payrollButtonPanel = new PayrollButtonPanel(payrollJList);
+    private final JPanel buttonContainerPanel = new JPanel();
     protected ActionListener listener;
 
     /**

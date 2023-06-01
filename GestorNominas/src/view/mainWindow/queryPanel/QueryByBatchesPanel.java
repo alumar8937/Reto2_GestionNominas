@@ -14,9 +14,9 @@ import java.awt.*;
  */
 public class QueryByBatchesPanel extends JPanel {
     private static QueryByBatchesPanel INSTANCE = null;
-    private ControlPanel controlPanel = new ControlPanel(new BatchSelectionPanel());
-    private PayrollPreviewPanel payrollPreviewPanel = new PayrollPreviewPanel();
-    private JScrollPane previewPayrollScrollPane = new JScrollPane(payrollPreviewPanel);
+    private final ControlPanel controlPanel = new ControlPanel(new BatchSelectionPanel());
+    private final PayrollPreviewPanel payrollPreviewPanel = new PayrollPreviewPanel();
+    private final JScrollPane previewPayrollScrollPane = new JScrollPane(payrollPreviewPanel);
 
     private QueryByBatchesPanel() {
         placeComponents();
@@ -34,6 +34,7 @@ public class QueryByBatchesPanel extends JPanel {
         constraints.anchor = GridBagConstraints.NORTH;
         constraints.fill = GridBagConstraints.BOTH;
         previewPayrollScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        previewPayrollScrollPane.getVerticalScrollBar().setUnitIncrement(10);
         add(previewPayrollScrollPane, constraints);
 
         constraints.weightx = 0;

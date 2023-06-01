@@ -11,9 +11,9 @@ import java.awt.*;
 import java.util.ArrayList;
 
 public class EmployeeSelectionPanel extends SelectionPanel {
-    private JLabel employeesLabel = new JLabel(ProgramLanguageProperties.getProperty("employeesLabel"));
-    private JComboBox<Employee> payrollEmployeesComboBox = new JComboBox<Employee>();
-    private JCheckBox displayHistoryOnlyCheckBox = new JCheckBox("Display History only //REPLACE");
+    private final JLabel employeesLabel = new JLabel(ProgramLanguageProperties.getProperty("employeesLabel"));
+    private final JComboBox<Employee> payrollEmployeesComboBox = new JComboBox<Employee>();
+    private final JCheckBox displayHistoryOnlyCheckBox = new JCheckBox(ProgramLanguageProperties.getProperty("displayHistoryOnly"));
 
     @Override
     public ArrayList<Payroll> getPayrollList() {

@@ -21,7 +21,8 @@ public class PayrollButtonPanel extends JPanel {
     private final JButton newPayrollButton = new JButton(ProgramLanguageProperties.getProperty("newPayrollButton"));
     private final JButton editPayrollButton = new JButton(ProgramLanguageProperties.getProperty("editPayrollButton"));
     private final JButton deletePayrollButton = new JButton(ProgramLanguageProperties.getProperty("deletePayrollButton"));
-
+    private final JButton deleteAllPayrollButton = new JButton(ProgramLanguageProperties.getProperty("deleteAllPayrollButton"));
+    private final JButton recalculateAllPayrollsButton = new JButton(ProgramLanguageProperties.getProperty("recalculatePayrolls"));
     private JList<Payroll> payrollList = null;
     protected ActionListener listener;
 
@@ -61,6 +62,14 @@ public class PayrollButtonPanel extends JPanel {
         constraints.gridy += 1;
         add(deletePayrollButton, constraints);
         deletePayrollButton.addActionListener((e) -> deletePayrollButtonAction());
+
+        constraints.gridy += 1;
+        add(deleteAllPayrollButton, constraints);
+        deleteAllPayrollButton.addActionListener((e) -> deleteAllPayrollsButtonAction());
+
+        constraints.gridy += 1;
+        add(recalculateAllPayrollsButton, constraints);
+        recalculateAllPayrollsButton.addActionListener((e) -> recalculateAllPayrollsButtonAction());
     }
 
     /**
@@ -83,11 +92,37 @@ public class PayrollButtonPanel extends JPanel {
      * After deletion, triggers an update action event.
      */
     private void deletePayrollButtonAction(){ // Author: David Serna Mateu
-        if(JOptionPane.showConfirmDialog(this, ProgramLanguageProperties.getProperty("deletePayrollDialog"),ProgramLanguageProperties.getProperty("notice"),JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION){
+        if(JOptionPane.showConfirmDialog(SwingUtilities.getWindowAncestor(this), ProgramLanguageProperties.getProperty("deletePayrollWarning"),ProgramLanguageProperties.getProperty("notice"),JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION){
             if(payrollList.getSelectedIndex() == -1){return;}
             if(payrollList.getModel().getElementAt(payrollList.getSelectedIndex()) == null){return;}
             PayrollDBController.deletePayroll(((Payroll) payrollList.getModel().getElementAt(payrollList.getSelectedIndex())).getId_name());
             sendUpdateActionEvent();
+        }
+    }
+
+    /**
+     * Deletes all shown payrolls from the database.
+     * If no payroll is selected, this method has no effect.
+     * Shows a confirmation dialog before deleting the payroll.
+     * After deletion, triggers an update action event.
+     */
+    private void deleteAllPayrollsButtonAction(){ // Author: Pedro Marín Sanchís
+        if(JOptionPane.showConfirmDialog(SwingUtilities.getWindowAncestor(this), ProgramLanguageProperties.getProperty("deletePayrollWarning"),ProgramLanguageProperties.getProperty("notice"),JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION){
+            for (int i = 0; i < payrollList.getModel().getSize(); i++) {
+                PayrollDBController.deletePayroll(((Payroll) payrollList.getModel().getElementAt(i)).getId_name());
+            }
+            sendUpdateActionEvent();
+        }
+    }
+
+    /**
+     * Recalculates all payrolls in the database.
+     */
+    private void recalculateAllPayrollsButtonAction() {
+        if (PayrollDBController.calculateAllPayrolls()) {
+            JOptionPane.showMessageDialog(SwingUtilities.getWindowAncestor(this), ProgramLanguageProperties.getProperty("recalculatedCorrecly"));
+        } else {
+            JOptionPane.showMessageDialog(SwingUtilities.getWindowAncestor(this), ProgramLanguageProperties.getProperty("errorrecalculating"));
         }
     }
 

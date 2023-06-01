@@ -15,12 +15,12 @@ import java.util.ArrayList;
  */
 public class BatchSelectionPanel extends SelectionPanel {
     private JLabel batchesLabel = new JLabel(ProgramLanguageProperties.getProperty("batchesLabel"));
-    private JComboBox<PayrollBatch> payrollBatchesComboBox = new JComboBox<PayrollBatch>();
-    private JCheckBox displayHistoryOnlyCheckBox = new JCheckBox(ProgramLanguageProperties.getProperty("displayHistoryOnly"));
+    private final JComboBox<PayrollBatch> payrollBatchesComboBox = new JComboBox<PayrollBatch>();
+    private final JCheckBox displayHistoryOnlyCheckBox = new JCheckBox(ProgramLanguageProperties.getProperty("displayHistoryOnly"));
 
-    private JButton newBatchButton = new JButton(ProgramLanguageProperties.getProperty("newBatchButton"));
-    private JButton deleteBatchButton = new JButton(ProgramLanguageProperties.getProperty("deleteBatchButton"));
-    private JButton sendToHistoryButton = new JButton(ProgramLanguageProperties.getProperty("sendToHistoryButton"));
+    private final JButton newBatchButton = new JButton(ProgramLanguageProperties.getProperty("newBatchButton"));
+    private final JButton deleteBatchButton = new JButton(ProgramLanguageProperties.getProperty("deleteBatchButton"));
+    private final JButton sendToHistoryButton = new JButton(ProgramLanguageProperties.getProperty("toggleAcceptedButton"));
 
     public BatchSelectionPanel() {
         super();
@@ -80,7 +80,7 @@ public class BatchSelectionPanel extends SelectionPanel {
     }
 
     private void deleteBatchButtonAction(){ // Author: David Serna Mateu
-        if(JOptionPane.showConfirmDialog(this, ProgramLanguageProperties.getProperty("deleteBatchDialog"),ProgramLanguageProperties.getProperty("notice"),JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION){
+        if(JOptionPane.showConfirmDialog(this, ProgramLanguageProperties.getProperty("deleteBatchWarning"),ProgramLanguageProperties.getProperty("notice"),JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION){
             if(payrollBatchesComboBox.getSelectedItem() == null){return;}
             PayrollDBController.deletePayrollsOfBatch(((PayrollBatch) payrollBatchesComboBox.getSelectedItem()).getID());
             PayrollDBController.deleteBatch(((PayrollBatch) payrollBatchesComboBox.getSelectedItem()).getID());

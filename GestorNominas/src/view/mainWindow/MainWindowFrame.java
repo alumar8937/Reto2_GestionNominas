@@ -27,7 +27,7 @@ public class MainWindowFrame extends JFrame {
     private MainWindowFrame() {
         FrameUtils.setWindowIcon(this);
 
-        setTitle(ProgramLanguageProperties.getProperty("mainWindow"));
+        setTitle(ProgramLanguageProperties.getProperty("mainWindowTitle"));
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         // Customize the appearance of the tabbed pane

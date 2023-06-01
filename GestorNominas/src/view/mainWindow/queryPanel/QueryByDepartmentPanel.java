@@ -13,9 +13,9 @@ import java.awt.*;
  */
 public class QueryByDepartmentPanel extends JPanel {
     private static QueryByDepartmentPanel INSTANCE = null;
-    private ControlPanel controlPanel = new ControlPanel(new DepartmentSelectionPanel());
-    private PayrollPreviewPanel payrollPreviewPanel = new PayrollPreviewPanel();
-    private JScrollPane previewPayrollScrollPane = new JScrollPane(payrollPreviewPanel);
+    private final ControlPanel controlPanel = new ControlPanel(new DepartmentSelectionPanel());
+    private final PayrollPreviewPanel payrollPreviewPanel = new PayrollPreviewPanel();
+    private final JScrollPane previewPayrollScrollPane = new JScrollPane(payrollPreviewPanel);
 
     private QueryByDepartmentPanel() {
         placeComponents();
@@ -33,6 +33,7 @@ public class QueryByDepartmentPanel extends JPanel {
         constraints.anchor = GridBagConstraints.NORTH;
         constraints.fill = GridBagConstraints.BOTH;
         previewPayrollScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        previewPayrollScrollPane.getVerticalScrollBar().setUnitIncrement(10);
         add(previewPayrollScrollPane, constraints);
 
         constraints.weightx = 0;

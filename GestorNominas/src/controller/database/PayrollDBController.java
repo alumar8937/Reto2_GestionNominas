@@ -400,7 +400,15 @@ public class PayrollDBController {
         return departments;
     }
 
-    public static ArrayList<Payroll> getPayrollsByDepartmentID(String ID, boolean wasAcepted) {
+    public static boolean calculateAllPayrolls() {
+        try{
+            Statement st = getConnection().createStatement();
+            st.executeUpdate("update nomina set total_neto = (total_dev - total_deduc);");
 
+        }catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+        return true;
     }
 }

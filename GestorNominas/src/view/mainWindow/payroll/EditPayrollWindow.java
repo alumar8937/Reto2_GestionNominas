@@ -2,6 +2,7 @@ package view.mainWindow.payroll;
 
 import controller.database.PayrollDBController;
 import model.Payroll;
+import programLanguage.ProgramLanguageProperties;
 import view.FrameUtils;
 import view.mainWindow.queryPanel.controlPanel.PayrollButtonPanel;
 
@@ -10,19 +11,19 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 
 /**
- * @Author Raúl Simarro Navarro
+ * @author Javier Blasco Gómez
  *
  */
 public class EditPayrollWindow extends JFrame{
-    private JPanel marginPanel = new JPanel(new GridBagLayout());
-    private WindowPayroll windowPayroll = new WindowPayroll();
-    private GridBagConstraints constraints = new GridBagConstraints();
+    private final JPanel marginPanel = new JPanel(new GridBagLayout());
+    private final WindowPayroll windowPayroll = new WindowPayroll();
+    private final GridBagConstraints constraints = new GridBagConstraints();
     private Payroll payroll;
     private PayrollButtonPanel ancestorPayrollButtonPanel = null;
 
-    public EditPayrollWindow(PayrollButtonPanel ancestorPayrollButtonPanel){
+    public EditPayrollWindow(PayrollButtonPanel ancestorPayrollButtonPanel){ // Author: Raúl Simarro Navarro
         this.ancestorPayrollButtonPanel = ancestorPayrollButtonPanel;
-        setTitle("Edit Payroll");
+        setTitle(ProgramLanguageProperties.getProperty("editPayrollTitle"));
         setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
         setResizable(false);
 
@@ -107,25 +108,25 @@ public class EditPayrollWindow extends JFrame{
     }
 
     class WindowPayroll extends JPanel {
-        JButton saveButton = new JButton("Save");
+        JButton saveButton = new JButton(ProgramLanguageProperties.getProperty("epw_save"));
 
-        JLabel companyLabel = new JLabel("Company");
-        JLabel cifLabel = new JLabel("CIF");
-        JLabel adressLabel = new JLabel("Adress");
-        JLabel cccLabel = new JLabel("CCC");
-        JLabel emp_nameLabel = new JLabel("Employ Name");
-        JLabel num_ssLabel = new JLabel("SS Number");
-        JLabel prof_GroupLabel = new JLabel("Professional Group");
-        JLabel id_namelabel = new JLabel("ID Payroll");
-        JLabel id_batchlabel = new JLabel("ID Batch");
-        JLabel niflabel = new JLabel("NIF");
-        JLabel yearlabel = new JLabel("Year");
-        JLabel monthlabel = new JLabel("Month");
-        JLabel dayLabel = new JLabel("Day");
-        JLabel total_devlabel = new JLabel ("Total Dev");
-        JLabel total_deducLabel = new JLabel("Total Deduction");
-        JLabel total_netlabel = new JLabel("Total Net");
-        JLabel ap_companylabel = new JLabel("Aport Company");
+        JLabel companyLabel = new JLabel(ProgramLanguageProperties.getProperty("epw_company"));
+        JLabel cifLabel = new JLabel(ProgramLanguageProperties.getProperty("epw_cif"));
+        JLabel adressLabel = new JLabel(ProgramLanguageProperties.getProperty("epw_address"));
+        JLabel cccLabel = new JLabel(ProgramLanguageProperties.getProperty("epw_ccc"));
+        JLabel emp_nameLabel = new JLabel(ProgramLanguageProperties.getProperty("epw_empName"));
+        JLabel num_ssLabel = new JLabel(ProgramLanguageProperties.getProperty("epw_ss"));
+        JLabel prof_GroupLabel = new JLabel(ProgramLanguageProperties.getProperty("epw_group"));
+        JLabel id_namelabel = new JLabel(ProgramLanguageProperties.getProperty("epw_payrollID"));
+        JLabel id_batchlabel = new JLabel(ProgramLanguageProperties.getProperty("epw_payrollBatch"));
+        JLabel niflabel = new JLabel(ProgramLanguageProperties.getProperty("epw_nif"));
+        JLabel yearlabel = new JLabel(ProgramLanguageProperties.getProperty("epw_year"));
+        JLabel monthlabel = new JLabel(ProgramLanguageProperties.getProperty("epw_month"));
+        JLabel dayLabel = new JLabel(ProgramLanguageProperties.getProperty("epw_day"));
+        JLabel total_devlabel = new JLabel (ProgramLanguageProperties.getProperty("epw_totalDev"));
+        JLabel total_deducLabel = new JLabel(ProgramLanguageProperties.getProperty("epw_totalDeduc"));
+        JLabel total_netlabel = new JLabel(ProgramLanguageProperties.getProperty("epw_totalNet"));
+        JLabel ap_companylabel = new JLabel(ProgramLanguageProperties.getProperty("epw_ap"));
 
         public JTextField companyText = new JTextField(10);
         public JTextField cifText = new JTextField(10);

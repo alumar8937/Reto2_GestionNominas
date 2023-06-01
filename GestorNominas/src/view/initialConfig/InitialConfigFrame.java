@@ -128,6 +128,7 @@ public class InitialConfigFrame extends JFrame {
                         super.done();
                     }
                 };
+                okButtonAction();
                 SwingUtilities.getWindowAncestor(this).dispose();
                 loadingWindowWorker.execute();
             });
@@ -144,6 +145,10 @@ public class InitialConfigFrame extends JFrame {
             setVisible(true);
         }
 
+        /**
+         * Performs the action when the OK button is clicked.
+         * Retrieves the values from the text fields and combo box, sets them in UserconfigManager, and stores the configuration.
+         */
         private void okButtonAction() { // Author: Pedro Marín Sanchis
             UserconfigManager.getINSTANCE().setIP(IPTextField.getText());
             UserconfigManager.getINSTANCE().setPort(PortTextField.getText());
@@ -154,6 +159,9 @@ public class InitialConfigFrame extends JFrame {
             UserconfigManager.getINSTANCE().store();
         }
 
+        /**
+         * Toggles the enabled state of the text fields when the Edit button is clicked.
+         */
         private void toggleFieldEdit() { // Author: Pedro Marín Sanchis
             IPTextField.setEnabled(!IPTextField.isEnabled());
             PortTextField.setEnabled(!PortTextField.isEnabled());
@@ -162,6 +170,9 @@ public class InitialConfigFrame extends JFrame {
             DatabaseTextField.setEnabled(!DatabaseTextField.isEnabled());
         }
 
+        /**
+         * Updates the labels and buttons according to the selected language when the language combo box selection changes.
+         */
         private void updateLang() { // Author: Pedro Marín Sanchis
             ProgramLanguageProperties.setLanguage((SupportedLanguage) LanguageComboBox.getSelectedItem());
             UserconfigManager.getINSTANCE().setLanguage((SupportedLanguage) LanguageComboBox.getSelectedItem());
@@ -177,6 +188,9 @@ public class InitialConfigFrame extends JFrame {
             pack();
         }
 
+        /**
+         * Fills the language combo box with the available supported languages.
+         */
         private void fillLanguageComboBox() {
             if (LanguageComboBox == null) {return;}
             LanguageComboBox.removeAllItems();
@@ -185,6 +199,9 @@ public class InitialConfigFrame extends JFrame {
             }
         }
 
+        /**
+         * Fills the text fields and combo box with the values from UserconfigManager.
+         */
         private void fillFields() {
             IPTextField.setText(UserconfigManager.getINSTANCE().getIP());
             PortTextField.setText(UserconfigManager.getINSTANCE().getPort());
