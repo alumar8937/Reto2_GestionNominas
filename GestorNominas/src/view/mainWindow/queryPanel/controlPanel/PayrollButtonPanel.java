@@ -10,6 +10,10 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * @Author Pedro Marín Sanchis
+ *
+ */
 public class PayrollButtonPanel extends JPanel {
     private final JLabel payrollsLabel = new JLabel(ProgramLanguageProperties.getProperty("payrollsLabel"));
     private final JButton newPayrollButton = new JButton(ProgramLanguageProperties.getProperty("newPayrollButton"));

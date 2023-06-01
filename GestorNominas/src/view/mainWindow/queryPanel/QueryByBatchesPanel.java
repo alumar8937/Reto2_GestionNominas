@@ -8,11 +8,15 @@ import view.mainWindow.queryPanel.controlPanel.selectionPanel.BatchSelectionPane
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * @Author Pedro Marín Sanchis
+ *
+ */
 public class QueryByBatchesPanel extends JPanel {
     private static QueryByBatchesPanel INSTANCE = null;
-    private static ControlPanel controlPanel = new ControlPanel(new BatchSelectionPanel());
-    private static PayrollPreviewPanel payrollPreviewPanel = new PayrollPreviewPanel();
-    private static JScrollPane previewPayrollScrollPane = new JScrollPane(payrollPreviewPanel);
+    private ControlPanel controlPanel = new ControlPanel(new BatchSelectionPanel());
+    private PayrollPreviewPanel payrollPreviewPanel = new PayrollPreviewPanel();
+    private JScrollPane previewPayrollScrollPane = new JScrollPane(payrollPreviewPanel);
 
     private QueryByBatchesPanel() {
         placeComponents();
@@ -25,16 +29,19 @@ public class QueryByBatchesPanel extends JPanel {
         constraints.insets.set(5, 5, 5, 5);
         constraints.gridx = 0;
         constraints.gridy = 0;
-        constraints.weightx = 1;
+        constraints.weightx = 2;
         constraints.weighty = 1;
         constraints.anchor = GridBagConstraints.NORTH;
         constraints.fill = GridBagConstraints.BOTH;
-        previewPayrollScrollPane.setMinimumSize(new Dimension(500,800));
         previewPayrollScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         add(previewPayrollScrollPane, constraints);
 
+        constraints.weightx = 0;
         constraints.gridx += 1;
         add(controlPanel, constraints);
+
+        revalidate();
+        repaint();
     }
 
     public static QueryByBatchesPanel getINSTANCE() {
@@ -44,8 +51,14 @@ public class QueryByBatchesPanel extends JPanel {
         return INSTANCE;
     }
 
-    public static void updatePayrollPreviewPanel() {
-        payrollPreviewPanel.setData(controlPanel.getPayrollJList().getSelectedValue());
+    public void updatePayrollPreviewPanel() {
+        if (controlPanel.getPayrollJList().getSelectedValue() != null) {
+            payrollPreviewPanel.setData(controlPanel.getPayrollJList().getSelectedValue());
+        } else {
+            payrollPreviewPanel.clearData();
+        }
+        revalidate();
+        repaint();
     }
 
 }

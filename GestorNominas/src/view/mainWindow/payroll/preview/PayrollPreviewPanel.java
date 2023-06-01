@@ -47,26 +47,41 @@ public class PayrollPreviewPanel extends JPanel {
         fillEmployeeContingenciesList(payroll.getContingencies_Emp());
     };
 
+    public void clearData() {
+        setHeaderPanelLabels("", "", "", "", "", "", "", "");
+        setCenterPanelLabels("", "", "", "", "", "");
+        setCompanyPanelLabels("", "");
+        fillPerceptionList(null);
+        fillCompanyContingenciesList(null);
+        fillEmployeeContingenciesList(null);
+    }
+
     private void fillPerceptionList(ArrayList<Perception> perceptions) {
         DefaultListModel<Perception> model = new DefaultListModel<Perception>();
-        for (Perception p: perceptions) {
-            model.addElement(p);
+        if (perceptions != null) {
+            for (Perception p: perceptions) {
+                model.addElement(p);
+            }
         }
         centerPanel.perceptions.setModel(model);
     }
 
     private void fillEmployeeContingenciesList(ArrayList<Contingency> contingencies) {
         DefaultListModel<Contingency> model = new DefaultListModel<Contingency>();
-        for (Contingency c: contingencies) {
-            model.addElement(c);
+        if (contingencies != null) {
+            for (Contingency c: contingencies) {
+                model.addElement(c);
+            }
         }
         centerPanel.contingencies.setModel(model);
     }
 
     private void fillCompanyContingenciesList(ArrayList<Contingency> contingencies) {
         DefaultListModel<Contingency> model = new DefaultListModel<Contingency>();
-        for (Contingency c: contingencies) {
-            model.addElement(c);
+        if (contingencies != null) {
+            for (Contingency c: contingencies) {
+                model.addElement(c);
+            }
         }
         companyPanel.contingencies.setModel(model);
     }

@@ -7,6 +7,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
+/**
+ * @Author Pedro Marín Sanchis
+ *
+ */
 public abstract class SelectionPanel extends JPanel {
     protected ActionListener listener;
 

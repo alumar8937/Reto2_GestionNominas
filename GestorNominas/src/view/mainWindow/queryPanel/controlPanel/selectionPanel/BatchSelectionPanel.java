@@ -9,6 +9,10 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
+/**
+ * @Author Pedro Marín Sanchis
+ *
+ */
 public class BatchSelectionPanel extends SelectionPanel {
     private JLabel batchesLabel = new JLabel(ProgramLanguageProperties.getProperty("batchesLabel"));
     private JComboBox<PayrollBatch> payrollBatchesComboBox = new JComboBox<PayrollBatch>();
@@ -35,7 +39,7 @@ public class BatchSelectionPanel extends SelectionPanel {
     private void placeComponents() {
         setLayout(new GridBagLayout());
         GridBagConstraints constraints = new GridBagConstraints();
-        constraints.insets.set(5, 5, 5, 5);
+        constraints.insets.set(5, 0, 5, 0);
         constraints.gridx = 0;
         constraints.gridy = 0;
         constraints.weightx = 1;
