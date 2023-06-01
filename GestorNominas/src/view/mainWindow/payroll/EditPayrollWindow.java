@@ -60,6 +60,44 @@ public class EditPayrollWindow extends JFrame{
         windowPayroll.ap_companytext.setText(String.valueOf(payroll1.getAp_company()));
     }
 
+    private Payroll newPayroll(Payroll payroll1) {
+        windowPayroll.companyText.setText(payroll1.getCompany());
+        windowPayroll.cifText.setText(payroll1.getCif());
+        windowPayroll.adressText.setText(payroll1.getAddress());
+        windowPayroll.cccText.setText(String.valueOf(payroll1.getCcc()));
+        windowPayroll.emp_nameText.setText(payroll1.getEmp_name());
+        windowPayroll.prof_GroupBox.setSelectedItem(payroll1.getProf_group());
+        windowPayroll.num_ssText.setText(String.valueOf(payroll1.getNum_ss()));
+        windowPayroll.niftext.setText(payroll1.getNif());
+        windowPayroll.total_devtext.setText(String.valueOf(payroll1.getTotal_dev()));
+        windowPayroll.total_deducText.setText(String.valueOf(payroll1.getTotal_deduc()));
+        windowPayroll.total_nettext.setText(String.valueOf(payroll1.getTotal_net()));
+        windowPayroll.ap_companytext.setText(String.valueOf(payroll1.getAp_company()));
+
+        String company = windowPayroll.companyText.getText();
+        String cif = windowPayroll.cifText.getText();
+        String address = windowPayroll.adressText.getText();
+        long ccc = Long.parseLong(windowPayroll.cccText.getText());
+        String emp_name = windowPayroll.emp_nameText.getText();
+        long num_ss = Long.parseLong(windowPayroll.num_ssText.getText());
+        String prof_group = (String) windowPayroll.prof_GroupBox.getSelectedItem();
+        int id_name = Integer.parseInt(windowPayroll.id_nametext.getText());
+        int id_batch = Integer.parseInt(windowPayroll.id_batchtext.getText());
+        String nif = windowPayroll.niftext.getText();
+        int year = Integer.parseInt(windowPayroll.yeartext.getText());
+        int month = Integer.parseInt(windowPayroll.monthtext.getText());
+        int day = Integer.parseInt(windowPayroll.dayText.getText());
+        double total_dev = Double.parseDouble(windowPayroll.total_devtext.getText());
+        double total_deduc = Double.parseDouble(windowPayroll.total_deducText.getText());
+        double total_net = Double.parseDouble(windowPayroll.total_nettext.getText());
+        double ap_company = Double.parseDouble(windowPayroll.ap_companytext.getText());
+
+        Payroll payroll2 = new Payroll(company,cif,address,ccc,id_name,id_batch,nif,year,month,day,total_dev,total_deduc,ap_company);
+        payroll2.setEmp_name(emp_name);
+        payroll2.setTotal_net(total_net);
+        return payroll2;
+    }
+
     private void editPayroll(Payroll payroll) { // Author: Javier Blasco Gómez
         payroll.setCompany(windowPayroll.companyText.getText());
         payroll.setCif(windowPayroll.cifText.getText());
@@ -101,10 +139,6 @@ public class EditPayrollWindow extends JFrame{
         payroll.setAp_company(Double.parseDouble(windowPayroll.ap_companytext.getText()));
         PayrollDBController.modifyPayroll(payroll);
         this.setVisible(false);
-    }
-
-    private void addPayroll() {
-        //Payroll payroll1 = new Payroll();
     }
 
     class WindowPayroll extends JPanel {

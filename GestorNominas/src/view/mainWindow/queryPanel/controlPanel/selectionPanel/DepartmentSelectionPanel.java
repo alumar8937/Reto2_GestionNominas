@@ -2,6 +2,7 @@ package view.mainWindow.queryPanel.controlPanel.selectionPanel;
 
 import controller.database.PayrollDBController;
 import model.Department;
+import model.Employee;
 import model.Payroll;
 import model.PayrollBatch;
 import programLanguage.ProgramLanguageProperties;
@@ -24,7 +25,9 @@ public class DepartmentSelectionPanel extends SelectionPanel {
 
     @Override
     public ArrayList<Payroll> getPayrollList() {
-        return null;
+        if (payrollDepartmentComboBox.getSelectedItem() == null) {return null;}
+        String ID = ( (Department) payrollDepartmentComboBox.getSelectedItem()).getID();
+        return PayrollDBController.getPayrollsByDepartmentID( ID, displayHistoryOnlyCheckBox.isSelected());
     }
 
     private void placeComponents() {

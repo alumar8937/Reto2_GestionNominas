@@ -104,6 +104,37 @@ public class PayrollDBController {
     }
 
 
+    public static ArrayList<Employee> getEmployessByDepartmentID(String ID){ // Author: Javier Blasco Gómez
+        ArrayList<Employee> employees = new ArrayList<>();
+        try{
+            Statement statement = getConnection().createStatement();
+            ResultSet rs = statement.executeQuery("SELECT nif, nombre, apellido1, apellido2 from trabajador t where t.cod_dep ='" + ID + "';");
+            while(rs.next()){
+                String name = (rs.getString(2) + " " + rs.getString(3) + " " + rs.getString(4));
+                employees.add(new Employee(name, rs.getString(1)));
+            }
+        }catch(SQLException e) {
+            e.printStackTrace();
+        }
+        return employees;
+    }
+
+    public static ArrayList<Payroll> getPayrollsByDepartmentID(String ID, boolean wasAccepted) { // Author: Javier Blasco Gómez
+        ArrayList<PayrollBatch> batches = getBatches(wasAccepted);
+        ArrayList<Employee> employees = getEmployessByDepartmentID(ID);
+        ArrayList<Payroll> payrolls = new ArrayList<>();
+        for (PayrollBatch pb:batches) {
+            for (Payroll p:pb.getPayrolls()) {
+                for (Employee e:employees) {
+                    if (p.getNif().equalsIgnoreCase(e.getNIF()) && p.getNif().equalsIgnoreCase(e.getNIF())){
+                        payrolls.add(p);
+                    }
+                }
+            }
+        }
+        return payrolls;
+    }
+
     public static ArrayList<PayrollBatch> getBatches(boolean wasAccepted) { // Author: Javier Blasco Gómez // Return a list of batch
         ArrayList<PayrollBatch> batches = new ArrayList<>();
         try{
@@ -120,14 +151,6 @@ public class PayrollDBController {
             e.printStackTrace();
         }
         return batches;
-    }
-
-    public static void setComboBatchItems(JComboBox<PayrollBatch> comboBox, boolean acept){ // Author: Javier Blasco Gómez
-        ArrayList<PayrollBatch> batchArray = getBatches(acept);
-        comboBox.removeAllItems();
-        for (PayrollBatch batch: batchArray) {
-            comboBox.addItem(batch);
-        }
     }
 
     public static void createPayroll() { // Author: Javier Blasco Gómez
