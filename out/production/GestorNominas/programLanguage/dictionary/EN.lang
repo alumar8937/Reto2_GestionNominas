@@ -23,6 +23,7 @@ batchTab=BATCH
 departmentTab=DEPARTMENT
 employeeTab=EMPLOYEE
 documentationTab=DOCUMENTATION
+displayHistoryOnly=Display History Only
 
 mainWindow=Main Window
 batchesLabel=Batches
