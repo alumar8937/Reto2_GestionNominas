@@ -1,4 +1,4 @@
-package view.payrollPreview;
+package view.mainWindow.payroll.preview;
 
 import model.*;
 import programLanguage.ProgramLanguageProperties;
@@ -38,6 +38,7 @@ public class PayrollPreviewPanel extends JPanel {
     }
 
     public void setData(Payroll payroll) {
+        if (payroll == null) {return;}
         setHeaderPanelLabels(": "+payroll.getCompany(), ": "+payroll.getAddress(), ": "+payroll.getCif(), ": "+payroll.getCcc(), ": "+payroll.getEmp_name(), ": "+payroll.getNif(), ": "+payroll.getNum_ss(), ": "+payroll.getProf_group());
         setCenterPanelLabels(": "+payroll.getIRPF(),": "+payroll.getTotal_dev(),": "+payroll.getTotal_deduc(),": "+payroll.getCompany(),": "+payroll.getDay()+"/"+payroll.getMonth()+"/"+payroll.getYear(), ": "+payroll.getTotal_net());
         setCompanyPanelLabels(": "+payroll.getATEP(),": "+payroll.getAp_company());
@@ -78,7 +79,7 @@ public class PayrollPreviewPanel extends JPanel {
         companyPanel.retentions.setModel(model);
     }
 
-    public void setHeaderPanelLabels(String pp_company, String pp_domicile, String pp_cif, String pp_ccc, String pp_worker, String pp_nif, String pp_ssnumber, String pp_professionalgroup) {
+    private void setHeaderPanelLabels(String pp_company, String pp_domicile, String pp_cif, String pp_ccc, String pp_worker, String pp_nif, String pp_ssnumber, String pp_professionalgroup) {
         headerPanel.companyLabel.setText(ProgramLanguageProperties.getProperty("pp_company") + pp_company);
         headerPanel.domicileLabel.setText(ProgramLanguageProperties.getProperty("pp_domicile") + pp_domicile);
         headerPanel.cifLabel.setText(ProgramLanguageProperties.getProperty("pp_cif") + pp_cif);
@@ -89,7 +90,7 @@ public class PayrollPreviewPanel extends JPanel {
         headerPanel.professionalGroupLabel.setText(ProgramLanguageProperties.getProperty("pp_professionalgroup") + pp_professionalgroup);
     }
 
-    public void setCenterPanelLabels(String IRPF, String pp_totalearned, String pp_totaldeductions, String pp_companysignature, String pp_time, String pp_irecieved) {
+    private void setCenterPanelLabels(String IRPF, String pp_totalearned, String pp_totaldeductions, String pp_companysignature, String pp_time, String pp_irecieved) {
         centerPanel.pp_IRPF.setText(ProgramLanguageProperties.getProperty("pp_IRPF") + IRPF + "%");
         centerPanel.totalearnedLabel.setText(ProgramLanguageProperties.getProperty("pp_totalearned") + pp_totalearned);
         centerPanel.totaldeductionsLabel.setText(ProgramLanguageProperties.getProperty("pp_totaldeductions") + pp_totaldeductions);
@@ -98,7 +99,7 @@ public class PayrollPreviewPanel extends JPanel {
         centerPanel.irecievedLabel.setText(ProgramLanguageProperties.getProperty("pp_irecieved") + pp_irecieved);
     }
 
-    public void setCompanyPanelLabels(String ATEP, String pp_companytotal) {
+    private void setCompanyPanelLabels(String ATEP, String pp_companytotal) {
         companyPanel.pp_companytotal.setText(ProgramLanguageProperties.getProperty("pp_companytotal") + pp_companytotal);
         companyPanel.pp_ATEP.setText(ProgramLanguageProperties.getProperty("pp_ATEP") + ATEP + "%");
     }

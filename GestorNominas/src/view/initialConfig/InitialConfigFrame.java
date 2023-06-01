@@ -19,6 +19,7 @@ public class InitialConfigFrame extends JFrame {
     private GridBagConstraints constraints = new GridBagConstraints();
 
     public InitialConfigFrame() {
+        FrameUtils.setWindowIcon(this);
         setTitle(ProgramLanguageProperties.getProperty("initialConfig"));
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setResizable(false);
@@ -110,8 +111,27 @@ public class InitialConfigFrame extends JFrame {
 
             fillLanguageComboBox();
 
-            LanguageComboBox.addActionListener((e) -> updateLang());
-            okButton.addActionListener((e) -> {okButtonAction(); SwingUtilities.getWindowAncestor(this).dispose(); LoadingWindow.getINSTANCE(); PayrollDBController.establishConnection(); LoadingWindow.getINSTANCE().dispose(); MainWindowFrame.getINSTANCE();});
+            LanguageComboBox.addActionListener((e) -> updateLang()); // Author: Pedro Marín Sanchis
+            okButton.addActionListener((e) -> {
+                SwingWorker<Void, Void> loadingWindowWorker = new SwingWorker<Void, Void>() {
+                    @Override
+                    protected Void doInBackground() throws Exception {
+                        LoadingWindow.getINSTANCE();
+                        PayrollDBController.establishConnection();
+                        return null;
+                    }
+
+                    @Override
+                    protected void done() {
+                        LoadingWindow.getINSTANCE().dispose();
+                        MainWindowFrame.getINSTANCE();
+                        super.done();
+                    }
+                };
+                SwingUtilities.getWindowAncestor(this).dispose();
+                loadingWindowWorker.execute();
+            });
+
             editButton.addActionListener((e) -> toggleFieldEdit());
             PasswordTextField.setDisabledTextColor(Color.WHITE);
 
@@ -124,7 +144,7 @@ public class InitialConfigFrame extends JFrame {
             setVisible(true);
         }
 
-        private void okButtonAction() {
+        private void okButtonAction() { // Author: Pedro Marín Sanchis
             UserconfigManager.getINSTANCE().setIP(IPTextField.getText());
             UserconfigManager.getINSTANCE().setPort(PortTextField.getText());
             UserconfigManager.getINSTANCE().setUser(UserTextField.getText());
@@ -134,7 +154,7 @@ public class InitialConfigFrame extends JFrame {
             UserconfigManager.getINSTANCE().store();
         }
 
-        private void toggleFieldEdit() {
+        private void toggleFieldEdit() { // Author: Pedro Marín Sanchis
             IPTextField.setEnabled(!IPTextField.isEnabled());
             PortTextField.setEnabled(!PortTextField.isEnabled());
             UserTextField.setEnabled(!UserTextField.isEnabled());
@@ -142,7 +162,7 @@ public class InitialConfigFrame extends JFrame {
             DatabaseTextField.setEnabled(!DatabaseTextField.isEnabled());
         }
 
-        private void updateLang() {
+        private void updateLang() { // Author: Pedro Marín Sanchis
             ProgramLanguageProperties.setLanguage((SupportedLanguage) LanguageComboBox.getSelectedItem());
             UserconfigManager.getINSTANCE().setLanguage((SupportedLanguage) LanguageComboBox.getSelectedItem());
             IPLabel.setText(ProgramLanguageProperties.getProperty("IP"));
@@ -154,6 +174,7 @@ public class InitialConfigFrame extends JFrame {
             okButton.setText(ProgramLanguageProperties.getProperty("ok"));
             editButton.setText(ProgramLanguageProperties.getProperty("edit"));
             setTitle(ProgramLanguageProperties.getProperty("initialConfig"));
+            pack();
         }
 
         private void fillLanguageComboBox() {

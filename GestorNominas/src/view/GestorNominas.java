@@ -2,13 +2,7 @@ package view;
 
 import programLanguage.ProgramLanguageProperties;
 import userconfig.UserconfigManager;
-import view.historyWindow.HistoryWindowFrame;
 import view.initialConfig.InitialConfigFrame;
-import view.payroll.EditPayrollWindow;
-import view.payrollPreview.PayrollPreviewPanel;
-
-import javax.swing.*;
-import java.awt.*;
 
 /**
  * @Author Pedro Marín Sanchis

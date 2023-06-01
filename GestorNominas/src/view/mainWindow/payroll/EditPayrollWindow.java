@@ -1,10 +1,10 @@
-package view.payroll;
+package view.mainWindow.payroll;
 
 import controller.database.PayrollDBController;
 import model.Payroll;
-import model.PayrollBatch;
 import view.FrameUtils;
-import view.mainWindow.MainWindowFrame;
+import view.mainWindow.OldMainWindowFrame;
+import view.mainWindow.queryPanel.controlPanel.PayrollButtonPanel;
 
 import javax.swing.*;
 import java.awt.GridBagConstraints;
@@ -19,9 +19,10 @@ public class EditPayrollWindow extends JFrame{
     private WindowPayroll windowPayroll = new WindowPayroll();
     private GridBagConstraints constraints = new GridBagConstraints();
     private Payroll payroll;
-    private static EditPayrollWindow INSTANCE = null;
+    private PayrollButtonPanel ancestorPayrollButtonPanel = null;
 
-    public EditPayrollWindow(){
+    public EditPayrollWindow(PayrollButtonPanel ancestorPayrollButtonPanel){
+        this.ancestorPayrollButtonPanel = ancestorPayrollButtonPanel;
         setTitle("Edit Payroll");
         setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
         setResizable(false);
@@ -36,14 +37,6 @@ public class EditPayrollWindow extends JFrame{
         FrameUtils.centerWindowOnScreen(this);
 
         setVisible(true);
-    }
-
-    public static EditPayrollWindow getINSTANCE() { // Author: Javier Blasco Gómez
-        if (INSTANCE == null) {
-            INSTANCE = new EditPayrollWindow();
-        }
-        INSTANCE.setVisible(true);
-        return INSTANCE;
     }
 
     public void editData(Payroll payroll1) { // Author: Javier Blasco Gómez
@@ -277,7 +270,7 @@ public class EditPayrollWindow extends JFrame{
 
             constraints.gridx = 1;
             constraints.gridy = 17;
-            saveButton.addActionListener((e) -> {editPayroll(payroll); MainWindowFrame.getINSTANCE().getPanel().updatePayrollListAction();});
+            saveButton.addActionListener((e) -> {editPayroll(payroll); ancestorPayrollButtonPanel.sendUpdateActionEvent();});
             add(saveButton, constraints);
 
             setVisible(true);

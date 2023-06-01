@@ -22,6 +22,10 @@ language=
 connecting=
 
 #Main Window Key-Value Pairings
+batchTab=
+departmentTab=
+employeeTab=
+
 mainWindow=
 batchesLabel=
 newBatchButton=

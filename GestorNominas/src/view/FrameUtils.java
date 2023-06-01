@@ -25,8 +25,7 @@ public class FrameUtils {
 
     public static void setWindowIcon(JFrame window) { // @Author David Serna Mateu
         ImageIcon icon = new ImageIcon("."+ File.separator+"GestorNominas"+File.separator+"src"+File.separator+"media"+File.separator+"GestorNominasIcon.png");
-        Image image = icon.getImage();
-        window.setIconImage(image);
+        window.setIconImage(icon.getImage());
     }
 }
 

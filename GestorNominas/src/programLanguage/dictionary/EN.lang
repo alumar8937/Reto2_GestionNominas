@@ -19,6 +19,11 @@ database=Database
 language=Language
 
 #Main Window Key-Value Pairings
+batchTab=BATCH
+departmentTab=DEPARTMENT
+employeeTab=EMPLOYEE
+documentationTab=DOCUMENTATION
+
 mainWindow=Main Window
 batchesLabel=Batches
 newBatchButton=New Batch
