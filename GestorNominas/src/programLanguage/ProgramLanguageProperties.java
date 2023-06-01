@@ -10,7 +10,7 @@ import java.util.Properties;
 /**
  * Retrieves program language keys depending on the configured language.
  *
- * @Author Pedro Marín Sanchis
+ * @author Pedro Marín Sanchis
  */
 public class ProgramLanguageProperties {
 
@@ -24,9 +24,9 @@ public class ProgramLanguageProperties {
      * @return the value associated with the key, or "missing_value" if the key is not found
      */
     public static String getProperty(String key) {
-        String value = programLanguageProperties.getProperty(key, "missing_value");
+        String value = programLanguageProperties.getProperty(key, key);
         if (value.equalsIgnoreCase("")) {
-            return "missing_value";
+            return key;
         }
         return value;
     }
@@ -38,9 +38,7 @@ public class ProgramLanguageProperties {
      * @return true if the language is set successfully, false otherwise
      */
     public static boolean setLanguage(SupportedLanguage language) {
-        if (language == null) {
-            return false;
-        }
+        if (language == null) {return false;}
         try {
             programLanguageProperties.load(new BufferedReader(new FileReader("." + File.separator + "GestorNominas" + File.separator + "src" + File.separator + "programLanguage" + File.separator + "dictionary" + File.separator + language.getDictionaryFileName())));
         } catch (FileNotFoundException f) {
