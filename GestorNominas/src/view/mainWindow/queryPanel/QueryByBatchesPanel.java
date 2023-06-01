@@ -9,7 +9,7 @@ import javax.swing.*;
 import java.awt.*;
 
 /**
- * @Author Pedro Marín Sanchis
+ * @author Pedro Marín Sanchis
  *
  */
 public class QueryByBatchesPanel extends JPanel {

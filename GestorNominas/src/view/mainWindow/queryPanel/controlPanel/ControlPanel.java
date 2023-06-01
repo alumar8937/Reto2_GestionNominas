@@ -9,8 +9,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 /**
- * @Author Pedro Marín Sanchis
+ * Panel that contains a list of selected payrolls and a SelectionPanel (as a way of getting the desired Payrolls)
  *
+ * @author Pedro Marín Sanchis
  */
 public class ControlPanel extends JPanel {
     private SelectionPanel selectionPanel = null;
@@ -20,10 +21,20 @@ public class ControlPanel extends JPanel {
     private JPanel buttonContainerPanel = new JPanel();
     protected ActionListener listener;
 
+    /**
+     * Adds an action listener to the control panel.
+     *
+     * @param listener the action listener to be added
+     */
     public void addActionListener(ActionListener listener) {
         this.listener = listener;
     }
 
+    /**
+     * Constructs a control panel with the specified selection panel.
+     *
+     * @param selectionPanel the selection panel to be used
+     */
     public ControlPanel(SelectionPanel selectionPanel) {
         this.selectionPanel = selectionPanel;
         placeComponents();
@@ -58,15 +69,21 @@ public class ControlPanel extends JPanel {
     }
 
     private void addActionListeners() {
-        selectionPanel.addActionListener((e) -> {updatePayrollList(); sendUpdateActionEvent();});
+        selectionPanel.addActionListener((e) -> {
+            updatePayrollList();
+            sendUpdateActionEvent();
+        });
         payrollJList.addListSelectionListener((e) -> sendUpdateActionEvent());
         payrollButtonPanel.addActionListener((e) -> updatePayrollList());
     }
 
+    /**
+     * Updates the payroll list based on the selection panel.
+     */
     public void updatePayrollList() {
         DefaultListModel<Payroll> model = new DefaultListModel<Payroll>();
         if (selectionPanel.getPayrollList() != null) {
-            for(Payroll p : selectionPanel.getPayrollList()){
+            for (Payroll p : selectionPanel.getPayrollList()) {
                 model.addElement(p);
             }
         }
@@ -75,14 +92,23 @@ public class ControlPanel extends JPanel {
         repaint();
     }
 
+    /**
+     * Sends an update action event to the registered listener.
+     */
     public void sendUpdateActionEvent() {
-        if (listener == null) {return;}
+        if (listener == null) {
+            return;
+        }
         ActionEvent event = new ActionEvent(this, ActionEvent.ACTION_PERFORMED, "Update");
         listener.actionPerformed(event);
     }
 
+    /**
+     * Returns the payroll JList.
+     *
+     * @return the payroll JList
+     */
     public JList<Payroll> getPayrollJList() {
         return payrollJList;
     }
-
 }

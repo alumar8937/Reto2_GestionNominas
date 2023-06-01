@@ -3,7 +3,6 @@ package view.mainWindow.payroll;
 import controller.database.PayrollDBController;
 import model.Payroll;
 import view.FrameUtils;
-import view.mainWindow.OldMainWindowFrame;
 import view.mainWindow.queryPanel.controlPanel.PayrollButtonPanel;
 
 import javax.swing.*;

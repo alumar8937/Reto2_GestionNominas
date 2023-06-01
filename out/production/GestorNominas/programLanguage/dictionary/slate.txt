@@ -25,9 +25,11 @@ connecting=
 batchTab=
 departmentTab=
 employeeTab=
+displayHistoryOnly=
 
 mainWindow=
 batchesLabel=
+employeesLabel=
 newBatchButton=
 deleteBatchButton=
 saveBatchButton=

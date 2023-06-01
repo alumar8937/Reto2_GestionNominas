@@ -16,7 +16,7 @@ import java.util.ArrayList;
 public class BatchSelectionPanel extends SelectionPanel {
     private JLabel batchesLabel = new JLabel(ProgramLanguageProperties.getProperty("batchesLabel"));
     private JComboBox<PayrollBatch> payrollBatchesComboBox = new JComboBox<PayrollBatch>();
-    private JCheckBox displayHistoryOnlyCheckBox = new JCheckBox("Display History only //REPLACE");
+    private JCheckBox displayHistoryOnlyCheckBox = new JCheckBox(ProgramLanguageProperties.getProperty("displayHistoryOnly"));
 
     private JButton newBatchButton = new JButton(ProgramLanguageProperties.getProperty("newBatchButton"));
     private JButton deleteBatchButton = new JButton(ProgramLanguageProperties.getProperty("deleteBatchButton"));

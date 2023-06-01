@@ -5,7 +5,7 @@ import userconfig.UserconfigManager;
 import view.initialConfig.InitialConfigFrame;
 
 /**
- * @Author Pedro Marín Sanchis
+ * @author Pedro Marín Sanchis
  * Main class, runs the InitialConfigFrame
  */
 public class GestorNominas {

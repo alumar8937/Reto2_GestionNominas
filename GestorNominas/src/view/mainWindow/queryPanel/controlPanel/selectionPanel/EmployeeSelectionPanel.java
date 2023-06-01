@@ -7,6 +7,8 @@ import java.util.ArrayList;
 public class EmployeeSelectionPanel extends SelectionPanel {
     @Override
     public ArrayList<Payroll> getPayrollList() {
-        return null;
+        if (payrollEmployeesComboBox.getSelectedItem() == null) {return null;}
+        String NIF = ( (Employee) payrollEmployeesComboBox.getSelectedItem()).getNIF();
+        return PayrollDBController.getPayrollsByEmployeeNIF( NIF, displayHistoryOnlyCheckBox.isSelected());
     }
 }

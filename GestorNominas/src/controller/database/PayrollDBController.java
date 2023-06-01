@@ -39,6 +39,33 @@ public class PayrollDBController {
         return connection;
     }
 
+    public static ArrayList<Employee> getEmployees() {
+        ArrayList<Employee> employees = new ArrayList<>();
+        try{
+            Statement st = getConnection().createStatement();
+            ResultSet rs = st.executeQuery("SELECT nif, nombre, apellido1, apellido2 from trabajador;");
+            while(rs.next()){
+                String name = (rs.getString(2) + " " + rs.getString(3) + " " + rs.getString(4));
+                employees.add(new Employee(name, rs.getString(1)));
+            }
+        }catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return employees;
+    }
+
+    public static ArrayList<Payroll> getPayrollsByEmployeeNIF(String NIF, boolean wasAccepted) { // Author: Javier Blasco Gómez / David Serna Mateu / Pedro Marín Sanchis
+        ArrayList<PayrollBatch> batches = getBatches(wasAccepted);
+        ArrayList<Payroll> payrolls = new ArrayList<>();
+        for (PayrollBatch pb: batches) {
+            for(Payroll p : pb.getPayrolls()){
+                if(p.getNif().equalsIgnoreCase(NIF)){payrolls.add(p);}
+            }
+        }
+        return payrolls;
+    }
+
+
     public static ArrayList<PayrollBatch> getBatches(boolean wasAccepted) { // Author: Javier Blasco Gómez // Return a list of batch
         ArrayList<PayrollBatch> batches = new ArrayList<>();
         try{
