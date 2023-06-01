@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.Properties;
 
 /**
- * @Author Pedro Marín Sanchis
+ * @author Pedro Marín Sanchis
  * Manages connection to the database.
  */
 public class PayrollDBController {
@@ -75,7 +75,7 @@ public class PayrollDBController {
             );
             while (resultSet.next()) {
                 PayrollBatch batch = new PayrollBatch(resultSet.getInt(1),resultSet.getBoolean(2));
-                getPayrollsByBatchId(batch);
+                setPayrollsByBatch(batch);
                 batches.add(batch);
             }
         } catch (SQLException e) {
@@ -192,7 +192,7 @@ public class PayrollDBController {
         }
     }
 
-    public static void getPayrollsByBatchId(PayrollBatch batch) { // Author: David Serna Mateu
+    public static void setPayrollsByBatch(PayrollBatch batch) { // Author: David Serna Mateu
         ArrayList<Payroll> payrolls = new ArrayList<Payroll>();
         try{
             Statement st = getConnection().createStatement();
@@ -206,23 +206,24 @@ public class PayrollDBController {
             String cif_company = rs_company.getString(1);
             String address_company = rs_company.getString(3);
             long ccc_company = rs_company.getLong(4);
-            Statement st3 = getConnection().createStatement();
             rs_company.close();
             while(rs.next()) {
                 Payroll payroll = new Payroll(name_company, cif_company, address_company, ccc_company, rs.getInt(1), rs.getInt(2), rs.getString(3), rs.getInt(4), rs.getInt(5),rs.getInt(9), rs.getDouble(6), rs.getDouble(10), rs.getDouble(8));
                 payroll.setTotal_net(payroll.getTotal_dev() - payroll.getTotal_deduc());
                 payrolls.add(payroll);
-                st3.executeUpdate("UPDATE nomina set total_neto=" + payroll.getTotal_net() + " where id_nom=" + payroll.getId_name() + ";");
-
             }
-            batch.setPayrolls(getContingenciesByNif(getRetentionsByNIF(getPerceptionsByNIF(getNameEmployeeByNif(payrolls)))));
+            setContingenciesToEachPayroll(payrolls);
+            setRetentionsToEachPayroll(payrolls);
+            setPerceptionsToEachPayroll(payrolls);
+            setNameEmployeeToEachPayroll(payrolls);
+            batch.setPayrolls(payrolls);
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
 
-    private static ArrayList<Payroll> getNameEmployeeByNif(ArrayList<Payroll> payrolls) { // Author: David Serna Mateu
+    private static ArrayList<Payroll> setNameEmployeeToEachPayroll(ArrayList<Payroll> payrolls) { // Author: David Serna Mateu
         try{
             Statement st = getConnection().createStatement();
             ResultSet rs;
@@ -256,7 +257,7 @@ public class PayrollDBController {
         return model;
     }
 
-    private static ArrayList<Payroll> getPerceptionsByNIF(ArrayList<Payroll> payrolls) { // Author: David Serna Mateu
+    private static ArrayList<Payroll> setPerceptionsToEachPayroll(ArrayList<Payroll> payrolls) { // Author: David Serna Mateu
         try{
             Statement st = getConnection().createStatement();
             Statement st2 = getConnection().createStatement();
@@ -285,7 +286,7 @@ public class PayrollDBController {
         return payrolls;
     }
 
-    private static ArrayList<Payroll> getRetentionsByNIF(ArrayList<Payroll> payrolls) { // Author: David Serna Mateu
+    private static ArrayList<Payroll> setRetentionsToEachPayroll(ArrayList<Payroll> payrolls) { // Author: David Serna Mateu
         try{
             Statement st = getConnection().createStatement();
             ResultSet rs;
@@ -304,7 +305,7 @@ public class PayrollDBController {
         return payrolls;
     }
 
-    private static ArrayList<Payroll> getContingenciesByNif(ArrayList<Payroll> payrolls) { // Author: David Serna Mateu / Javier Blasco Gómez
+    private static ArrayList<Payroll> setContingenciesToEachPayroll(ArrayList<Payroll> payrolls) { // Author: David Serna Mateu / Javier Blasco Gómez
         try{
             Statement st = getConnection().createStatement();
             Statement st2 = getConnection().createStatement();

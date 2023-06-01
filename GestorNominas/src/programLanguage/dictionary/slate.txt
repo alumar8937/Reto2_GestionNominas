@@ -29,6 +29,7 @@ displayHistoryOnly=
 
 mainWindow=
 batchesLabel=
+employeesLabel=
 newBatchButton=
 deleteBatchButton=
 saveBatchButton=

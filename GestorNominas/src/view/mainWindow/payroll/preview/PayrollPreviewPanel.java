@@ -86,13 +86,6 @@ public class PayrollPreviewPanel extends JPanel {
         companyPanel.contingencies.setModel(model);
     }
 
-    private void fillRetentionList(ArrayList<Retention> retentions) {
-        DefaultListModel<Retention> model = new DefaultListModel<Retention>();
-        for (Retention r: retentions) {
-            model.addElement(r);
-        }
-        companyPanel.retentions.setModel(model);
-    }
 
     private void setHeaderPanelLabels(String pp_company, String pp_domicile, String pp_cif, String pp_ccc, String pp_worker, String pp_nif, String pp_ssnumber, String pp_professionalgroup) {
         headerPanel.companyLabel.setText(ProgramLanguageProperties.getProperty("pp_company") + pp_company);
