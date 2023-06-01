@@ -1,10 +1,19 @@
 package controller.database;
 
-import model.*;
+import model.Contingency;
+import model.Department;
+import model.Employee;
+import model.Payroll;
+import model.PayrollBatch;
+import model.Perception;
 import userconfig.UserconfigManager;
 
-import javax.swing.*;
-import java.sql.*;
+import javax.swing.JComboBox;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Properties;
 
@@ -16,6 +25,11 @@ public class PayrollDBController {
 
     private static Connection connection = null;
 
+    /**
+     * Establishes a connection with a PostgreSQL database.
+     * It uses the user configuration stored in UserconfigManager to establish the connection.
+     * The method dynamically loads the database driver and creates the connection.
+     */
     public static void establishConnection() { // Author: Pedro Marín Sanchis
         try {
             Class.forName("org.postgresql.Driver");
@@ -32,6 +46,13 @@ public class PayrollDBController {
         }
     }
 
+    /**
+     * Returns a connection to a PostgreSQL database.
+     * If the connection is not already established, it calls the establishConnection() method to establish it.
+     * Returns the existing connection if it has already been established.
+     *
+     * @return the connection to the PostgreSQL database
+     */
     private static Connection getConnection() { // Author: Pedro Marín Sanchis
         if (connection == null) {
             establishConnection();
@@ -39,6 +60,13 @@ public class PayrollDBController {
         return connection;
     }
 
+    /**
+     * Retrieves a list of employees from the database.
+     * Executes a SELECT query to retrieve the NIF, name, and surnames of employees from the "trabajador" table.
+     * Creates an Employee object for each row in the ResultSet and adds it to the list.
+     *
+     * @return an ArrayList containing the retrieved employees
+     */
     public static ArrayList<Employee> getEmployees() {
         ArrayList<Employee> employees = new ArrayList<>();
         try{
@@ -54,6 +82,16 @@ public class PayrollDBController {
         return employees;
     }
 
+    /**
+     * Retrieves a list of payrolls for a specific employee based on their NIF (identification number).
+     * Filters the payrolls based on whether they were accepted or not (wasAccepted parameter).
+     * Calls the getBatches() method to retrieve the batches based on the acceptance status.
+     * Iterates through the payrolls in each batch and adds the ones matching the employee's NIF to the list.
+     *
+     * @param NIF           the NIF of the employee
+     * @param wasAccepted   the flag indicating whether the payrolls were accepted or not
+     * @return an ArrayList containing the retrieved payrolls for the employee
+     */
     public static ArrayList<Payroll> getPayrollsByEmployeeNIF(String NIF, boolean wasAccepted) { // Author: Javier Blasco Gómez / David Serna Mateu / Pedro Marín Sanchis
         ArrayList<PayrollBatch> batches = getBatches(wasAccepted);
         ArrayList<Payroll> payrolls = new ArrayList<>();
@@ -241,20 +279,6 @@ public class PayrollDBController {
             throw new RuntimeException(e);
         }
         return payrolls;
-    }
-
-    public static void setComboPayrollItem(JComboBox combo, PayrollBatch batch) { // Author: Javier Blasco Gómez
-        for (Payroll payroll : batch.getPayrolls()) {
-            combo.addItem(payroll);
-        }
-    }
-
-    public static DefaultListModel getListOfPayrolls(PayrollBatch batch) { // Author: David Serna Mateu
-        DefaultListModel model = new DefaultListModel<>();
-        for(Payroll payroll : batch.getPayrolls()){
-            model.addElement(payroll);
-        }
-        return model;
     }
 
     private static ArrayList<Payroll> setPerceptionsToEachPayroll(ArrayList<Payroll> payrolls) { // Author: David Serna Mateu
