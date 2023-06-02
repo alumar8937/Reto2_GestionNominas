@@ -153,7 +153,13 @@ public class PayrollDBController {
         return batches;
     }
 
-    public static void createPayroll() { // Author: Javier Blasco Gómez
+    /**
+     * Creates a new payroll entry in the database.
+     * Inserts the payroll details into the "nomina" table.
+     *
+     * @param payroll   the Payroll object representing the payroll to be created
+     */
+    public static void createPayroll(Payroll payroll) { // Author: Javier Blasco Gómez
         try {
             Statement statement = getConnection().createStatement();
             statement.executeUpdate("INSERT INTO nomina ()");

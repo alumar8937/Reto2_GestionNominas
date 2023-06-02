@@ -1,36 +1,103 @@
-#General Key-Value Pairings
-programName=
-ok=
-cancel=
-yes=
-no=
-warning=
-operationCompleted=
-notice=
+#Parelles de clau-valor generals
+programName=Gestor de Nòmines
+ok=D'acord
+edit=Editar
+cancelar=Cancel·lar
+yes=Sí
+no=No
+warning=Avís
+operationCompleted=Operació completada
+notice=Nota
 
-#Initial Configuration Key-Value Pairings
+#Parelles de clau-valor de configuració inicial
 initialConfig=Configuració Inicial
-IP=IP
+ip=IP
 port=Port
 user=Usuari
 password=Contrasenya
-database=Base de Dades
+database=Base de dades
 language=Idioma
 
-#Main Window Key-Value Pairings
-mainWindow=Finestra Principal
+#Parelles de clau-valor de la finestra de càrrega
+connecting=Connectant...
+
+#Parelles de clau-valor de la finestra principal
+mainWindowTitle=Gestor de Nòmines
+batchTab=Remesa
+departmentTab=Departament
+employeeTab=Empleat
+
+#Parelles de clau-valor del panell de botons de nòmina
+payrollsLabel=Nòmina
+newPayrollButton=Nova Nòmina
+editPayrollButton=Editar Nòmina
+deletePayrollButton=Eliminar Nòmina Seleccionada
+deleteAllPayrollButton=Eliminar totes les Nòmines
+deletePayrollWarning=Advertència! Estàs a punt d'eliminar una nòmina. Estàs segur?
+recalculatePayrolls=Calcular totes les Nòmines
+recalculatedCorrecly=Totes les nòmines s'han calculat correctament.
+errorrecalculating=S'ha produït un error en calcular les nòmines.
+sepaButton=Exportar a SEPA
+
+#Parelles de clau-valor del panell de selecció de lots
 batchesLabel=Remeses
 newBatchButton=Nova Remesa
 deleteBatchButton=Eliminar Remesa
-sendToHistoryButton=Enviar a l'Historic
-historyBatchButton=Históric
-payrollsLabel=Nómines
-newPayrollButton=Nova Nómina
-editPayrollButton=Editar Nómina
-deletePayrollButton=Eliminar Nómina
+toggleAcceptedButton=Enviar/Recuperar Històric
+deleteBatchWarning=Advertència! Estàs a punt d'eliminar una remesa. Estàs segur?
 
-#History of Batches Windows Key-Value Pairings
-historyBatchesWindow= Historic de Remeses
-batchLabel= Remesa
-payrollLabel= Nómina
-recoveryBatchButton= Recuperar Remesa
+#Parelles de clau-valor del panell de selecció de departament
+departmentLabel=Departament
+
+#Parelles de clau-valor del panell de selecció d'empleat
+employeesLabel=Empleat
+
+#Parelles de clau-valor dels panells de consulta
+displayHistoryOnly=Mostrar només Històric
+
+#Parelles de clau-valor de l'edició de nòmines
+editPayrollTitle=Editar Nòmina
+epw_save=Guardar
+epw_create=Crear
+epw_company=Nom de l'Empresa
+epw_cif=CIF
+epw_address=Adreça
+epw_ccc=CCC
+epw_empName=Nom de l'Empleat
+epw_ss=Nombre de Seguretat Social
+epw_group=Grup Professional
+epw_payrollID=ID de Nòmina
+epw_payrollBatch=ID de Remesa
+epw_nif=NIF
+epw_year=Any
+epw_month=Mes
+epw_day=Dia
+epw_totalDev=Total d'Accrèdits
+epw_totalDeduc=Total de Deduccions
+epw_totalNeto=Total Net
+epw_ap=Ingrés de l'Empresa
+
+#Parelles de clau-valor de la vista prèvia de nòmines
+pp_title=Vista Prèvia de Nòmina
+pp_company=Empresa
+pp_domicile=Domicili
+pp_cif=CIF
+pp_ccc=CCC
+pp_worker=Empleat
+pp_nif=NIF
+pp_ssnumber=Nombre de Seguretat Social
+pp_professionalgroup=Grup Professional
+pp_taxgroup=Grup d'Impostos
+pp_earnings=Accrèdits
+pp_salaryperception=Percepcions Salarials
+pp_totalearned=Total d'Accrèdits
+pp_deductions=Deduccions
+pp_totaldeductions=Total de Deduccions
+pp_totalperceptions=Total de Percepcions
+pp_companysignature=Firma de l'Empresa
+pp_time=Data
+pp_irecieved=Vaig rebre
+pp_companyheader=Càlcul de les bases imposables i pagaments de l'empresa
+pp_companytotal=Total de l'Empresa
+pp_ATEP=ATEP
+pp_IRPF=IRPF

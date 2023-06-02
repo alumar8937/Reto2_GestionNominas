@@ -7,7 +7,7 @@ import java.io.*;
 import java.util.Properties;
 
 /**
- * @Author Pedro Marín Sanchis
+ * @author Pedro Marín Sanchis
  * Sets and retireves user configuration for language and database connection.
  */
 public class UserconfigManager {

@@ -7,7 +7,7 @@ import javax.swing.*;
 import java.awt.*;
 
 /**
- * @Author Pedro Marín Sanchis
+ * @author Pedro Marín Sanchis
  * A window that indicates that the program is loading.
  */
 public class LoadingWindow extends JFrame {

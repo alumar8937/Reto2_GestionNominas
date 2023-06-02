@@ -10,8 +10,9 @@ import java.awt.*;
 import java.util.ArrayList;
 
 /**
- * @Author Pedro Marín Sanchis
+ * Represents a panel for selecting payroll batches.
  *
+ * @author Pedro Marín Sanchis
  */
 public class BatchSelectionPanel extends SelectionPanel {
     private JLabel batchesLabel = new JLabel(ProgramLanguageProperties.getProperty("batchesLabel"));
@@ -22,6 +23,9 @@ public class BatchSelectionPanel extends SelectionPanel {
     private final JButton deleteBatchButton = new JButton(ProgramLanguageProperties.getProperty("deleteBatchButton"));
     private final JButton sendToHistoryButton = new JButton(ProgramLanguageProperties.getProperty("toggleAcceptedButton"));
 
+    /**
+     * Constructs a new instance of BatchSelectionPanel.
+     */
     public BatchSelectionPanel() {
         super();
         placeComponents();
@@ -29,6 +33,11 @@ public class BatchSelectionPanel extends SelectionPanel {
         fillPayrollBatchesComboBox();
     }
 
+    /**
+     * Retrieves the list of payrolls selected in the panel.
+     *
+     * @return The list of selected payrolls.
+     */
     @Override
     public ArrayList<Payroll> getPayrollList() {
         PayrollBatch batch = (PayrollBatch) payrollBatchesComboBox.getSelectedItem();
@@ -36,6 +45,9 @@ public class BatchSelectionPanel extends SelectionPanel {
         return batch.getPayrolls();
     }
 
+    /**
+     * Places the components in the panel using GridBagLayout.
+     */
     private void placeComponents() {
         setLayout(new GridBagLayout());
         GridBagConstraints constraints = new GridBagConstraints();
@@ -64,6 +76,9 @@ public class BatchSelectionPanel extends SelectionPanel {
         add(sendToHistoryButton, constraints);
     }
 
+    /**
+     * Fills the payroll batches combo box with available batches from the database.
+     */
     private void fillPayrollBatchesComboBox() {
         payrollBatchesComboBox.removeAllItems();
         for (PayrollBatch p: PayrollDBController.getBatches(displayHistoryOnlyCheckBox.isSelected())) {
@@ -71,6 +86,9 @@ public class BatchSelectionPanel extends SelectionPanel {
         }
     }
 
+    /**
+     * Adds action listeners to the components in the panel.
+     */
     private void addActionListeners() {
         payrollBatchesComboBox.addActionListener((e) -> sendUpdateActionEvent());
         newBatchButton.addActionListener((e) -> {PayrollDBController.createNewBatch(); fillPayrollBatchesComboBox();});
@@ -79,6 +97,9 @@ public class BatchSelectionPanel extends SelectionPanel {
         sendToHistoryButton.addActionListener((e) -> setBatchAcceptedButtonAction());
     }
 
+    /**
+     * Performs the action when the delete batch button is clicked.
+     */
     private void deleteBatchButtonAction(){ // Author: David Serna Mateu
         if(JOptionPane.showConfirmDialog(this, ProgramLanguageProperties.getProperty("deleteBatchWarning"),ProgramLanguageProperties.getProperty("notice"),JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION){
             if(payrollBatchesComboBox.getSelectedItem() == null){return;}
@@ -88,6 +109,9 @@ public class BatchSelectionPanel extends SelectionPanel {
         fillPayrollBatchesComboBox();
     }
 
+    /**
+     * Performs the action when the set batch accepted button is clicked.
+     */
     private void  setBatchAcceptedButtonAction(){ // Author: Raul Simarro Navarro
         if (payrollBatchesComboBox.getSelectedItem() == null) {return;}
         PayrollDBController.setBatchAccepted(

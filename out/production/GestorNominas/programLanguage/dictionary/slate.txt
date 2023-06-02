@@ -37,6 +37,7 @@ deletePayrollWarning=
 recalculatePayrolls=
 recalculatedCorrecly=
 errorrecalculating=
+sepaButton=
 
 #Batch Selection Panel Key-Value Pairings
 batchesLabel=
@@ -57,6 +58,7 @@ displayHistoryOnly=
 #Edit Payroll Key-Value Pairings
 editPayrollTitle=
 epw_save=
+epw_create=
 epw_company=
 epw_cif=
 epw_address=

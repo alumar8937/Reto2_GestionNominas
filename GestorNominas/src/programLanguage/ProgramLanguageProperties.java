@@ -21,7 +21,7 @@ public class ProgramLanguageProperties {
      * If the key is not found, returns "missing_value".
      *
      * @param key the key to retrieve the value for
-     * @return the value associated with the key, or "missing_value" if the key is not found
+     * @return the value associated with the key, or the key itself if the key is not found
      */
     public static String getProperty(String key) {
         String value = programLanguageProperties.getProperty(key, key);

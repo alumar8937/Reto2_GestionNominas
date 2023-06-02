@@ -1,0 +1,103 @@
+#General Key-Value Pairings
+programName=מנהל שכר
+ok=אישור
+edit=עריכה
+cancel=ביטול
+yes=כן
+no=לא
+warning=אזהרה
+operationCompleted=הפעולה הושלמה
+notice=הודעה
+
+#Initial Configuration Key-Value Pairings
+initialConfig=הגדרה ראשונית
+ip=כתובת IP
+port=פורט
+user=משתמש
+password=סיסמה
+database=מסד נתונים
+language=שפה
+
+#Loading Window Key-Value Pairings
+connecting=מתחבר...
+
+#Main Window Key-Value Pairings
+mainWindowTitle=מנהל שכר
+batchTab=מערך
+departmentTab=מחלקה
+employeeTab=עובד
+
+#Payroll Button Panel Key-Value Pairings
+payrollsLabel=שכר עובדים
+newPayrollButton=שכר חדש
+editPayrollButton=עריכת שכר
+deletePayrollButton=מחיקת שכר נבחר
+deleteAllPayrollButton=מחיקת כל השכרים
+deletePayrollWarning=אזהרה! אתה עומד למחוק שכר. האם אתה בטוח?
+recalculatePayrolls=חישוב כל השכרים
+recalculatedCorrecly=כל השכרים נחושבו בהצלחה.
+errorrecalculating=אירעה שגיאה במהלך חישוב השכרים.
+sepaButton=ייצוא ל-SEPA
+
+#Batch Selection Panel Key-Value Pairings
+batchesLabel=מערך
+newBatchButton=מערך חדש
+deleteBatchButton=מחיקת מערך
+toggleAcceptedButton=שנה מצב היסטוריה
+deleteBatchWarning=אזהרה! אתה עומד למחוק מערך. האם אתה בטוח?
+
+#Department Selection Panel Key-Value Pairings
+departmentLabel=מחלקה
+
+#Employee Selection Panel Key-Value Pairings
+employeesLabel=עובד
+
+#Query Panels Key-Value Pairings
+displayHistoryOnly=הצג רק היסטוריה
+
+#Edit Payroll Key-Value Pairings
+editPayrollTitle=עריכת שכר
+epw_save=שמירה
+epw_create=יצירה
+epw_company=שם החברה
+epw_cif=CIF
+epw_address=כתובת
+epw_ccc=CCC
+epw_empName=שם העובד
+epw_ss=מספר סוציאלי
+epw_group=קבוצת מקצועית
+epw_payrollID=מספר השכר
+epw_payrollBatch=מספר המערך
+epw_nif=NIF
+epw_year=שנה
+epw_month=חודש
+epw_day=יום
+epw_totalDev=סה"כ צבירה
+epw_totalDeduc=סה"כ הורדה
+epw_totalNet=סה"כ נטו
+epw_ap=קלט החברה
+
+#Payroll Preview Key-Value Pairings
+pp_title=תצוגה מקדימה של שכר
+pp_company=חברה
+pp_domicile=מקום מגורים
+pp_cif=CIF
+pp_ccc=CCC
+pp_worker=עובד
+pp_nif=NIF
+pp_ssnumber=מספר סוציאלי
+pp_professionalgroup=קבוצת מקצועית
+pp_taxgroup=קבוצת מס
+pp_earnings=צבירות
+pp_salaryperception=תפיסת שכר
+pp_totalearned=סך כל הרווחים
+pp_deductions=הורדות
+pp_totaldeductions=סך כל ההורדות
+pp_totalperceptions=סך כל התפיסות
+pp_companysignature=חתימת החברה
+pp_time=תאריך
+pp_irecieved=קיבלתי
+pp_companyheader=חישוב בסיסי המיסים ותשלומי החברה
+pp_companytotal=סך כל התשלומים של החברה
+pp_ATEP=ATEP
+pp_IRPF=IRPF

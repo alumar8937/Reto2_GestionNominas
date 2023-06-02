@@ -3,12 +3,17 @@ package programLanguage;
 /**
  * Enum of supported program languages with a dictionary file.
  *
- * @Author Pedro Marín Sanchis
+ * @author Pedro Marín Sanchis
  */
 public enum SupportedLanguage {
     EN("English"),
     ES("Español"),
-    VAL("Valencià");
+    VAL("Valencià"),
+    RUS("Русский"),
+    JAP("日本語"),
+    HEB("עברית"),
+    GER("Deutsch"),
+    ROM("Română");
 
     private String longName;
 

@@ -127,6 +127,16 @@ public class PayrollButtonPanel extends JPanel {
     }
 
     /**
+     * Sends an ExportSEPA action event to the registered listener.
+     * Notifies the listener that an ExportSEPA action has occurred.
+     */
+    private void exportToSEPAButtonAction() {
+        if (listener == null) {return;}
+        ActionEvent event = new ActionEvent(this, ActionEvent.ACTION_PERFORMED, "ExportSEPA");
+        listener.actionPerformed(event);
+    }
+
+    /**
      * Sends an update action event to the registered listener.
      * Notifies the listener that an update action has occurred.
      */

@@ -2,11 +2,11 @@
 programName=
 ok=Ok
 edit=Edit
-cancel=
-yes=
-no=
-warning=
-operationCompleted=
+cancel=Cancel
+yes=Yes
+no=No
+warning=Warning
+operationCompleted=Operation Completed
 notice=Notice
 
 #Initial Configuration Key-Value Pairs
@@ -59,7 +59,7 @@ pp_company=Company
 pp_domicile=Domicile
 pp_cif=CIF
 pp_ccc=CCC
-pp_worker=Worker
+pp_worker=Employee
 pp_nif=NIF
 pp_ssnumber=SS Number
 pp_professionalgroup= Professional Group

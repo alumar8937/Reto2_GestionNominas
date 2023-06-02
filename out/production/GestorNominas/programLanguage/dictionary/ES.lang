@@ -1,39 +1,103 @@
-#General Key-Value Pairings
-programName=
-ok=Ok
+#Pares de clave-valor generales
+programName=Gestor de Nóminas
+ok=Aceptar
 edit=Editar
-cancel=
-yes=
-no=
-warning=
-operationCompleted=
-notice=
+cancelar=Cancelar
+yes=Sí
+no=No
+warning=Advertencia
+operationCompleted=Operación completada
+notice=Aviso
 
-#Initial Configuration Key-Value Pairings
+#Pares de clave-valor de configuración inicial
 initialConfig=Configuración Inicial
-IP=IP
+ip=IP
 port=Puerto
 user=Usuario
 password=Contraseña
-database=Base de Datos
+database=Base de datos
 language=Idioma
 
-connecting=Conectandose
+#Pares de clave-valor de la ventana de carga
+connecting=Conectando...
 
-#Main Window Key-Value Pairings
-mainWindow=Ventana Principal
+#Pares de clave-valor de la ventana principal
+mainWindowTitle=Gestor de Nóminas
+batchTab=Remesa
+departmentTab=Departamento
+employeeTab=Empleado
+
+#Pares de clave-valor del panel de botones de nómina
+payrollsLabel=Nómina
+newPayrollButton=Nueva Nómina
+editPayrollButton=Editar Nómina
+deletePayrollButton=Eliminar Nómina Seleccionada
+deleteAllPayrollButton=Eliminar todas las Nóminas
+deletePayrollWarning=¡Advertencia! Estás a punto de eliminar una nómina. ¿Estás seguro?
+recalculatePayrolls=Calcular todas las Nóminas
+recalculatedCorrecly=Todas las nóminas se calcularon correctamente.
+errorrecalculating=Hubo un error al calcular las nóminas.
+sepaButton=Exportar a SEPA
+
+#Pares de clave-valor del panel de selección de lotes
 batchesLabel=Remesas
 newBatchButton=Nueva Remesa
 deleteBatchButton=Eliminar Remesa
-sendToHistoryButton=Enviar a Histórico
-historyBatchbutton=Histórico
-payrollsLabel=Nóminas
-newPayrollButton=Nueva Nómina
-editPayrollButton=Editar Nómina
-deletePayrollButton=Eliminar Nómina
+toggleAcceptedButton=Enviar/Recuperar Histórico
+deleteBatchWarning=¡Advertencia! Estás a punto de eliminar una Remesa. ¿Estás seguro?
 
-#History of Batches Windows Key-Value Pairings
-historyBatchesWindow= Historial de Remesas
-batchLabel= Remesa
-payrollLabel= Nómina
-recoveryBatchButton= Recuperar Remesa
+#Pares de clave-valor del panel de selección de departamento
+departmentLabel=Departamento
+
+#Pares de clave-valor del panel de selección de empleado
+employeesLabel=Empleado
+
+#Pares de clave-valor de los paneles de consulta
+displayHistoryOnly=Mostrar solo Historial
+
+#Pares de clave-valor de la edición de nóminas
+editPayrollTitle=Editar Nómina
+epw_save=Guardar
+epw_create=Crear
+epw_company=Nombre de la Empresa
+epw_cif=CIF
+epw_address=Dirección
+epw_ccc=CCC
+epw_empName=Nombre del Empleado
+epw_ss=Número de Seguridad Social
+epw_group=Grupo Profesional
+epw_payrollID=ID de Nómina
+epw_payrollBatch=ID de Remesa
+epw_nif=NIF
+epw_year=Año
+epw_month=Mes
+epw_day=Día
+epw_totalDev=Total Devengos
+epw_totalDeduc=Total Deducciones
+epw_totalNeto=Total Neto
+epw_ap=Ingreso de la Empresa
+
+#Pares de clave-valor de la vista previa de nóminas
+pp_title=Vista Previa de Nómina
+pp_company=Empresa
+pp_domicile=Domicilio
+pp_cif=CIF
+pp_ccc=CCC
+pp_worker=Empleado
+pp_nif=NIF
+pp_ssnumber=Número de Seguridad Social
+pp_professionalgroup=Grupo Profesional
+pp_taxgroup=Grupo de Impuestos
+pp_earnings=Devengos
+pp_salaryperception=Percepciones Salariales
+pp_totalearned=Total de devengos
+pp_deductions=Deducciones
+pp_totaldeductions=Total de Deducciones
+pp_totalperceptions=Total de Percepciones
+pp_companysignature=Firma de la Empresa
+pp_time=Fecha
+pp_irecieved=Recibí
+pp_companyheader=Cálculo de las bases imponibles y pagos de la empresa
+pp_companytotal=Total de la Empresa
+pp_ATEP=ATEP
+pp_IRPF=IRPF

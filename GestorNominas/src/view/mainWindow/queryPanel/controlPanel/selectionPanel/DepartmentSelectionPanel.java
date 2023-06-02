@@ -11,18 +11,31 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
+/**
+ * Represents a panel for selecting payrolls by department.
+ *
+ * @author Javier Blasco Gómez
+ */
 public class DepartmentSelectionPanel extends SelectionPanel {
     private final JLabel departmentLabel = new JLabel(ProgramLanguageProperties.getProperty("departmentLabel"));
     private final JComboBox<Department> payrollDepartmentComboBox = new JComboBox<Department>();
     private final JCheckBox displayHistoryOnlyCheckBox = new JCheckBox(ProgramLanguageProperties.getProperty("displayHistoryOnly"));
 
+    /**
+     * Constructs a new instance of DepartmentSelectionPanel.
+     */
     public DepartmentSelectionPanel() {
         super();
         placeComponents();
         addActionListeners();
-        fillPayrollBatchesComboBox();
+        fillDepartmentComboBox();
     }
 
+    /**
+     * Retrieves the list of payrolls selected in the panel.
+     *
+     * @return The list of selected payrolls.
+     */
     @Override
     public ArrayList<Payroll> getPayrollList() {
         if (payrollDepartmentComboBox.getSelectedItem() == null) {return null;}
@@ -30,6 +43,9 @@ public class DepartmentSelectionPanel extends SelectionPanel {
         return PayrollDBController.getPayrollsByDepartmentID( ID, displayHistoryOnlyCheckBox.isSelected());
     }
 
+    /**
+     * Places the components in the panel using GridBagLayout.
+     */
     private void placeComponents() {
         setLayout(new GridBagLayout());
         GridBagConstraints constraints = new GridBagConstraints();
@@ -49,15 +65,21 @@ public class DepartmentSelectionPanel extends SelectionPanel {
         add(displayHistoryOnlyCheckBox, constraints);
     }
 
-    private void fillPayrollBatchesComboBox() {
+    /**
+     * Fills the department combo box with available departments from the database.
+     */
+    private void fillDepartmentComboBox() {
         payrollDepartmentComboBox.removeAllItems();
         for (Department d: PayrollDBController.getDepartments()) {
             payrollDepartmentComboBox.addItem(d);
         }
     }
 
+    /**
+     * Adds action listeners to the components in the panel.
+     */
     private void addActionListeners() {
         payrollDepartmentComboBox.addActionListener((e)->sendUpdateActionEvent());
-        displayHistoryOnlyCheckBox.addActionListener((e)->fillPayrollBatchesComboBox());
+        displayHistoryOnlyCheckBox.addActionListener((e)->fillDepartmentComboBox());
     }
 }

@@ -1,0 +1,103 @@
+#General Key-Value Pairings
+programName=Manager de Salarizare
+ok=OK
+edit=Editare
+cancel=Anulare
+yes=Da
+no=Nu
+warning=Avertisment
+operationCompleted=Operație finalizată
+notice=Notificare
+
+#Initial Configuration Key-Value Pairings
+initialConfig=Configurație inițială
+ip=IP
+port=Port
+user=Utilizator
+password=Parolă
+database=Bază de date
+language=Limbă
+
+#Loading Window Key-Value Pairings
+connecting=Conectare...
+
+#Main Window Key-Value Pairings
+mainWindowTitle=Manager de Salarizare
+batchTab=LOT
+departmentTab=DEPARTAMENT
+employeeTab=ANGAJAT
+
+#Payroll Button Panel Key-Value Pairings
+payrollsLabel=Centralizator Salarizare
+newPayrollButton=Centralizator Nou
+editPayrollButton=Editare Centralizator
+deletePayrollButton=Șterge Centralizatorul Selectat
+deleteAllPayrollButton=Șterge toate Centralizatoarele
+deletePayrollWarning=Avertisment! Ești pe cale să ștergi un centralizator. Ești sigur?
+recalculatePayrolls=Calculează toate Centralizatoarele
+recalculatedCorrecly=Toate centralizatoarele au fost calculate cu succes.
+errorrecalculating=A apărut o eroare la calcularea centralizatoarelor.
+sepaButton=Export în SEPA
+
+#Batch Selection Panel Key-Value Pairings
+batchesLabel=Lot
+newBatchButton=Lot Nou
+deleteBatchButton=Șterge Lotul
+toggleAcceptedButton=Trimite/Recuperează Istoricul
+deleteBatchWarning=Avertisment! Ești pe cale să ștergi un lot. Ești sigur?
+
+#Department Selection Panel Key-Value Pairings
+departmentLabel=Departament
+
+#Employee Selection Panel Key-Value Pairings
+employeesLabel=Angajat
+
+#Query Panels Key-Value Pairings
+displayHistoryOnly=Afișează Doar Istoricul
+
+#Edit Payroll Key-Value Pairings
+editPayrollTitle=Editare Centralizator
+epw_save=Salvare
+epw_create=Creare
+epw_company=Denumire Companie
+epw_cif=CIF
+epw_address=Adresă
+epw_ccc=CCC
+epw_empName=Nume Angajat
+epw_ss=Număr SS
+epw_group=Grup Profesional
+epw_payrollID=ID Centralizator
+epw_payrollBatch=ID Lot
+epw_nif=NIF
+epw_year=An
+epw_month=Lună
+epw_day=Zi
+epw_totalDev=Accrual Total
+epw_totalDeduc=Deducere Totală
+epw_totalNet=Net Total
+epw_ap=Introducere Companie
+
+#Payroll Preview Key-Value Pairings
+pp_title=Previzualizare Centralizator
+pp_company=Companie
+pp_domicile=Domiciliu
+pp_cif=CIF
+pp_ccc=CCC
+pp_worker=Angajat
+pp_nif=NIF
+pp_ssnumber=Număr Asigurare Socială
+pp_professionalgroup=Grup Profesional
+pp_taxgroup=Grup Fiscal
+pp_earnings=Accrualuri
+pp_salaryperception=Percepții Salariale
+pp_totalearned=Total Câștiguri
+pp_deductions=Deduceri
+pp_totaldeductions=Total Deduceri
+pp_totalperceptions=Total Percepții
+pp_companysignature=Semnătura Companiei
+pp_time= Data
+pp_irecieved= Am primit
+pp_companyheader= Calculul bazelor de impozitare și plăților companiei
+pp_companytotal= Total Companie
+pp_ATEP= ATEP
+pp_IRPF= IRPF

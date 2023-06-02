@@ -10,11 +10,31 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
+/**
+ * Represents a panel for selecting payrolls by Employee.
+ *
+ * @author David Serna Mateu
+ */
 public class EmployeeSelectionPanel extends SelectionPanel {
     private final JLabel employeesLabel = new JLabel(ProgramLanguageProperties.getProperty("employeesLabel"));
     private final JComboBox<Employee> payrollEmployeesComboBox = new JComboBox<Employee>();
     private final JCheckBox displayHistoryOnlyCheckBox = new JCheckBox(ProgramLanguageProperties.getProperty("displayHistoryOnly"));
 
+    /**
+     * Constructs a new instance of EmployeeSelectionPanel.
+     */
+    public EmployeeSelectionPanel() {
+        super();
+        placeComponents();
+        addActionListeners();
+        fillEmployeesComboBox();
+    }
+
+    /**
+     * Retrieves the list of payrolls selected in the panel.
+     *
+     * @return The list of selected payrolls.
+     */
     @Override
     public ArrayList<Payroll> getPayrollList() {
         if (payrollEmployeesComboBox.getSelectedItem() == null) {return null;}
@@ -22,13 +42,9 @@ public class EmployeeSelectionPanel extends SelectionPanel {
         return PayrollDBController.getPayrollsByEmployeeNIF( NIF, displayHistoryOnlyCheckBox.isSelected());
     }
 
-    public EmployeeSelectionPanel() {
-        super();
-        placeComponents();
-        addActionListeners();
-        fillPayrollEmployeesComboBox();
-    }
-
+    /**
+     * Places the components in the panel using GridBagLayout.
+     */
     private void placeComponents() {
         setLayout(new GridBagLayout());
         GridBagConstraints constraints = new GridBagConstraints();
@@ -48,13 +64,19 @@ public class EmployeeSelectionPanel extends SelectionPanel {
         add(displayHistoryOnlyCheckBox, constraints);
     }
 
-    private void fillPayrollEmployeesComboBox() {
-        payrollEmployeesComboBox.removeAllItems();
+    /**
+     * Fills the employee batches combo box with available employees from the database.
+     */
+    private void fillEmployeesComboBox() {
+        employeesComboBox.removeAllItems();
         for(Employee e : PayrollDBController.getEmployees()) {
             payrollEmployeesComboBox.addItem(e);
         }
     }
 
+    /**
+     * Adds action listeners to the components in the panel.
+     */
     private void addActionListeners() {
         payrollEmployeesComboBox.addActionListener((e) -> sendUpdateActionEvent());
         displayHistoryOnlyCheckBox.addActionListener((e) -> fillPayrollEmployeesComboBox());

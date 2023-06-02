@@ -11,7 +11,7 @@ import javax.swing.*;
 import java.awt.*;
 
 /**
- * @Author Raúl Simarro Navarro
+ * @author Raúl Simarro Navarro
  * Sets and retireves user configuration for language and database connection.
  */
 public class InitialConfigFrame extends JFrame {

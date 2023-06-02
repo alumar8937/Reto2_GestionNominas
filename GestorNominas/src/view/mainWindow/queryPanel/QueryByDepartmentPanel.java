@@ -17,11 +17,17 @@ public class QueryByDepartmentPanel extends JPanel {
     private final PayrollPreviewPanel payrollPreviewPanel = new PayrollPreviewPanel();
     private final JScrollPane previewPayrollScrollPane = new JScrollPane(payrollPreviewPanel);
 
+    /**
+     * Constructs a new instance of QueryByDepartmentPanel.
+     */
     private QueryByDepartmentPanel() {
         placeComponents();
         controlPanel.addActionListener((e) -> updatePayrollPreviewPanel());
     }
 
+    /**
+     * Places the components in the panel using GridBagLayout.
+     */
     private void placeComponents() {
         setLayout(new GridBagLayout());
         GridBagConstraints constraints = new GridBagConstraints();
@@ -44,6 +50,11 @@ public class QueryByDepartmentPanel extends JPanel {
         repaint();
     }
 
+    /**
+     * Retrieves the singleton instance of QueryByDepartmentPanel.
+     *
+     * @return The singleton instance of QueryByDepartmentPanel.
+     */
     public static QueryByDepartmentPanel getINSTANCE() {
         if (INSTANCE == null) {
             INSTANCE = new QueryByDepartmentPanel();
@@ -51,6 +62,9 @@ public class QueryByDepartmentPanel extends JPanel {
         return INSTANCE;
     }
 
+    /**
+     * Updates the payroll preview panel based on the selected payroll in the control panel.
+     */
     public void updatePayrollPreviewPanel() {
         if (controlPanel.getPayrollJList().getSelectedValue() != null) {
             payrollPreviewPanel.setData(controlPanel.getPayrollJList().getSelectedValue());

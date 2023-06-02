@@ -9,8 +9,9 @@ import javax.swing.*;
 import java.awt.*;
 
 /**
- * @author Pedro Marín Sanchis
+ * Represents a panel for querying payrolls by batches.
  *
+ * @author Pedro Marín Sanchis
  */
 public class QueryByBatchesPanel extends JPanel {
     private static QueryByBatchesPanel INSTANCE = null;
@@ -18,11 +19,17 @@ public class QueryByBatchesPanel extends JPanel {
     private final PayrollPreviewPanel payrollPreviewPanel = new PayrollPreviewPanel();
     private final JScrollPane previewPayrollScrollPane = new JScrollPane(payrollPreviewPanel);
 
+    /**
+     * Constructs a new instance of QueryByBatchesPanel.
+     */
     private QueryByBatchesPanel() {
         placeComponents();
         controlPanel.addActionListener((e) -> updatePayrollPreviewPanel());
     }
 
+    /**
+     * Places the components in the panel using GridBagLayout.
+     */
     private void placeComponents() {
         setLayout(new GridBagLayout());
         GridBagConstraints constraints = new GridBagConstraints();
@@ -45,6 +52,11 @@ public class QueryByBatchesPanel extends JPanel {
         repaint();
     }
 
+    /**
+     * Retrieves the singleton instance of QueryByBatchesPanel.
+     *
+     * @return The singleton instance of QueryByBatchesPanel.
+     */
     public static QueryByBatchesPanel getINSTANCE() {
         if (INSTANCE == null) {
             INSTANCE = new QueryByBatchesPanel();
@@ -52,6 +64,9 @@ public class QueryByBatchesPanel extends JPanel {
         return INSTANCE;
     }
 
+    /**
+     * Updates the payroll preview panel based on the selected payroll in the control panel.
+     */
     public void updatePayrollPreviewPanel() {
         if (controlPanel.getPayrollJList().getSelectedValue() != null) {
             payrollPreviewPanel.setData(controlPanel.getPayrollJList().getSelectedValue());
