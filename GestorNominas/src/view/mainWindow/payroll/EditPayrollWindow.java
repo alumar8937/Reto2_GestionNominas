@@ -142,7 +142,7 @@ public class EditPayrollWindow extends JFrame{
     }
 
     class WindowPayroll extends JPanel {
-        JButton saveButton = new JButton(ProgramLanguageProperties.getProperty("epw_save"));
+        JButton saveButton = new JButton(ProgramLanguageProperties.getProperty("epw_create"));
 
         JLabel companyLabel = new JLabel(ProgramLanguageProperties.getProperty("epw_company"));
         JLabel cifLabel = new JLabel(ProgramLanguageProperties.getProperty("epw_cif"));
@@ -267,7 +267,7 @@ public class EditPayrollWindow extends JFrame{
             add(num_ssText, constraints);
 
             constraints.gridy = 6;
-            PayrollDBController.setComboProfesionalGroup(prof_GroupBox);
+            setComboProfesionalGroup(prof_GroupBox);
             add(prof_GroupBox, constraints);
 
             constraints.gridy = 7;

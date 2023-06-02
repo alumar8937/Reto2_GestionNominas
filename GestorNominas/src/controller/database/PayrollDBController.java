@@ -8,12 +8,7 @@ import model.PayrollBatch;
 import model.Perception;
 import userconfig.UserconfigManager;
 
-import javax.swing.JComboBox;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.Properties;
 
@@ -53,7 +48,7 @@ public class PayrollDBController {
      *
      * @return the connection to the PostgreSQL database
      */
-    private static Connection getConnection() { // Author: Pedro Marín Sanchis
+    public static Connection getConnection() { // Author: Pedro Marín Sanchis
         if (connection == null) {
             establishConnection();
         }
@@ -103,7 +98,15 @@ public class PayrollDBController {
         return payrolls;
     }
 
-
+    /**
+     * Retrieves a list of employees belonging to a specific department based on its ID.
+     * Executes a SELECT query to retrieve the NIF, name, and surnames of employees from the "trabajador" table
+     * who belong to the department with the specified ID.
+     * Creates an Employee object for each row in the ResultSet and adds it to the list.
+     *
+     * @param ID the ID of the department
+     * @return an ArrayList containing the retrieved employees belonging to the department
+     */
     public static ArrayList<Employee> getEmployessByDepartmentID(String ID){ // Author: Javier Blasco Gómez
         ArrayList<Employee> employees = new ArrayList<>();
         try{
@@ -119,6 +122,18 @@ public class PayrollDBController {
         return employees;
     }
 
+    /**
+     * Retrieves a list of payrolls for employees belonging to a specific department based on its ID.
+     * Filters the payrolls based on whether they were accepted or not (wasAccepted parameter).
+     * Calls the getBatches() method to retrieve the payroll batches based on the acceptance status.
+     * Calls the getEmployeesByDepartmentID() method to retrieve the employees belonging to the department.
+     * Iterates through the payrolls in each batch and checks if they belong to any of the retrieved employees.
+     * Adds the matching payrolls to the list.
+     *
+     * @param ID            the ID of the department
+     * @param wasAccepted   the flag indicating whether the payrolls were accepted or not
+     * @return an ArrayList containing the retrieved payrolls for employees belonging to the department
+     */
     public static ArrayList<Payroll> getPayrollsByDepartmentID(String ID, boolean wasAccepted) { // Author: Javier Blasco Gómez
         ArrayList<PayrollBatch> batches = getBatches(wasAccepted);
         ArrayList<Employee> employees = getEmployessByDepartmentID(ID);
@@ -135,6 +150,16 @@ public class PayrollDBController {
         return payrolls;
     }
 
+    /**
+     * Retrieves a list of payroll batches based on the acceptance status.
+     * Filters the batches based on whether they were accepted or not (wasAccepted parameter).
+     * Executes a SELECT query to retrieve the batches from the "remesa" table with the specified acceptance status.
+     * Creates a PayrollBatch object for each row in the ResultSet and adds it to the list.
+     * Calls the setPayrollsByBatch() method to set the payrolls for each batch.
+     *
+     * @param wasAccepted   the flag indicating whether the batches were accepted or not
+     * @return an ArrayList containing the retrieved payroll batches
+     */
     public static ArrayList<PayrollBatch> getBatches(boolean wasAccepted) { // Author: Javier Blasco Gómez // Return a list of batch
         ArrayList<PayrollBatch> batches = new ArrayList<>();
         try{
@@ -168,12 +193,19 @@ public class PayrollDBController {
         }
     }
 
+    /**
+     * Modifies an existing payroll entry in the database.
+     * Updates the payroll details in the "nomina" table and the associated worker details in the "trabajador" table.
+     * Checks the length of the name to see if it has the two surnames or if it has a compound name
+     *
+     * @param payroll the Payroll object representing the modified payroll data
+     */
     public static void modifyPayroll(Payroll payroll) { // Author: David Serna Mateu
         try {
             Statement statementUpdatePayrollData = getConnection().createStatement();
             statementUpdatePayrollData.executeUpdate(
                     "UPDATE nomina set anyo=" + payroll.getYear() + ", mes=" + payroll.getMonth() + ", total_dev="
-                            + payroll.getTotal_dev() + ", total_neto=" + payroll.getTotal_net() + ", ap_empresa="
+                            + payroll.getTotal_dev() + ", total_neto=null" + ", ap_empresa="
                             + payroll.getAp_company() + ", dia=" + payroll.getDay() + ", total_deduc=" + payroll.getTotal_deduc()
                             + " where id_nom=" + payroll.getId_name() + ";"
             );
@@ -202,7 +234,13 @@ public class PayrollDBController {
         }
     }
 
-    public static void createNewBatch() { // Author: Pedro Marín Sanchis // Returns newly created batch ID.
+    /**
+     * Creates a new batch entry in the database with a default acceptance status of "FALSE".
+     * Inserts the batch details into the "remesa" table.
+     * Returns the ID of the newly created batch.
+     *
+     */
+    public static void createNewBatch() { // Author: Pedro Marín Sanchis
         try {
             Statement statement = getConnection().createStatement();
             statement.executeUpdate(
@@ -214,6 +252,12 @@ public class PayrollDBController {
         }
     }
 
+    /**
+     * Deletes a batch entry from the database based on the provided batch ID.
+     * Removes the batch record from the "remesa" table.
+     *
+     * @param batchID   the ID of the batch to be deleted
+     */
     public static void deleteBatch(int batchID) { // Author: Pedro Marín Sanchis / David Serna Mateu
         try {
             Statement statement = getConnection().createStatement();
@@ -225,6 +269,12 @@ public class PayrollDBController {
         }
     }
 
+    /**
+     * Deletes a payroll entry from the database based on the provided payroll ID.
+     * Removes the payroll record from the "nomina" table.
+     *
+     * @param payrollID   the ID of the payroll to be deleted
+     */
     public static void deletePayroll(int payrollID) { // Author: David Serna Mateu
         try {
             Statement statement = getConnection().createStatement();
@@ -236,6 +286,12 @@ public class PayrollDBController {
         }
     }
 
+    /**
+     * Deletes all payroll entries associated with a specific batch from the database.
+     * Removes the payroll records from the "nomina" table based on the provided batch ID.
+     *
+     * @param batchID   the ID of the batch whose payrolls are to be deleted
+     */
     public static void deletePayrollsOfBatch(int batchID) { // Author: David Serna Mateu
         try {
             Statement statement = getConnection().createStatement();
@@ -247,6 +303,13 @@ public class PayrollDBController {
         }
     }
 
+    /**
+     * Updates the acceptance status of a batch in the database based on the provided batch ID.
+     * Sets the acceptance status of the batch in the "remesa" table.
+     *
+     * @param batchID      the ID of the batch to update
+     * @param wasAccepted  the new acceptance status of the batch
+     */
     public static void setBatchAccepted(int batchID, boolean wasAccepted) { // Author: David Serna Mateu / Pedro Marín Sanchis
         try {
             Statement statement = getConnection().createStatement();
@@ -259,6 +322,12 @@ public class PayrollDBController {
         }
     }
 
+    /**
+     * Sets the list of payrolls for a specific batch by retrieving payroll data from the database.
+     * Populates the payrolls list of the provided PayrollBatch object with Payroll objects.
+     *
+     * @param batch   the PayrollBatch object for which to set the payrolls
+     */
     public static void setPayrollsByBatch(PayrollBatch batch) { // Author: David Serna Mateu
         ArrayList<Payroll> payrolls = new ArrayList<Payroll>();
         try{
@@ -290,6 +359,13 @@ public class PayrollDBController {
         }
     }
 
+    /**
+     * Sets the name, professional group, and social security number for each payroll in the provided list of payrolls.
+     * Retrieves employee data from the database based on the NIF (tax identification number) of each payroll.
+     *
+     * @param payrolls   the list of payrolls for which to set the employee data
+     * @return the updated list of payrolls with employee data set
+     */
     private static ArrayList<Payroll> setNameEmployeeToEachPayroll(ArrayList<Payroll> payrolls) { // Author: David Serna Mateu
         try{
             Statement st = getConnection().createStatement();
@@ -310,6 +386,13 @@ public class PayrollDBController {
         return payrolls;
     }
 
+    /**
+     * Sets the perceptions (individual and group) for each payroll in the provided list of payrolls.
+     * Retrieves perception data from the database based on the NIF (tax identification number) of each payroll.
+     *
+     * @param payrolls   the list of payrolls for which to set the perceptions
+     * @return the updated list of payrolls with perceptions set
+     */
     private static ArrayList<Payroll> setPerceptionsToEachPayroll(ArrayList<Payroll> payrolls) { // Author: David Serna Mateu
         try{
             Statement st = getConnection().createStatement();
@@ -339,6 +422,13 @@ public class PayrollDBController {
         return payrolls;
     }
 
+    /**
+     * Sets the retentions for each payroll in the provided list of payrolls.
+     * Retrieves retention data from the database based on the NIF (tax identification number) of each payroll.
+     *
+     * @param payrolls   the list of payrolls for which to set the retentions
+     * @return the updated list of payrolls with retentions set
+     */
     private static ArrayList<Payroll> setRetentionsToEachPayroll(ArrayList<Payroll> payrolls) { // Author: David Serna Mateu
         try{
             Statement st = getConnection().createStatement();
@@ -358,6 +448,13 @@ public class PayrollDBController {
         return payrolls;
     }
 
+    /**
+     * Sets the contingencies for each payroll in the provided list of payrolls.
+     * Retrieves contingency data from the database based on the NIF (tax identification number) of each payroll.
+     *
+     * @param payrolls   the list of payrolls for which to set the contingencies
+     * @return the updated list of payrolls with contingencies set
+     */
     private static ArrayList<Payroll> setContingenciesToEachPayroll(ArrayList<Payroll> payrolls) { // Author: David Serna Mateu / Javier Blasco Gómez
         try{
             Statement st = getConnection().createStatement();
@@ -373,14 +470,14 @@ public class PayrollDBController {
                 rs_aux2.next();
                 if(rs_aux2.getBoolean(1)) {
                     rs2 = st2.executeQuery(
-                            "SELECT * FROM contingencia_t ct where not cod_c='Desempleo2'"
+                            "SELECT * FROM contingencia_t ct where not cod_c='Desempleo2';"
                     );
                     while(rs2.next()) {
                         contingencies_Emp.add(new Contingency(rs2.getString(1), rs2.getFloat(2)));
                     }
                 }else{
                     rs2 = st2.executeQuery(
-                            "SELECT * FROM contingencia_t ct where not cod_c='Desempleo'"
+                            "SELECT * FROM contingencia_t ct where not cod_c='Desempleo';"
                     );
                     while(rs2.next()) {
                         contingencies_Emp.add(new Contingency(rs2.getString(1), rs2.getFloat(2)));
@@ -394,14 +491,14 @@ public class PayrollDBController {
                 rs_aux.next();
                 if(rs_aux.getBoolean(1)) {
                     rs = st.executeQuery(
-                            "SELECT * FROM contingencia_e ce where not cod_c='Desempleo2'"
+                            "SELECT * FROM contingencia_e ce where not cod_c='Desempleo2';"
                     );
                     while(rs.next()) {
                         contingencies_Com.add(new Contingency(rs.getString(1), rs.getFloat(2)));
                     }
                 }else{
                     rs = st.executeQuery(
-                            "SELECT * FROM contingencia_e ce where not cod_c='Desempleo'"
+                            "SELECT * FROM contingencia_e ce where not cod_c='Desempleo';"
                     );
                     while(rs.next()) {
                         contingencies_Com.add(new Contingency(rs.getString(1), rs.getFloat(2)));
@@ -415,12 +512,17 @@ public class PayrollDBController {
         return payrolls;
     }
 
-    public static ArrayList<String> getProfesionalGroup() {
+    /**
+     * Retrieves the professional groups from the database.
+     *
+     * @return the list of professional groups
+     */
+    public static ArrayList<String> getProfesionalGroup() { // Author : Javier Blasco Gómez
         ArrayList<String> profesionalGroups = new ArrayList<>();
         try{
             Statement statement = getConnection().createStatement();
             ResultSet resultSet = statement.executeQuery(
-                    "SELECT cod_gr FROM grupo_profesional"
+                    "SELECT cod_gr FROM grupo_profesional;"
             );
             while (resultSet.next()) {
                 profesionalGroups.add(resultSet.getString(1));
@@ -443,7 +545,7 @@ public class PayrollDBController {
         ArrayList<Department> departments = new ArrayList<>();
         try{
             Statement statement = getConnection().createStatement();
-            ResultSet resultSet = statement.executeQuery("SELECT * from departamento");
+            ResultSet resultSet = statement.executeQuery("SELECT * from departamento;");
             while (resultSet.next()) {
                 departments.add(new Department(resultSet.getString(2),resultSet.getString(1)));
             }
@@ -453,7 +555,12 @@ public class PayrollDBController {
         return departments;
     }
 
-    public static boolean calculateAllPayrolls() {
+    /**
+     * Calculates the net total for all payrolls by subtracting the total deductions from the total earnings.
+     *
+     * @return true if the calculation is successful, false otherwise
+     */
+    public static boolean calculateAllPayrolls() { // Author : David Serna Mateu
         try{
             Statement st = getConnection().createStatement();
             st.executeUpdate("update nomina set total_neto = (total_dev - total_deduc);");

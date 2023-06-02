@@ -23,6 +23,7 @@ public class PayrollButtonPanel extends JPanel {
     private final JButton deletePayrollButton = new JButton(ProgramLanguageProperties.getProperty("deletePayrollButton"));
     private final JButton deleteAllPayrollButton = new JButton(ProgramLanguageProperties.getProperty("deleteAllPayrollButton"));
     private final JButton recalculateAllPayrollsButton = new JButton(ProgramLanguageProperties.getProperty("recalculatePayrolls"));
+    private final JButton exportToSEPAButton = new JButton(ProgramLanguageProperties.getProperty("sepaButton"));
     private JList<Payroll> payrollList = null;
     protected ActionListener listener;
 
@@ -70,6 +71,10 @@ public class PayrollButtonPanel extends JPanel {
         constraints.gridy += 1;
         add(recalculateAllPayrollsButton, constraints);
         recalculateAllPayrollsButton.addActionListener((e) -> recalculateAllPayrollsButtonAction());
+
+        constraints.gridy += 1;
+        add(exportToSEPAButton, constraints);
+        exportToSEPAButton.addActionListener((e) -> exportToSEPAButtonAction());
     }
 
     /**

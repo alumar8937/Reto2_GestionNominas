@@ -17,7 +17,7 @@ import java.util.ArrayList;
  */
 public class EmployeeSelectionPanel extends SelectionPanel {
     private final JLabel employeesLabel = new JLabel(ProgramLanguageProperties.getProperty("employeesLabel"));
-    private final JComboBox<Employee> payrollEmployeesComboBox = new JComboBox<Employee>();
+    private final JComboBox<Employee> employeesComboBox = new JComboBox<Employee>();
     private final JCheckBox displayHistoryOnlyCheckBox = new JCheckBox(ProgramLanguageProperties.getProperty("displayHistoryOnly"));
 
     /**
@@ -37,8 +37,8 @@ public class EmployeeSelectionPanel extends SelectionPanel {
      */
     @Override
     public ArrayList<Payroll> getPayrollList() {
-        if (payrollEmployeesComboBox.getSelectedItem() == null) {return null;}
-        String NIF = ( (Employee) payrollEmployeesComboBox.getSelectedItem()).getNIF();
+        if (employeesComboBox.getSelectedItem() == null) {return null;}
+        String NIF = ( (Employee) employeesComboBox.getSelectedItem()).getNIF();
         return PayrollDBController.getPayrollsByEmployeeNIF( NIF, displayHistoryOnlyCheckBox.isSelected());
     }
 
@@ -58,7 +58,7 @@ public class EmployeeSelectionPanel extends SelectionPanel {
         add(employeesLabel, constraints);
 
         constraints.gridy += 1;
-        add(payrollEmployeesComboBox, constraints);
+        add(employeesComboBox, constraints);
 
         constraints.gridy += 1;
         add(displayHistoryOnlyCheckBox, constraints);
@@ -70,7 +70,7 @@ public class EmployeeSelectionPanel extends SelectionPanel {
     private void fillEmployeesComboBox() {
         employeesComboBox.removeAllItems();
         for(Employee e : PayrollDBController.getEmployees()) {
-            payrollEmployeesComboBox.addItem(e);
+            employeesComboBox.addItem(e);
         }
     }
 
@@ -78,7 +78,7 @@ public class EmployeeSelectionPanel extends SelectionPanel {
      * Adds action listeners to the components in the panel.
      */
     private void addActionListeners() {
-        payrollEmployeesComboBox.addActionListener((e) -> sendUpdateActionEvent());
-        displayHistoryOnlyCheckBox.addActionListener((e) -> fillPayrollEmployeesComboBox());
+        employeesComboBox.addActionListener((e) -> sendUpdateActionEvent());
+        displayHistoryOnlyCheckBox.addActionListener((e) -> fillEmployeesComboBox());
     }
 }
