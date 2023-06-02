@@ -186,8 +186,20 @@ public class PayrollDBController {
      */
     public static void createPayroll(Payroll payroll) { // Author: Javier Blasco Gómez
         try {
-            Statement statement = getConnection().createStatement();
-            statement.executeUpdate("INSERT INTO nomina ()");
+            String query = "INSERT INTO nomina (id_remesa, nif, anyo, mes, total_dev, total_neto, ap_empresa, dia, total_deduc) " +
+                    "VALUES (?, ?, ?, ?, ?, null, ?, ?, ?)";
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setInt(1, payroll.getId_batch());
+            statement.setString(2, payroll.getNif());
+            statement.setInt(3, payroll.getYear());
+            statement.setInt(4, payroll.getMonth());
+            statement.setDouble(5, payroll.getTotal_dev());
+            statement.setDouble(6, payroll.getAp_company());
+            statement.setInt(7, payroll.getDay());
+            statement.setDouble(8, payroll.getTotal_deduc());
+
+            statement.executeUpdate();
+            statement.close();
         }catch (SQLException e) {
             e.printStackTrace();
         }
@@ -533,15 +545,12 @@ public class PayrollDBController {
         return profesionalGroups;
     }
 
-    public static void setComboProfesionalGroup(JComboBox comboBox) {
-        ArrayList<String> profesionalGroups = getProfesionalGroup();
-        comboBox.removeAllItems();
-        for (String profesionalGroup: profesionalGroups) {
-            comboBox.addItem(profesionalGroup);
-        }
-    }
-
-    public static ArrayList<Department> getDepartments() {
+    /**
+     * Retrieves the departments from the database.
+     *
+     * @return the list of departments
+     */
+    public static ArrayList<Department> getDepartments() { // Author: Javier Blasco Gómez
         ArrayList<Department> departments = new ArrayList<>();
         try{
             Statement statement = getConnection().createStatement();
@@ -553,6 +562,38 @@ public class PayrollDBController {
             e.printStackTrace();
         }
         return departments;
+    }
+
+    public static ArrayList<String> getCompanyData() { // Author : Javier Blasco Gómez
+        ArrayList<String> companyData = new ArrayList<>();
+        try{
+            Statement statement = getConnection().createStatement();
+            ResultSet resultSet = statement.executeQuery("SELECT * from datos_empresa;");
+            resultSet.next();
+            companyData.add(resultSet.getString(1));
+            companyData.add(resultSet.getString(2));
+            companyData.add(resultSet.getString(3));
+            companyData.add(String.valueOf(resultSet.getLong(4)));
+        }catch(SQLException e) {
+            e.printStackTrace();
+        }
+        return companyData;
+    }
+
+    public static ArrayList<String> getEmployeeData(String Nif) { // Author : Javier Blasco Gómez
+        ArrayList<String> employeeData = new ArrayList<>();
+        try{
+            Statement statement = getConnection().createStatement();
+            ResultSet resultSet = statement.executeQuery("SELECT * from trabajador where nif='" + Nif + "';");
+            resultSet.next();
+            String name = resultSet.getString(2) + resultSet.getString(3) + resultSet.getString(4);
+            employeeData.add(name);
+            employeeData.add(resultSet.getString(10));
+            employeeData.add(String.valueOf(resultSet.getLong(6)));
+        }catch(SQLException e) {
+            e.printStackTrace();
+        }
+        return employeeData;
     }
 
     /**

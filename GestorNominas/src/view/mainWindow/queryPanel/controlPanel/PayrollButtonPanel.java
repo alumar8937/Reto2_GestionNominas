@@ -54,7 +54,7 @@ public class PayrollButtonPanel extends JPanel {
 
         constraints.gridy += 1;
         add(newPayrollButton, constraints);
-        newPayrollButton.addActionListener((e) -> {});
+        newPayrollButton.addActionListener((e) -> {new EditPayrollWindow(this);});
 
         constraints.gridy += 1;
         add(editPayrollButton, constraints);

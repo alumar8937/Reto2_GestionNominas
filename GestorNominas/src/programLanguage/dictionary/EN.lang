@@ -1,6 +1,6 @@
 #General Key-Value Pairings
-programName=
-ok=Ok
+programName=Payroll Manager
+ok=OK
 edit=Edit
 cancel=Cancel
 yes=Yes
@@ -9,49 +9,73 @@ warning=Warning
 operationCompleted=Operation Completed
 notice=Notice
 
-#Initial Configuration Key-Value Pairs
+#Initial Configuration Key-Value Pairings
 initialConfig=Initial Configuration
-IP=IP
+ip=IP
 port=Port
 user=User
 password=Password
 database=Database
 language=Language
 
-#Main Window Key-Value Pairings
-batchTab=BATCH
-departmentTab=DEPARTMENT
-employeeTab=EMPLOYEE
-documentationTab=DOCUMENTATION
-displayHistoryOnly=Display History Only
-
-#Payroll Button Panel Key-Value Pairings
-recalculatePayrolls=Recalculate Payrolls
-recalculatedCorrecly=All payrolls recalculated correcly.
-errorrecalculating=There was an errer recalculating the payrolls.
-
-mainWindow=Payroll Manager
-batchesLabel=Batches
-newBatchButton=New Batch
-deleteBatchButton=Delete Batch
-sendToHistoryButton=Send to History
-historyButton=History
-payrollsLabel=Payrolls
-newPayrollButton=New Payroll
-editPayrollButton=Edit Payroll
-deletePayrollButton=Delete Payroll
-deleteBatchDialog=Are you sure you want to delete this batch?
-deletePayrollDialog=Are you sure you want to delete this payroll?
-
-
 #Loading Window Key-Value Pairings
 connecting=Connecting...
 
-#History of Batches Windows Key-Value Pairings
-historyBatchesWindow= History Batches Window
-batchLabel= Batch
-payrollLabel= Payroll
-recoveryBatchButton= Recover Batch
+#Main Window Key-Value Pairings
+mainWindowTitle=Payroll Manager
+batchTab=BATCH
+departmentTab=DEPARTMENT
+employeeTab=EMPLOYEE
+
+#Payroll Button Panel Key-Value Pairings
+payrollsLabel=Payroll
+newPayrollButton=New Payroll
+editPayrollButton=Edit Payroll
+deletePayrollButton=Delete Selected Payroll
+deleteAllPayrollButton=Delete all Payrolls
+deletePayrollWarning=Warning! You are about to delete a payroll. Are you sure?
+recalculatePayrolls=Calulate all Payrolls
+recalculatedCorrecly=All payrolls calculated successfully.
+errorrecalculating=There was an error calculating the payrolls.
+sepaButton=Export to SEPA
+
+#Batch Selection Panel Key-Value Pairings
+batchesLabel=Batch
+newBatchButton=New Batch
+deleteBatchButton=Delete Batch
+toggleAcceptedButton=Send/Recovery Historic
+deleteBatchWarning=Warning! You are about to delete a batch. Are you sure?
+
+#Department Selection Panel Key-Value Pairings
+departmentLabel=Department
+
+#Employee Selection Panel Key-Value Pairings
+employeesLabel=Employee
+
+#Query Panels Key-Value Pairings
+displayHistoryOnly=Display History Only
+
+#Edit Payroll Key-Value Pairings
+editPayrollTitle=Edit Payroll
+epw_save=Save
+epw_create=Create
+epw_company=Company Name
+epw_cif=CIF
+epw_address=Address
+epw_ccc=CCC
+epw_empName=Employee Name
+epw_ss=SS Number
+epw_group=Professional Group
+epw_payrollID=Payroll ID
+epw_payrollBatch=Batch ID
+epw_nif=NIF
+epw_year=Year
+epw_month=Month
+epw_day=Day
+epw_totalDev=Total Accrual
+epw_totalDeduc=Total Deduction
+epw_totalNet=Total Net
+epw_ap=Company Input
 
 #Payroll Preview Key-Value Pairings
 pp_title=Payroll Preview
@@ -61,54 +85,19 @@ pp_cif=CIF
 pp_ccc=CCC
 pp_worker=Employee
 pp_nif=NIF
-pp_ssnumber=SS Number
-pp_professionalgroup= Professional Group
+pp_ssnumber=Social Security Number
+pp_professionalgroup=Professional Group
 pp_taxgroup=Tax Group
-pp_liquidationperiod=Liquidation Period
-pp_numberofdays=Number of days
-pp_earnings=Earnings
-pp_salaryperception=Salary Perceptions
-pp_basesalary=Base Salary
-pp_salarycomplements=Salary Complements
-pp_overtime=Overtime
-pp_extrapay=Extra Pay
-pp_nosalaryperception=Non Salary Perceptions
-pp_indemnities=Indemnities
-pp_socialsecurityindemnities=Social Security Indemnities
-pp_indemnitiesformovingorfirings=Indemnities related to movings or firings
-pp_othernonsalarialperceptions=Other non salarial perceptions
-pp_totalearned=Total earned
+pp_earnings=Accruals
+pp_salaryperception=Salarial Perceptions
+pp_totalearned=Total Earnings
 pp_deductions=Deductions
-pp_ssprovisions=Social Security provisions
-pp_commoncontingencies=Common Contingencies
-pp_unemployment=Unemployment
-pp_fp=FP
-pp_standardextrahours=Standard Extra Hours
-pp_greaterforceextrahours=Greater Force Extra Hours
-pp_totalprovisions=Total provisions
-pp_irpf=IRPF
-pp_payadvances=Pay advances
-pp_spicevalue=Spice value
-pp_otherdeductions=Other deductions
-pp_totaldeductions=Total deductions
-pp_totalperceptions=Total perceptions
-pp_companysignature=Company signature
-pp_time=Time
-pp_irecieved=I recieved
-pp_companyheader=Company Header
-pp_companycommoncontingencies=Common Contingencies
-pp_companymonthlyremuneration=Monthly salary
-pp_companyspreadextrasalary=Spread extra salary
-pp_companytotal=Total
-pp_companyprofessionalcontingencybase=Professional Contingency Base
-pp_companyatandep=AT and EP
-pp_companyunemployment=Unemployment
-pp_compamnyfp=FP
-pp_companystandardextrahours=Standard Extra Hours
-pp_companygreaterforceextrahours=Greater Force Extra Hours
-pp_companyirpfbase=IRPF Base
-pp_companybase=Base
-pp_companytype=Type
-pp_companygrant=Grant
-pp_ATEP=ATEP
-pp_IRPF=IRPF
+pp_totaldeductions=Total Deductions
+pp_totalperceptions=Total Perceptions
+pp_companysignature=Company Signature
+pp_time= Date
+pp_irecieved= I Recieved
+pp_companyheader= Calculation of the taxation bases and company payments
+pp_companytotal= Company Total
+pp_ATEP= ATEP
+pp_IRPF= IRPF
