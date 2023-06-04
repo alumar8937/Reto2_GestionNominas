@@ -600,14 +600,325 @@ public class PayrollDBController {
      * @return true if the calculation is successful, false otherwise
      */
     public static boolean calculateAllPayrolls() { // Author : David Serna Mateu
-        try{
-            Statement st = getConnection().createStatement();
-            st.executeUpdate("update nomina set total_neto = (total_dev - total_deduc);");
-
-        }catch (SQLException e) {
-            e.printStackTrace();
-            return false;
-        }
+        ArrayList<PayrollBatch> batchesHistory = getBatches(true);
+        ArrayList<PayrollBatch> batches = getBatches(false);
+        batches.addAll(batchesHistory);
+        calculateEarningsTotal(batches);
+        calculateDeductionTotal(batches);
+        calculateNetIncome(batches);
+        calculateCompanyTotal(batches);
         return true;
     }
+
+    /**
+     * Calculates the total earnings for each payroll in the list of batches.
+     *
+     * @param batches the list of payroll batches
+     */
+    private static void calculateEarningsTotal(ArrayList<PayrollBatch> batches) { // Author : David Serna Mateu
+        for (PayrollBatch batch: batches) {
+            for (Payroll payroll: batch.getPayrolls()) {
+                double earningsTotal = 0;
+                for (Perception perception: payroll.getPerceptions()) {
+                    earningsTotal += perception.getQuant();
+                }
+                updateEarningsTotal(payroll, earningsTotal);
+            }
+        }
+    }
+
+    /**
+     * Updates the earnings total for a payroll.
+     *
+     * @param payroll       the payroll object
+     * @param earningsTotal the total earnings to be updated
+     */
+    private static void updateEarningsTotal(Payroll payroll, double earningsTotal) { // Author : David Serna Mateu
+        try{
+            Statement st = getConnection().createStatement();
+            st.executeUpdate("update nomina set total_dev=" + earningsTotal + " where id_nom=" + payroll.getId_name() + ";");
+            payroll.setTotal_dev(earningsTotal);
+        }catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Calculates the total deductions for each payroll in the batches.
+     *
+     * @param batches the list of batches
+     */
+    private static void calculateDeductionTotal(ArrayList<PayrollBatch> batches) { // Author : David Serna Mateu
+        for (PayrollBatch batch: batches) {
+            for (Payroll payroll: batch.getPayrolls()) {
+                double deductionTotal = 0;
+
+                deductionTotal = getTotalCC(payroll) + getTotalDesempleo(payroll) + getTotalFP(payroll)
+                        + getTotalExtraHours(payroll) + calculateIRPFDeduction(payroll);
+
+                updateDeductionTotal(payroll, deductionTotal);
+            }
+        }
+    }
+
+    /**
+     * Calculates the total contribution for common contingencies for the given payroll.
+     *
+     * @param payroll the payroll
+     * @return the total contribution for common contingencies
+     */
+    private static double getTotalCC(Payroll payroll) { // Author: Pedro Marín Sanchis
+        double paso1 = getBaseCC(payroll);
+        double totalCC = 0;
+        for (Contingency contingency: payroll.getContingencies_Emp()) { // Step 4
+            if (contingency.getCod_c().equalsIgnoreCase("Comunes")) {
+                totalCC = paso1*(contingency.getQuant()/100);
+            }
+        }
+        return totalCC;
+    }
+
+    /**
+     * Calculates the base amount for common contingencies for the given payroll.
+     *
+     * @param payroll the payroll
+     * @return the base amount for common contingencies
+     */
+    private static double getBaseCC(Payroll payroll) { // Author: David Serna Mateu
+        for (Perception perception: payroll.getPerceptions()) {
+            if (perception.getCod_p().equalsIgnoreCase("Horas_Ext")) {
+                return payroll.getTotal_dev() - perception.getQuant();
+            }
+        }
+        return payroll.getTotal_dev();
+    }
+
+    /**
+     * Calculates the total amount for unemployment contingencies for the given payroll.
+     *
+     * @param payroll the payroll
+     * @return the total amount for unemployment contingencies
+     */
+    private static double getTotalDesempleo(Payroll payroll) { // Author: Pedro Marín Sanchis
+        double totalDesempleo = 0;
+        for (Contingency contingency: payroll.getContingencies_Emp()) { // Step 5
+            if (contingency.getCod_c().equalsIgnoreCase("Desempleo") || contingency.getCod_c().equalsIgnoreCase("Desempleo2")) {
+                totalDesempleo = payroll.getTotal_dev()*(contingency.getQuant()/100);
+            }
+        }
+        return totalDesempleo;
+    }
+
+    /**
+     * Calculates the total amount for professional training contingencies for the given payroll.
+     *
+     * @param payroll the payroll
+     * @return the total amount for professional training contingencies
+     */
+    private static double getTotalFP(Payroll payroll) { // Author: Pedro Marín Sanchis
+        double totalFP = 0;
+        for (Contingency contingency: payroll.getContingencies_Emp()) { // Step 6
+            if (contingency.getCod_c().equalsIgnoreCase("Formación Profesional")) {
+                totalFP = payroll.getTotal_dev()*(contingency.getQuant()/100);
+            }
+        }
+        return totalFP;
+    }
+
+    /**
+     * Calculates the total amount for extra hours worked based on the corresponding contingency code and perception code for the given payroll.
+     *
+     * @param payroll the payroll
+     * @return the total amount for extra hours worked
+     */
+    private static double getTotalExtraHours(Payroll payroll) { // Author: Pedro Marín Sanchis
+        double totalExtraHours = 0;
+        for (Contingency contingency: payroll.getContingencies_Emp()) { // Step 7
+            if (contingency.getCod_c().equalsIgnoreCase("Horas Extras Normales")) {
+                for (Perception perception: payroll.getPerceptions()) {
+                    if (perception.getCod_p().equalsIgnoreCase("Horas_Ext")) {
+                        totalExtraHours = perception.getQuant()*(contingency.getQuant()/100);
+                    }
+                }
+            }
+        }
+        return totalExtraHours;
+    }
+
+    /**
+     * Updates the deduction total for a given payroll in the database and sets the deduction total value in the corresponding Payroll object.
+     *
+     * @param payroll         The Payroll object for which to update the deduction total.
+     * @param deductionTotal  The new deduction total value.
+     */
+    private static void updateDeductionTotal(Payroll payroll, double deductionTotal) { // Author : David Serna Mateu
+        try{
+            Statement st = getConnection().createStatement();
+            st.executeUpdate("update nomina set total_deduc=" + deductionTotal + " where id_nom=" + payroll.getId_name() + ";");
+            payroll.setTotal_deduc(deductionTotal);
+        }catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Calculates the IRPF (Impuesto sobre la Renta de las Personas Físicas) deduction for a given payroll based on the IRPF rate and the base contribution for common contingencies.
+     *
+     * @param payroll  The Payroll object for which to calculate the IRPF deduction.
+     * @return The calculated IRPF deduction.
+     */
+    private static double calculateIRPFDeduction(Payroll payroll) { // Author: Pedro Marín Sanchis
+        return payroll.getIRPF()*(getBaseCC(payroll)/100);
+    }
+
+    /**
+     * Calculates the net income for each payroll in the given list of batches. The net income is calculated as the difference between the total earnings and total deductions.
+     *
+     * @param batches The list of PayrollBatch objects containing the payrolls for which to calculate the net income.
+     */
+    private static void calculateNetIncome(ArrayList<PayrollBatch> batches) { // Author: David Serna Mateu / Pedro Marín Sanchis
+        for (PayrollBatch batch: batches) {
+            for (Payroll payroll: batch.getPayrolls()) {
+                try{
+                    Statement st = getConnection().createStatement();
+                    st.executeUpdate("update nomina set total_neto = (total_dev - total_deduc);");
+                    payroll.setTotal_net(payroll.getTotal_dev() - payroll.getTotal_deduc());
+                }catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    /**
+     * Calculates the total company deductions for each payroll in the given list of batches. The company deductions include contributions to social security, ATEP, unemployment, FP, FOGASA, and extra hours.
+     *
+     * @param batches The list of PayrollBatch objects containing the payrolls for which to calculate the company deductions.
+     */
+    private static void calculateCompanyTotal(ArrayList<PayrollBatch> batches) { // Author: Pedro Marín Sanchis
+        for (PayrollBatch batch: batches) {
+            for (Payroll payroll: batch.getPayrolls()) {
+                double deductionTotal = 0;
+
+                deductionTotal = calculateCompanyCC(payroll) + getCompanyATEP(payroll) + getCompanyUnemployment(payroll)
+                        + getCompanyFP(payroll) + getCompanyFOGASA(payroll) + getCompanyExtraHours(payroll);
+
+                updateCompanyTotal(payroll, deductionTotal);
+            }
+        }
+    }
+
+    /**
+     * Calculates the company contribution to social security for the given payroll.
+     *
+     * @param payroll The Payroll object for which to calculate the company contribution to social security.
+     * @return The total company contribution to social security.
+     */
+    private static double calculateCompanyCC(Payroll payroll) { // Author: Pedro Marín Sanchis
+        double totalCompanyCC = 0;
+        for (Contingency contingency: payroll.getContingencies_Com()) {
+            if (contingency.getCod_c().equalsIgnoreCase("Comunes")) {
+                return getBaseCC(payroll)*(contingency.getQuant()/100);
+            }
+        }
+        return totalCompanyCC;
+    }
+
+    /**
+     * Calculates the company contribution for ATEP (Accidents at Work and Occupational Diseases)
+     * for the given payroll.
+     *
+     * @param payroll The Payroll object for which to calculate the company contribution for ATEP.
+     * @return The total company contribution for ATEP.
+     */
+    private static double getCompanyATEP(Payroll payroll) {  // Author: David Serna Mateu
+        return payroll.getATEP()*(payroll.getTotal_dev()/100);
+    }
+
+    /**
+     * Calculates the company contribution for unemployment for the given payroll.
+     *
+     * @param payroll The Payroll object for which to calculate the company contribution for unemployment.
+     * @return The total company contribution for unemployment.
+     */
+    private static double getCompanyUnemployment(Payroll payroll) { // Author: Pedro Marín Sanchis
+        double totalCompanyUnemployment = 0;
+        for (Contingency contingency: payroll.getContingencies_Com()) {
+            if (contingency.getCod_c().equalsIgnoreCase("Desempleo") || contingency.getCod_c().equalsIgnoreCase("Desempleo2")) {
+                return payroll.getTotal_dev()*(contingency.getQuant()/100);
+            }
+        }
+        return totalCompanyUnemployment;
+    }
+
+    /**
+     * Calculates the company contribution for Formación Profesional (Professional Training)
+     * for the given payroll.
+     *
+     * @param payroll The Payroll object for which to calculate the company contribution for Formación Profesional.
+     * @return The total company contribution for Formación Profesional.
+     */
+    private static double getCompanyFP(Payroll payroll) { // Author: Pedro Marín Sanchis
+        double totalFP = 0;
+        for (Contingency contingency: payroll.getContingencies_Com()) {
+            if (contingency.getCod_c().equalsIgnoreCase("Formación Profesional")) {
+                totalFP = payroll.getTotal_dev()*(contingency.getQuant()/100);
+            }
+        }
+        return totalFP;
+    }
+
+    /**
+     * Calculates the company contribution for FOGASA (Guarantee Fund for Wage Payments)
+     * for the given payroll.
+     *
+     * @param payroll The Payroll object for which to calculate the company contribution for FOGASA.
+     * @return The total company contribution for FOGASA.
+     */
+    private static double getCompanyFOGASA(Payroll payroll){ // Author: David Serna Mateu
+        double totalFOGASA = 0;
+        for (Contingency contingency: payroll.getContingencies_Com()) {
+            if (contingency.getCod_c().equalsIgnoreCase("FOGASA")) {
+                totalFOGASA = payroll.getTotal_dev()*(contingency.getQuant()/100);
+            }
+        }
+        return totalFOGASA;
+    }
+
+    /**
+     * Calculates the company contribution for extra hours for the given payroll.
+     *
+     * @param payroll The Payroll object for which to calculate the company contribution for extra hours.
+     * @return The total company contribution for extra hours.
+     */
+    private static double getCompanyExtraHours(Payroll payroll) { // Author: Pedro Marín Sanchis
+        double totalExtraHours = 0;
+        for (Contingency contingency: payroll.getContingencies_Com()) {
+            if (contingency.getCod_c().equalsIgnoreCase("Horas Extras Normales")) {
+                for (Perception perception: payroll.getPerceptions()) {
+                    if (perception.getCod_p().equalsIgnoreCase("Horas_Ext")) {
+                        totalExtraHours = perception.getQuant()*(contingency.getQuant()/100);
+                    }
+                }
+            }
+        }
+        return totalExtraHours;
+    }
+
+    /**
+     * Updates the company total contribution for the given payroll and updates the payroll object accordingly.
+     *
+     * @param payroll         The Payroll object for which to update the company total contribution.
+     * @param deductionTotal  The total company contribution to be updated.
+     */
+    private static void updateCompanyTotal(Payroll payroll, double deductionTotal) { // Author : David Serna Mateu
+        try{
+            Statement st = getConnection().createStatement();
+            st.executeUpdate("update nomina set ap_empresa=" + deductionTotal + " where id_nom=" + payroll.getId_name() + ";");
+            payroll.setAp_company(deductionTotal);
+        }catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
 }

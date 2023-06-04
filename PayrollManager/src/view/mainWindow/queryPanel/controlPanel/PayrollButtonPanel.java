@@ -135,6 +135,7 @@ public class PayrollButtonPanel extends JPanel {
         } else {
             JOptionPane.showMessageDialog(SwingUtilities.getWindowAncestor(this), ProgramLanguageProperties.getProperty("errorrecalculating"));
         }
+        sendUpdateActionEvent();
     }
 
     /**

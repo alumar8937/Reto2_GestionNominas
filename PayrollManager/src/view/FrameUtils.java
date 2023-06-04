@@ -6,7 +6,6 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import java.awt.Dimension;
 import java.awt.Toolkit;
-import java.io.File;
 
 /**
  * Collection of methods related to JFrames.
