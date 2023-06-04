@@ -5,7 +5,7 @@ import java.text.DecimalFormat;
 /**
  * Represents a retention with a code and quantity.
  *
- * @Author Pedro Marín Sanchis
+ * @author Pedro Marín Sanchis
  */
 public class Retention {
     private String cod_r = "";
