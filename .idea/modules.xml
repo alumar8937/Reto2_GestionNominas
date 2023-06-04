@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/GestorNominas/GestorNominas.iml" filepath="$PROJECT_DIR$/GestorNominas/GestorNominas.iml" />
+      <module fileurl="file://$PROJECT_DIR$/PayrollManager/PayrollManager.iml" filepath="$PROJECT_DIR$/PayrollManager/PayrollManager.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/Reto2.iml" filepath="$PROJECT_DIR$/.idea/Reto2.iml" />
     </modules>
   </component>
