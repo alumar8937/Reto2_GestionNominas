@@ -60,7 +60,7 @@ public class PayrollDBController {
      *
      * @return an ArrayList containing the retrieved employees
      */
-    public static ArrayList<Employee> getEmployees() {
+    public static ArrayList<Employee> getEmployees() { // Author: David Serna Mateu
         ArrayList<Employee> employees = new ArrayList<>();
         try{
             Statement st = getConnection().createStatement();
@@ -562,6 +562,11 @@ public class PayrollDBController {
         return departments;
     }
 
+    /**
+     * Retrieves company data.
+     *
+     * @return an ArrayList containing the company's CIF, name, address, and CCC (bank account number)
+     */
     public static ArrayList<String> getCompanyData() { // Author : Javier Blasco Gómez
         ArrayList<String> companyData = new ArrayList<>();
         try{
@@ -578,6 +583,12 @@ public class PayrollDBController {
         return companyData;
     }
 
+    /**
+     * Retrieves employee data based on the provided NIF.
+     *
+     * @param Nif the NIF (identification number) of the employee
+     * @return an ArrayList containing the employee's name, professional group, and social security number
+     */
     public static ArrayList<String> getEmployeeData(String Nif) { // Author : Javier Blasco Gómez
         ArrayList<String> employeeData = new ArrayList<>();
         try{
@@ -595,9 +606,9 @@ public class PayrollDBController {
     }
 
     /**
-     * Calculates the net total for all payrolls by subtracting the total deductions from the total earnings.
+     * Calculates various totals for all payroll batches.
      *
-     * @return true if the calculation is successful, false otherwise
+     * @return true if the calculations are successful, false otherwise
      */
     public static boolean calculateAllPayrolls() { // Author : David Serna Mateu
         ArrayList<PayrollBatch> batchesHistory = getBatches(true);
